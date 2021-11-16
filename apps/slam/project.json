@@ -1,0 +1,55 @@
+{
+  "root": "apps/slam",
+  "sourceRoot": "apps/slam",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "root": "apps/slam",
+        "outputPath": "dist/apps/slam"
+      },
+      "configurations": {
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/next:server",
+      "options": {
+        "buildTarget": "slam:build",
+        "dev": true,
+        "proxyConfig": "apps/slam/proxy.conf.json"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "slam:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nrwl/next:export",
+      "options": {
+        "buildTarget": "slam:build:production"
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/slam"],
+      "options": {
+        "jestConfig": "apps/slam/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@angular-devkit/build-angular:tslint",
+      "options": {
+        "tsConfig": ["apps/slam/tsconfig.app.json"],
+        "exclude": ["**/node_modules/**", "!apps/slam/**/*"]
+      }
+    }
+  },
+  "tags": []
+}

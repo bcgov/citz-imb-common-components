@@ -1,0 +1,28 @@
+{
+  "root": "apps/slam-e2e",
+  "sourceRoot": "apps/slam-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/slam-e2e/cypress.json",
+        "devServerTarget": "slam:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "slam:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/slam-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["slam"]
+}
