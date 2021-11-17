@@ -5,7 +5,8 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "format": "nx format:write"
   },
   "private": true,
   "devDependencies": {
@@ -42,7 +43,9 @@
     "eslint-plugin-jsx-a11y": "6.5.1",
     "eslint-plugin-react": "7.27.0",
     "eslint-plugin-react-hooks": "4.3.0",
+    "husky": "^7.0.4",
     "jest": "27.3.1",
+    "lint-staged": "^12.0.2",
     "prettier": "^2.4.1",
     "react-test-renderer": "17.0.2",
     "ts-jest": "27.0.7",
@@ -66,5 +69,15 @@
     "rxjs": "~7.4.0",
     "tslib": "^2.3.1",
     "typeorm": "^0.2.40"
+  },
+  "husky": {
+    "hooks":{
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,css,scss,md,ts,html,graphql}":[
+      "npm run format --uncommitted"
+    ]
   }
 }
