@@ -1,3 +1,5 @@
+/** @format */
+
 module.exports = {
   displayName: 'slam',
   preset: '../../jest.preset.js',

@@ -1,3 +1,5 @@
+/** @format */
+
 import { getGreeting } from '../support/app.po';
 
 describe('slam', () => {

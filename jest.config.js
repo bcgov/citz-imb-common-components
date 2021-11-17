@@ -1,3 +1,5 @@
+/** @format */
+
 const { getJestProjects } = require('@nrwl/jest');
 
 module.exports = {

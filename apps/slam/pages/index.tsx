@@ -1,22 +1,20 @@
+/** @format */
+
 import { useEffect, useState, useCallback } from 'react';
 
 export function Index() {
   const [state, setstate] = useState({});
 
-  const getSlam = useCallback(
-    async () => {
-      const response = await fetch('http://localhost:3333/api');
-      const body = await response.json()
+  const getSlam = useCallback(async () => {
+    const response = await fetch('http://localhost:3333/api');
+    const body = await response.json();
 
-      setstate(body)
-    },
-    [],
-  )
+    setstate(body);
+  }, []);
 
   useEffect(() => {
-    getSlam()
-
-  }, [])
+    getSlam();
+  }, []);
   return <div>{JSON.stringify(state)}</div>;
 }
 
