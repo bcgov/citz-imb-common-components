@@ -11,8 +11,6 @@ COPY . .
 RUN chown -R node /usr/src/app
 USER node
 
-RUN npm install -g @nrwl/cli
-
 RUN nx build --production
 
 CMD nx serve api-slam
