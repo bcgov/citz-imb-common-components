@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  citzimb:
+    image: citzimb
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 3333:3333
+    volumes:
+      - .:/usr/src/app
+      - usr/src/app/node_modules
+    environment:
+      NODE_ENV: production
