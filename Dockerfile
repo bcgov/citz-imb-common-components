@@ -7,10 +7,6 @@ COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "nx.json", "
 
 RUN npm install --production --silent && mv node_modules ../
 COPY . .
-
 RUN chown -R node /usr/src/app
 USER node
-
-RUN nx build --production
-
-CMD nx serve api-slam
+CMD ["npm", "start"]
