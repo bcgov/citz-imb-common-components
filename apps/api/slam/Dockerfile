@@ -1,8 +1,9 @@
 FROM node:lts-alpine
-WORKDIR /usr/src/app
+WORKDIR /app
+COPY ./dist/apps/api .
+ENV PORT=3333
+EXPOSE ${PORT}
 COPY package*.json ./
-RUN npm install --production --silent && mv node_modules ../
-RUN npm install -g @nrwl/cli
-COPY apps/api/slam ./
-RUN ls -l
-CMD ["npm", "start"]
+RUN npm install --production
+RUN npm install reflect-metadata tslib rxjs @nestjs/platform-express @nrwl/workspace
+CMD node ./slam-api/main.js
