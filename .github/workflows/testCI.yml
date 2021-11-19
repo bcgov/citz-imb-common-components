@@ -14,7 +14,7 @@ env:
   IMAGE_TAGS: 'tag'
 
 jobs:
-  build-tools:
+  OpenShift-CI:
     runs-on: ubuntu-latest
     environment: Tools
 
@@ -38,9 +38,20 @@ jobs:
           ls -l
 
       - name: Build container
+        id: build-image
         uses: redhat-actions/buildah-build@v2
         with:
           image: ${{ env.APP_NAME }}
           tags: ${{ env.IMAGE_TAGS }}
           dockerfiles: |
             ./apps/api/slam/Dockerfile
+
+      - name: Push to registry
+        id: push-image
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.build-image.outputs.image }}
+          tags: ${{ steps.build-image.outputs.tags }}
+          registry: ${{ env.IMAGE_REGISTRY }}
+          username: ${{ env.IMAGE_REGISTRY_USER }}
+          password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
