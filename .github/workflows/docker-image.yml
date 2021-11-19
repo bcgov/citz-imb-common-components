@@ -4,17 +4,19 @@ on:
   push:
     branches: [ main ]
   pull_request:
-    branches: [ main ]
+    branches: [ mainx ]
 
 jobs:
 
-  build:
+  build docker image:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
     - name: Build slam-api Docker image
-      run: docker build ./apps/api/slam --tag citz-imb/slam-api:0.0.0
-    - name: Build slam-api Docker image
-      run: docker build ./apps/slam --tag citz-imb/slam:0.0.0
+      run: |
+        docker build ./apps/api/slam -t citz-imb/slam-api:0.0.0
+#    - name: Build slam Docker image
+#      run: |
+#        docker build ./apps/slam -t citz-imb/slam:0.0.0
