@@ -1,5 +1,6 @@
 FROM node:lts-alpine
 WORKDIR /app
+RUN ls -l
 COPY ./dist/apps/api/slam .
 ENV PORT=3333
 EXPOSE ${PORT}
