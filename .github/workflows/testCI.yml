@@ -27,10 +27,12 @@ jobs:
         with:
           node-version: '16'
 
-      - name: build
+      - name: Install packages
         run: |
           npm install --production --silent
           npm install @nrwl/cli
+
+      - name: build application
+        run: |
           npx nx build
-          ls -l
           ls -l dist
