@@ -1,10 +1,6 @@
 FROM node:lts-alpine
 WORKDIR /app
-COPY ./apps/api/slam .
+COPY ./dist/apps/slam .
 ENV PORT=3333
 EXPOSE ${PORT}
-COPY package*.json ./
-RUN npm install --production --silent
-RUN npm install reflect-metadata tslib rxjs @nestjs/platform-express --silent
-RUN npx nx run slam-api:build
 CMD ls -l
