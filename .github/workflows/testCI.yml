@@ -25,8 +25,10 @@ jobs:
       - name: Install node
         uses: actions/setup-node@v1
         with:
-          node-verion: '16'
+          node-version: '16'
 
-      - name: Run a multi-line script
+      - name: build
         run: |
+          npm install
+          npx nx build
           ls -l
