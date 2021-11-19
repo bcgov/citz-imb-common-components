@@ -59,7 +59,7 @@ on:
   # https://docs.github.com/en/actions/reference/events-that-trigger-workflows
   push:
     # Edit to the branch(es) you want to build and deploy on each push.
-    branches: [mainx]
+    branches: [main]
 
 jobs:
   openshift-ci-cd:
