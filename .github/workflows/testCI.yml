@@ -25,9 +25,8 @@ jobs:
       - name: Install node
         uses: actions/setup-node@v1
         with:
-          node-verions: '16'
+          node-verion: '16'
 
       - name: Run a multi-line script
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          ls -l
