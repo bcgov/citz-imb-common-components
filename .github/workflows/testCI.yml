@@ -32,14 +32,15 @@ jobs:
           npm install --production --silent
           npm install @nrwl/cli --silent
 
-      - name: build application
+      - name: Build application
         run: |
           npx nx build
           ls -l
-          
-      - name: build container
+
+      - name: Build container
         uses: redhat-actions/buildah-build@v2
         with:
           image: ${{ env.APP_NAME }}
           tags: ${{ env.IMAGE_TAGS }}
-          dockerfile: ./apps/api/slam/Dockerfile
+          dockerfiles: |
+            ./apps/api/slam/Dockerfile
