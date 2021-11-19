@@ -29,6 +29,7 @@ jobs:
 
       - name: build
         run: |
-          npm install
+          npm install --production --silent
           npx nx build
           ls -l
+          ls -l dist
