@@ -16,13 +16,17 @@ jobs:
           fetch-depth: 0
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v2
+      - name: setup node
       - uses: actions/setup-node@v1
         with:
           node-version: '14'
+      - name: install npm packages
       - run: npm install
+      - name: build affected
       - run: npx nx affected --target=build --parallel --max-parallel=3
       - run: npx nx affected --target=test --parallel --max-parallel=2
-      - run: ls -l
+      - name: list files
+      - run: ls -l apps
   pr:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' }}
