@@ -2,7 +2,7 @@ name: CI
 on:
   push:
     branches:
-      - main
+      - mainx
   pull_request:
 
 jobs:

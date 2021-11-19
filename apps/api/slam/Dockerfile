@@ -6,4 +6,5 @@ EXPOSE ${PORT}
 COPY package*.json ./
 RUN npm install --production --silent
 RUN npm install reflect-metadata tslib rxjs @nestjs/platform-express --silent
+RUN npx nx run slam-api:build
 CMD ls -l

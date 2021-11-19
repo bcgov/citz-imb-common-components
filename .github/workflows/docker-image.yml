@@ -14,5 +14,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - name: Build slam-api Docker image
+      run: docker build ./apps/api/slam --tag citz-imb/slam-api:0.0.0
+    - name: Build slam-api Docker image
+      run: docker build ./apps/slam --tag citz-imb/slam:0.0.0
