@@ -14,7 +14,7 @@ env:
   IMAGE_TAGS: ''
 
 jobs:
-  build Tools Environment:
+  build-tools:
     runs-on: ubuntu-latest
     environment: Tools
 
