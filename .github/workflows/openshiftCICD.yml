@@ -36,7 +36,7 @@ env:
   OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
   # 🖊️ EDIT to set the kube context's namespace after login. Leave blank to use your user's default namespace.
   #OPENSHIFT_NAMESPACE:  ${{ secrets.OPENSHIFT_NAMESPACE }}
-  OPENSHIFT_NAMESPACE:  'ca94a8-tools'
+  OPENSHIFT_NAMESPACE: 'ca94a8-tools'
 
   # 🖊️ EDIT to set a name for your OpenShift app, or a default one will be generated below.
   APP_NAME: 'slam'
@@ -123,6 +123,17 @@ jobs:
         if: env.IMAGE_TAGS == ''
         run: |
           echo "IMAGE_TAGS=latest ${GITHUB_SHA::12}" | tee -a $GITHUB_ENV
+
+      # the app build start -----
+      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+      - run: npm install
+      - run: npx nx build --target=build --parallel --max-parallel=3
+      - run: npx nx build --target=test --parallel --max-parallel=2
+      # the app build end -----
 
       # https://github.com/redhat-actions/buildah-build#readme
       - name: Build from Dockerfile
