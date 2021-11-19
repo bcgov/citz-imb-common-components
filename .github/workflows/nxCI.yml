@@ -1,3 +1,5 @@
+# @format
+
 name: CI
 on:
   push:
@@ -22,7 +24,7 @@ jobs:
       - run: npm install
       - run: npx nx build --target=build --parallel --max-parallel=3
       - run: npx nx build --target=test --parallel --max-parallel=2
-      - run: ls -l dist/apps
+      - run: ls -l dist/apps/slam
   pr:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' }}
