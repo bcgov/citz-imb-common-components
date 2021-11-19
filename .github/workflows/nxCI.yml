@@ -25,6 +25,14 @@ jobs:
       - run: npx nx build --target=build --parallel --max-parallel=3
       - run: npx nx build --target=test --parallel --max-parallel=2
       - run: ls -l dist/apps/slam
+      - name: Build from Dockerfile
+        id: build-image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: image
+          tags: tag
+          dockerfiles: |
+            ./apps/api/slam/Dockerfile
   pr:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' }}
