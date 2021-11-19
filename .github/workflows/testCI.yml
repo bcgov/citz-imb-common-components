@@ -19,10 +19,13 @@ jobs:
     environment: Tools
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Check out Repository
+        uses: actions/checkout@v2
 
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-verions: '16'
 
       - name: Run a multi-line script
         run: |
