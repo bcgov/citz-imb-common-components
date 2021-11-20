@@ -6,7 +6,7 @@ env:
   OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
   OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
   OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
-  APP_NAME: 'hello'
+  APP_NAME: 'api-slam'
   APP_PORT: '3333'
   IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
   IMAGE_REGISTRY_USER: ${{ github.actor }}
@@ -35,7 +35,6 @@ jobs:
       - name: Build application
         run: |
           npx nx build
-          ls -l
 
       - name: Build container
         id: build-image
