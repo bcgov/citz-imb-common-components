@@ -43,7 +43,7 @@ jobs:
           image: ${{ env.APP_NAME }}
           tags: ${{ env.IMAGE_TAGS }}
           dockerfiles: |
-            ./apps/api/slam/Dockerfile
+            ./apps/api/slam/Dockerfile --build-arg PORT=${{ env.API_SLAM_PORT }}
 
       - name: Push to registry
         id: push-image
