@@ -7,7 +7,7 @@ env:
   OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
   OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
   APP_NAME: 'api-slam'
-  APP_PORT: '3333'
+  API_SLAM_PORT: ${{ secrets.API_SLAM_PORT }}
   IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
   IMAGE_REGISTRY_USER: ${{ github.actor }}
   IMAGE_REGISTRY_PASSWORD: ${{ github.token }}
@@ -75,4 +75,4 @@ jobs:
           app_name: ${{ env.APP_NAME }}
           image: ${{ steps.push-image.outputs.registry-path }}
           namespace: ${{ env.OPENSHIFT_NAMESPACE }}
-          port: ${{ env.APP_PORT }}
+          port: ${{ env.API_SLAM_PORT }}
