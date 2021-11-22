@@ -48,6 +48,19 @@ jobs:
           dockerfiles: |
             ./apps/api/slam/Dockerfile
 
+      - name: Install OC
+        uses: redhat-actions/openshift-tools-installer@v1
+        with:
+          oc: 4
+
+      - name: Log in to OpenShift
+        uses: redhat-actions/oc-login@v1
+        with:
+          openshift_server_url: ${{ env.OPENSHIFT_SERVER }}
+          openshift_token: ${{ env.OPENSHIFT_TOKEN }}
+          insecure_skip_tls_verify: true
+          namespace: ${{ env.OPENSHIFT_NAMESPACE }}
+
       - name: Push to registry
         id: push-image
         uses: redhat-actions/push-to-registry@v2
@@ -55,8 +68,8 @@ jobs:
           image: ${{ steps.build-image.outputs.image }}
           tags: ${{ steps.build-image.outputs.tags }}
           registry: ${{ env.IMAGE_REGISTRY }}
-          username: ${{ env.IMAGE_REGISTRY_USER }}
-          password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
+          # username: ${{ env.IMAGE_REGISTRY_USER }}
+          # password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
 
       # - name: Push to registry
       #   id: push-image
