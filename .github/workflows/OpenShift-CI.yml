@@ -58,13 +58,13 @@ jobs:
           username: ${{ env.IMAGE_REGISTRY_USER }}
           password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
 
-  Deploy-to-Tools:
-    needs: [build-image]
-    runs-on: ubuntu-latest
-    environment: Tools
-    defaults:
-      run:
-        working-directory: ./app/.pipeline
+#  Deploy-to-Tools:
+#    needs: [build-image]
+#    runs-on: ubuntu-latest
+#    environment: Tools
+#    defaults:
+#      run:
+#        working-directory: ./app/.pipeline
 
       - name: Install OC
         uses: redhat-actions/openshift-tools-installer@v1
