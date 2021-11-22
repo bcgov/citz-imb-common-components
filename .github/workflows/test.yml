@@ -20,6 +20,7 @@ jobs:
           oc version
           oc login --token=${{ secrets.OPENSHIFT_TOKEN}} --server=${{ secrets.OPENSHIFT_SERVER }}
           npm ci
-          npm run build -- --pr=${{ github.event.pull_request.number }} --git.branch.name=${{github.head_ref}} --git.ref=${{github.head_ref}}
+          npm install @nrwl/cli --silent
+          npx nx build
         env:
           CI: "true"
