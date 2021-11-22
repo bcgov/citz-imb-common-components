@@ -17,6 +17,9 @@ jobs:
   Build-image:
     runs-on: ubuntu-latest
     environment: Tools
+    defaults:
+      run:
+        working-directory: ./app/.pipeline
 
     steps:
       - name: Check out Repository
@@ -59,6 +62,9 @@ jobs:
     needs: [build-image]
     runs-on: ubuntu-latest
     environment: Tools
+    defaults:
+      run:
+        working-directory: ./app/.pipeline
 
       - name: Install OC
         uses: redhat-actions/openshift-tools-installer@v1
