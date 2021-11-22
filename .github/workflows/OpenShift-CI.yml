@@ -1,7 +1,7 @@
 name: OpenShift-CI
 on:
   push:
-    branches: [ mainx ]
+    branches: [ main ]
 
 env:
   OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
@@ -9,11 +9,9 @@ env:
   OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
   APP_NAME: 'api-slam'
   API_SLAM_PORT: 8080
-  # IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
-  IMAGE_REGISTRY: registry.access.redhat.com/ubi8/nodejs-14
+  IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
   IMAGE_REGISTRY_USER: ${{ github.actor }}
-  # IMAGE_REGISTRY_PASSWORD: ${{ github.token }}
-  IMAGE_REGISTRY_PASSWORD: ${{ secrets.OPENSHIFT_TOKEN }}
+  IMAGE_REGISTRY_PASSWORD: ${{ github.token }}
   IMAGE_TAGS: 'tag'
 
 jobs:
@@ -48,10 +46,10 @@ jobs:
           dockerfiles: |
             ./apps/api/slam/Dockerfile
 
-      - name: Install OC
-        uses: redhat-actions/openshift-tools-installer@v1
+      - name: Install oc
+        uses: redhat-actions/oc-installer@v1
         with:
-          oc: 4
+          oc_version: '4.6'
 
       - name: Log in to OpenShift
         uses: redhat-actions/oc-login@v1
@@ -60,8 +58,6 @@ jobs:
           openshift_token: ${{ env.OPENSHIFT_TOKEN }}
           insecure_skip_tls_verify: true
           namespace: ${{ env.OPENSHIFT_NAMESPACE }}
-      - run: |
-          oc project ca94a8-tools
 
       - name: Push to registry
         id: push-image
