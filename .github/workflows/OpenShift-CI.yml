@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [ main ]
+    branches: [ mainx ]
 
 env:
   OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
@@ -22,62 +22,57 @@ jobs:
       - name: Check out Repository
         uses: actions/checkout@v2
 
-      - name: List files in repo
-      - run: |
-          ls ${{github.workspace}}
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16'
 
+      - name: Install packages
+        run: |
+          npm install --production --silent
+          npm install @nrwl/cli --silent
 
-      # - name: Install node
-      #   uses: actions/setup-node@v1
-      #   with:
-      #     node-version: '16'
+      - name: Build application
+        run: |
+          npx nx build
 
-      # - name: Install packages
-      #   run: |
-      #     npm install --production --silent
-      #     npm install @nrwl/cli --silent
+      - name: Build container
+        id: build-image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: ${{ env.APP_NAME }}
+          tags: ${{ env.IMAGE_TAGS }}
+          dockerfiles: |
+            ./apps/api/slam/Dockerfile
 
-      # - name: Build application
-      #   run: |
-      #     npx nx build
+      - name: Push to registry
+        id: push-image
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.build-image.outputs.image }}
+          tags: ${{ steps.build-image.outputs.tags }}
+          registry: ${{ env.IMAGE_REGISTRY }}
+          username: ${{ env.IMAGE_REGISTRY_USER }}
+          password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
 
-      # - name: Build container
-      #   id: build-image
-      #   uses: redhat-actions/buildah-build@v2
-      #   with:
-      #     image: ${{ env.APP_NAME }}
-      #     tags: ${{ env.IMAGE_TAGS }}
-      #     dockerfiles: |
-      #       ./apps/api/slam/Dockerfile
+      - name: Install OC
+        uses: redhat-actions/openshift-tools-installer@v1
+        with:
+          oc: 4
 
-      # - name: Push to registry
-      #   id: push-image
-      #   uses: redhat-actions/push-to-registry@v2
-      #   with:
-      #     image: ${{ steps.build-image.outputs.image }}
-      #     tags: ${{ steps.build-image.outputs.tags }}
-      #     registry: ${{ env.IMAGE_REGISTRY }}
-      #     username: ${{ env.IMAGE_REGISTRY_USER }}
-      #     password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
+      - name: Log in to OpenShift
+        uses: redhat-actions/oc-login@v1
+        with:
+          openshift_server_url: ${{ env.OPENSHIFT_SERVER }}
+          openshift_token: ${{ env.OPENSHIFT_TOKEN }}
+          insecure_skip_tls_verify: true
+          namespace: ${{ env.OPENSHIFT_NAMESPACE }}
 
-      # - name: Install OC
-      #   uses: redhat-actions/openshift-tools-installer@v1
-      #   with:
-      #     oc: 4
-
-      # - name: Log in to OpenShift
-      #   uses: redhat-actions/oc-login@v1
-      #   with:
-      #     openshift_server_url: ${{ env.OPENSHIFT_SERVER }}
-      #     openshift_token: ${{ env.OPENSHIFT_TOKEN }}
-      #     insecure_skip_tls_verify: true
-      #     namespace: ${{ env.OPENSHIFT_NAMESPACE }}
-
-      # - name: Create and expose app
-      #   id: deploy-and-expose
-      #   uses: redhat-actions/oc-new-app@v1
-      #   with:
-      #     app_name: ${{ env.APP_NAME }}
-      #     image: ${{ steps.push-image.outputs.registry-path }}
-      #     namespace: ${{ env.OPENSHIFT_NAMESPACE }}
-      #     port: ${{ env.API_SLAM_PORT }}
+      - name: Create and expose app
+        id: deploy-and-expose
+        uses: redhat-actions/oc-new-app@v1
+        with:
+          app_name: ${{ env.APP_NAME }}
+          image: ${{ steps.push-image.outputs.registry-path }}
+          namespace: ${{ env.OPENSHIFT_NAMESPACE }}
+          port: ${{ env.API_SLAM_PORT }}
