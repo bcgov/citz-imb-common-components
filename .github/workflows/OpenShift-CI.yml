@@ -14,9 +14,8 @@ env:
   IMAGE_TAGS: 'tag'
 
 jobs:
-  OpenShift-CI:
+  Build-image:
     runs-on: ubuntu-latest
-    environment: Tools
 
     steps:
       - name: Check out Repository
@@ -54,6 +53,11 @@ jobs:
           registry: ${{ env.IMAGE_REGISTRY }}
           username: ${{ env.IMAGE_REGISTRY_USER }}
           password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
+
+  Deploy-to-Tools:
+    needs: [build-image]
+    runs-on: ubuntu-latest
+    environment: Tools
 
       - name: Install OC
         uses: redhat-actions/openshift-tools-installer@v1
