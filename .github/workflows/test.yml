@@ -18,4 +18,7 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }} -a
+      - name: workspace location
+        run: echo $RUNNER_WORKSPACE
       - run: echo "🍏 This job's status is ${{ job.status }}." # success
+      
