@@ -61,7 +61,7 @@ jobs:
           insecure_skip_tls_verify: true
           namespace: ${{ env.OPENSHIFT_NAMESPACE }}
       - run: |
-          oc project ${{ env.OPENSHIFT_NAMESPACE }}
+          oc project ca94a8-tools
 
       - name: Push to registry
         id: push-image
