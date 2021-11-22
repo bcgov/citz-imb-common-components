@@ -19,6 +19,6 @@ jobs:
         run: |
           ls ${{ github.workspace }} -a
       - name: ENV
-        run: echo ENV
+        run: env
       - run: echo "🍏 This job's status is ${{ job.status }}." # success
       
