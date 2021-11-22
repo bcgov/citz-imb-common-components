@@ -17,9 +17,6 @@ jobs:
   Build-image:
     runs-on: ubuntu-latest
     environment: Tools
-    defaults:
-      run:
-        working-directory: ./app/.pipeline
 
     steps:
       - name: Check out Repository
@@ -48,24 +45,6 @@ jobs:
           dockerfiles: |
             ./apps/api/slam/Dockerfile
 
-      - name: Push to registry
-        id: push-image
-        uses: redhat-actions/push-to-registry@v2
-        with:
-          image: ${{ steps.build-image.outputs.image }}
-          tags: ${{ steps.build-image.outputs.tags }}
-          registry: ${{ env.IMAGE_REGISTRY }}
-          username: ${{ env.IMAGE_REGISTRY_USER }}
-          password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
-
-#  Deploy-to-Tools:
-#    needs: [build-image]
-#    runs-on: ubuntu-latest
-#    environment: Tools
-#    defaults:
-#      run:
-#        working-directory: ./app/.pipeline
-
       - name: Install OC
         uses: redhat-actions/openshift-tools-installer@v1
         with:
@@ -78,6 +57,16 @@ jobs:
           openshift_token: ${{ env.OPENSHIFT_TOKEN }}
           insecure_skip_tls_verify: true
           namespace: ${{ env.OPENSHIFT_NAMESPACE }}
+
+      - name: Push to registry
+        id: push-image
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.build-image.outputs.image }}
+          tags: ${{ steps.build-image.outputs.tags }}
+          registry: ${{ env.IMAGE_REGISTRY }}
+          username: ${{ env.IMAGE_REGISTRY_USER }}
+          password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
 
       - name: Create and expose app
         id: deploy-and-expose
