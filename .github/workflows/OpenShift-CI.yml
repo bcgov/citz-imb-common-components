@@ -60,6 +60,8 @@ jobs:
           openshift_token: ${{ env.OPENSHIFT_TOKEN }}
           insecure_skip_tls_verify: true
           namespace: ${{ env.OPENSHIFT_NAMESPACE }}
+      - run: |
+          oc project ${{ env.OPENSHIFT_NAMESPACE }}
 
       - name: Push to registry
         id: push-image
@@ -68,8 +70,8 @@ jobs:
           image: ${{ steps.build-image.outputs.image }}
           tags: ${{ steps.build-image.outputs.tags }}
           registry: ${{ env.IMAGE_REGISTRY }}
-          # username: ${{ env.IMAGE_REGISTRY_USER }}
-          # password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
+          username: ${{ env.IMAGE_REGISTRY_USER }}
+          password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
 
       # - name: Push to registry
       #   id: push-image
