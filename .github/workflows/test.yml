@@ -21,4 +21,16 @@ jobs:
       - name: ENV
         run: env
       - run: echo "🍏 This job's status is ${{ job.status }}." # success
-      
+
+  notify:
+    runs-on: ubuntu-latest
+    if: always()
+    needs: Explore-GitHub-Actions
+    steps:
+    - name: Send a Notification
+        id: notify
+        uses: thechetantalwar/teams-notify@v2
+        with:
+        teams_webhook_url: ${{ secrets.TEAM_HOOK }}
+        message: "Github Action Build Number ${{ github.run_number }} Completed for ${{ github.repository }} and the outcome is  ${{ needs.build.result }}."
+
