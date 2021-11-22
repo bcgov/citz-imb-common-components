@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [ mainx ]
+    branches: [ main ]
 
 env:
   OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
@@ -54,7 +54,10 @@ jobs:
           registry: ${{ env.IMAGE_REGISTRY }}
           username: ${{ env.IMAGE_REGISTRY_USER }}
           password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
+  Deploy-to-OpenShift:
+    environment: Tools
 
+    steps:
       - name: Install OC
         uses: redhat-actions/openshift-tools-installer@v1
         with:
