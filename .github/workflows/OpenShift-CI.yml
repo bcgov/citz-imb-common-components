@@ -55,6 +55,8 @@ jobs:
           username: ${{ env.IMAGE_REGISTRY_USER }}
           password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
   Deploy-to-OpenShift:
+    runs-on: ubuntu-latest
+    needs: [Build-image]
     environment: Tools
 
     steps:
