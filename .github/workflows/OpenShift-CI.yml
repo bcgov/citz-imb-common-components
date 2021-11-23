@@ -52,8 +52,7 @@ jobs:
         run: npx nx build
 
       - run: |
-          ls -l
-          ls -l ./apps/slam/api
+          ls -l ./dist
 
       - name: Build container
         id: build-image
