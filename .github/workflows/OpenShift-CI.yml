@@ -17,8 +17,10 @@ env:
 jobs:
   Build-and-register-image:
     runs-on: ubuntu-latest
+
     outputs:
       image: ${{steps.push-image.outputs}}
+
     steps:
       - name: Check out Repository
         uses: actions/checkout@v2
