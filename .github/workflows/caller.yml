@@ -2,9 +2,14 @@ name: Full Pipeline
 on:
   push:
     branches: [main]
-
+  
 jobs:
-  call_builder:
+  build-backend:     
     uses: bcgov/citz-imb/.github/workflows/Build-Image.yml@6341a7dccc19afe5ff143d0cf1e6b3a7db05974a
     with:
       APP_NAME: slam-api
+
+  build-frontend:     
+    uses: bcgov/citz-imb/.github/workflows/Build-Image.yml@6341a7dccc19afe5ff143d0cf1e6b3a7db05974a
+    with:
+      APP_NAME: slam-app
