@@ -1,0 +1,27 @@
+name: Build Image
+on:
+  workflow_call:
+    inputs:
+      ENVIRONMENT:
+        description: 'the environment context'
+        type: string
+        required: false
+        default: 'tools'
+      APP_NAME:
+        required: true
+        type: string
+
+jobs:
+  Setup:
+    environment: ${{ inputs.ENVIRONMENT }}
+    name: Setup Runner
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - run: |
+          ls -l
+          echo ${{ inputs.APP_NAME }}
+
