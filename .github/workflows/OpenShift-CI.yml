@@ -52,6 +52,7 @@ jobs:
         run: npx nx build
 
       - run: |
+          ls -l ./
           ls -l ./dist
 
       - name: Build container
