@@ -57,7 +57,7 @@ jobs:
         with:
           image: ${{ env.APP_NAME }}
           tags: ${{ env.IMAGE_TAGS }}
-          dockerfiles: ./apps/api/slam/Dockerfile
+          dockerfiles: ./apps/slam/api/Dockerfile
 
       - name: Push to registry
         id: push-image
