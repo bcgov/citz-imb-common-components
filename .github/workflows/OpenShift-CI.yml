@@ -7,7 +7,7 @@ env:
   OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
   OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
   OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
-  APP_NAME: 'api-slam'
+  APP_NAME: 'slam-api'
   API_SLAM_PORT: 8080
   IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
   IMAGE_REGISTRY_USER: ${{ github.actor }}
@@ -49,7 +49,7 @@ jobs:
         run: npm install @nrwl/cli --silent
 
       - name: Build application
-        run: npx nx build
+        run: npx nx build slam-api
 
       - run: |
           ls -l ./
