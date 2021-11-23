@@ -28,7 +28,21 @@ jobs:
         with:
           node-version: '16'
 
+      - name: Cache node modules
+        id: npmCacheStep
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+
       - name: Install packages
+        if: steps.npmCacheStep.outputs.cache-hit != 'true'
         run: |
           npm install --production --silent
           npm install @nrwl/cli --silent
@@ -46,14 +60,6 @@ jobs:
           dockerfiles: |
             ./apps/api/slam/Dockerfile
 
-      - name: Log in to OpenShift
-        uses: redhat-actions/oc-login@v1
-        with:
-          openshift_server_url: ${{ env.OPENSHIFT_SERVER }}
-          openshift_token: ${{ env.OPENSHIFT_TOKEN }}
-          insecure_skip_tls_verify: true
-          namespace: ${{ env.OPENSHIFT_NAMESPACE }}
-
       - name: Push to registry
         id: push-image
         uses: redhat-actions/push-to-registry@v2
@@ -63,6 +69,14 @@ jobs:
           registry: ${{ env.IMAGE_REGISTRY }}
           username: ${{ env.IMAGE_REGISTRY_USER }}
           password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
+
+      - name: Log in to OpenShift
+        uses: redhat-actions/oc-login@v1
+        with:
+          openshift_server_url: ${{ env.OPENSHIFT_SERVER }}
+          openshift_token: ${{ env.OPENSHIFT_TOKEN }}
+          insecure_skip_tls_verify: true
+          namespace: ${{ env.OPENSHIFT_NAMESPACE }}
 
       - name: Create and expose app
         id: deploy-and-expose
