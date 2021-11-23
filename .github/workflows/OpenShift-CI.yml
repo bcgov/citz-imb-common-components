@@ -51,6 +51,8 @@ jobs:
       - name: Build application
         run: npx nx build
 
+      - run: ls l
+
       - name: Build container
         id: build-image
         uses: redhat-actions/buildah-build@v2
