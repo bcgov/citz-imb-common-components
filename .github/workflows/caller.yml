@@ -5,6 +5,6 @@ on:
 
 jobs:
   call_builder:
-    uses: bcgov/citz-imb/.github/workflows/Build-Image.yml@v1
+    uses: bcgov/citz-imb/.github/workflows/Build-Image.yml@6341a7dccc19afe5ff143d0cf1e6b3a7db05974a
     with:
       APP_NAME: slam-api
