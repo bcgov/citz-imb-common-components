@@ -1,7 +1,7 @@
 /** @format */
 
 module.exports = {
-  displayName: 'api-slam',
+  displayName: 'slam-api',
   preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -13,5 +13,5 @@ module.exports = {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/apps/api/slam',
+  coverageDirectory: '../../../coverage/apps/slam/api',
 };

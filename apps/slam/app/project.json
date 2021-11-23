@@ -1,6 +1,6 @@
 {
-  "root": "apps/slam",
-  "sourceRoot": "apps/slam",
+  "root": "apps/slam/app",
+  "sourceRoot": "apps/slam/app",
   "projectType": "application",
   "targets": {
     "build": {
@@ -8,8 +8,8 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "root": "apps/slam",
-        "outputPath": "dist/apps/slam"
+        "root": "apps/slam/app",
+        "outputPath": "dist/apps/slam/app"
       },
       "configurations": {
         "production": {}
@@ -18,13 +18,12 @@
     "serve": {
       "executor": "@nrwl/next:server",
       "options": {
-        "buildTarget": "slam:build",
-        "dev": true,
-        "proxyConfig": "apps/slam/proxy.conf.json"
+        "buildTarget": "slam-app:build",
+        "dev": true
       },
       "configurations": {
         "production": {
-          "buildTarget": "slam:build:production",
+          "buildTarget": "slam-app:build:production",
           "dev": false
         }
       }
@@ -32,22 +31,22 @@
     "export": {
       "executor": "@nrwl/next:export",
       "options": {
-        "buildTarget": "slam:build:production"
+        "buildTarget": "slam-app:build:production"
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/slam"],
+      "outputs": ["coverage/apps/slam/app"],
       "options": {
-        "jestConfig": "apps/slam/jest.config.js",
+        "jestConfig": "apps/slam/app/jest.config.js",
         "passWithNoTests": true
       }
     },
     "lint": {
       "executor": "@angular-devkit/build-angular:tslint",
       "options": {
-        "tsConfig": ["apps/slam/tsconfig.app.json"],
-        "exclude": ["**/node_modules/**", "!apps/slam/**/*"]
+        "tsConfig": ["apps/slam/app/tsconfig.app.json"],
+        "exclude": ["**/node_modules/**", "!apps/slam/app/**/*"]
       }
     }
   },

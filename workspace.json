@@ -1,8 +1,8 @@
 {
   "version": 2,
   "projects": {
-    "api-slam": "apps/api/slam",
-    "slam": "apps/slam",
-    "slam-e2e": "apps/slam-e2e"
+    "slam-api": "apps/slam/api",
+    "slam-app": "apps/slam/app",
+    "slam-app-e2e": "apps/slam/app-e2e"
   }
 }

@@ -1,16 +1,16 @@
 {
-  "root": "apps/api/slam",
-  "sourceRoot": "apps/api/slam/src",
+  "root": "apps/slam/api",
+  "sourceRoot": "apps/slam/api/src",
   "projectType": "application",
   "targets": {
     "build": {
       "executor": "@nrwl/node:build",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/api/slam",
-        "main": "apps/api/slam/src/main.ts",
-        "tsConfig": "apps/api/slam/tsconfig.app.json",
-        "assets": ["apps/api/slam/src/assets"]
+        "outputPath": "dist/apps/slam/api",
+        "main": "apps/slam/api/src/main.ts",
+        "tsConfig": "apps/slam/api/tsconfig.app.json",
+        "assets": ["apps/slam/api/src/assets"]
       },
       "configurations": {
         "production": {
@@ -19,8 +19,8 @@
           "inspect": false,
           "fileReplacements": [
             {
-              "replace": "apps/api/slam/src/environments/environment.ts",
-              "with": "apps/api/slam/src/environments/environment.prod.ts"
+              "replace": "apps/slam/api/src/environments/environment.ts",
+              "with": "apps/slam/api/src/environments/environment.prod.ts"
             }
           ]
         }
@@ -29,21 +29,21 @@
     "serve": {
       "executor": "@nrwl/node:execute",
       "options": {
-        "buildTarget": "api-slam:build"
+        "buildTarget": "slam-api:build"
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/api/slam/**/*.ts"]
+        "lintFilePatterns": ["apps/slam/api/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/api/slam"],
+      "outputs": ["coverage/apps/slam/api"],
       "options": {
-        "jestConfig": "apps/api/slam/jest.config.js",
+        "jestConfig": "apps/slam/api/jest.config.js",
         "passWithNoTests": true
       }
     }
