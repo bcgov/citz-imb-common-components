@@ -3,7 +3,7 @@
 name: OpenShift-CI-app
 on:
   push:
-    branches: [main]
+    branches: [mainx]
 
 env:
   OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}

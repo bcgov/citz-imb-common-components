@@ -1,0 +1,20 @@
+name: Full-Pipeline
+on:
+  push:
+    branches: [mainx]
+
+env:
+  APP_NAME: 'slam-api'
+
+jobs:
+  Setup-Runner:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+        - run: |
+          ls -l
+
+  Build-App:
