@@ -1,0 +1,7 @@
+name: Full Pipeline
+on:
+  push:
+    branches: [mainx]
+
+jobs:
+  
