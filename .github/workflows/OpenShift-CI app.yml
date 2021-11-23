@@ -1,16 +1,16 @@
 # @format
 
-name: OpenShift-CI
+name: OpenShift-CI-app
 on:
   push:
-    branches: [mainx]
+    branches: [main]
 
 env:
   OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
   OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
   OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
-  APP_NAME: 'slam-api'
-  API_SLAM_PORT: 3333
+  APP_NAME: 'slam-app'
+  PORT: 8080
   IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
   IMAGE_REGISTRY_USER: ${{ github.actor }}
   IMAGE_REGISTRY_PASSWORD: ${{ github.token }}
@@ -51,11 +51,7 @@ jobs:
         run: npm install @nrwl/cli --silent
 
       - name: Build application
-        run: npx nx build slam-api
-
-      - run: |
-          ls -l ./
-          ls -l ./dist
+        run: npx nx build ${{ env.APP_NAME }}
 
       - name: Build container
         id: build-image
@@ -63,7 +59,7 @@ jobs:
         with:
           image: ${{ env.APP_NAME }}
           tags: ${{ env.IMAGE_TAGS }}
-          dockerfiles: ./apps/slam/api/Dockerfile
+          dockerfiles: ./apps/slam/app/Dockerfile
 
       - name: Push to registry
         id: push-image
