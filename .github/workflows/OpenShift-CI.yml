@@ -17,7 +17,8 @@ env:
 jobs:
   Build-and-register-image:
     runs-on: ubuntu-latest
-
+    environment: tools
+    
     outputs:
       image: ${{steps.push-image.outputs}}
 
