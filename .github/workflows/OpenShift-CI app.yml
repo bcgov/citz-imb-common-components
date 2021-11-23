@@ -88,4 +88,4 @@ jobs:
           app_name: ${{ env.APP_NAME }}
           image: ${{ steps.push-image.outputs.registry-path }}
           namespace: ${{ env.OPENSHIFT_NAMESPACE }}
-          port: ${{ env.API_SLAM_PORT }}
+          port: ${{ env.PORT }}
