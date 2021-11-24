@@ -1,0 +1,46 @@
+name: Build and deploy
+on:
+  workflow_call:
+    inputs:
+      ENVIRONMENT:
+        type: string
+        required: false
+        default: 'tools'
+      APP_NAME:
+        required: true
+        type: string
+      APP_PATH:
+        required: true
+        type: string
+      PORT:
+        required: false
+        type: number
+        default: 8080
+      IMAGE_TAGS:
+        required: false
+        type: string
+        default: 'tag'
+
+jobs:
+  Build-and-register-image:
+    name: Build and register image
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.ENVIRONMENT }}
+
+    steps:
+      - name: Log in to OpenShift
+        uses: redhat-actions/oc-login@v1
+        with:
+          openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
+          openshift_token: ${{ secrets.OPENSHIFT_TOKEN }}
+          insecure_skip_tls_verify: true
+          namespace: ${{ secrets.OPENSHIFT_NAMESPACE }}
+
+      - name: Create and expose app
+        id: deploy-and-expose
+        uses: redhat-actions/oc-new-app@v1
+        with:
+          app_name:  ${{ inputs.APP_NAME }}
+          image: ${{ steps.push-image.outputs.registry-path }}
+          namespace: ${{ secrets.OPENSHIFT_NAMESPACE }}
+          port:  ${{ inputs.PORT }}
