@@ -6,7 +6,7 @@ on:
 jobs:
   build-slam-backend:
     name: SLAM-API
-    uses: bcgov/citz-imb/.github/workflows/Build.yml@
+    uses: bcgov/citz-imb/.github/workflows/Build.yml@f64af25a5087af0652810c58bb35b8422b8d0d1a
     with:
       APP_NAME: slam-api
       APP_PATH: ./apps/slam/api
@@ -15,7 +15,7 @@ jobs:
   deploy-slam-backend-tools:
     needs: [build-slam-backend]
     name: SLAM-API
-    uses: bcgov/citz-imb/.github/workflows/Deploy.yml@
+    uses: bcgov/citz-imb/.github/workflows/Deploy.yml@f64af25a5087af0652810c58bb35b8422b8d0d1a
     with:
       APP_NAME: slam-api
       PORT: 3333
