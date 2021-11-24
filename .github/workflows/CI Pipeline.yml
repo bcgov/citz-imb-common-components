@@ -15,9 +15,10 @@ jobs:
       PORT: 3333
 
   test-output:
+    needs: [build-slam-backend]
     name: test
     runs-on: ubuntu-latest
     environment: tools
 
     steps:
-      - run: echo and the bunnymen
+      - run: echo ${{ needs.build-slam-backend.outputs.registry-path }}
