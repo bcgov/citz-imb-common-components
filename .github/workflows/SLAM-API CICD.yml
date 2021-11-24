@@ -5,27 +5,27 @@ on:
   push:
     branches: [main]
 
-jobs:
   env:
-    APP_NAME: slam-api
-    APP_PATH: ./apps/slam/api
-    PORT: 3333
+    CICD_APP_NAME: slam-api
+    CICD_APP_PATH: ./apps/slam/api
+    CICD_PORT: 3333
 
+jobs:
   build-backend:
-    name: ${{ env.APP_NAME }}
+    name: ${{ env.CICD_APP_NAME }}
     uses: bcgov/citz-imb/.github/workflows/Build.yml@d6bec8873b8d2be234ca22dd6c2af8cab3667a2e
     with:
-      APP_NAME: ${{ env.APP_NAME }}
-      APP_PATH: ${{ env.APP_PATH }}
-      PORT:  ${{ env.PORT }}
+      APP_NAME: ${{ env.CICD_APP_NAME }}
+      APP_PATH: ${{ env.CICD_APP_PATH }}
+      PORT:  ${{ env.CICD_PORT }}
 
   deploy-backend-tools:
     needs: [build-backend]
-    name: ${{ env.APP_NAME }}
+    name: ${{ env.CICD_APP_NAME }}
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@1ff3c6908ae2679d5047051887290ec03770a516
     with:
-      APP_NAME: ${{ env.APP_NAME }}
-      PORT: ${{ env.PORT }}
+      APP_NAME: ${{ env.CICD_APP_NAME }}
+      PORT: ${{ env.CICD_PORT }}
       ENVIRONMENT: tools
       REGISTRY_PATH: ${{ needs.build-backend.outputs.registry-path }}
     secrets:
@@ -35,11 +35,11 @@ jobs:
 
   deploy-backend-dev:
     needs: [build-backend]
-    name: ${{ env.APP_NAME }}
+    name: ${{ env.CICD_APP_NAME }}
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@1ff3c6908ae2679d5047051887290ec03770a516
     with:
-      APP_NAME: ${{ env.APP_NAME }}
-      PORT: ${{ env.PORT }}
+      APP_NAME: ${{ env.CICD_APP_NAME }}
+      PORT: ${{ env.CICD_PORT }}
       ENVIRONMENT: dev
       REGISTRY_PATH: ${{ needs.build-backend.outputs.registry-path }}
     secrets:
@@ -49,11 +49,11 @@ jobs:
 
   deploy-backend-test:
     needs: [build-backend]
-    name: ${{ env.APP_NAME }}
+    name: ${{ env.CICD_APP_NAME }}
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@1ff3c6908ae2679d5047051887290ec03770a516
     with:
-      APP_NAME: ${{ env.APP_NAME }}
-      PORT: ${{ env.PORT }}
+      APP_NAME: ${{ env.CICD_APP_NAME }}
+      PORT: ${{ env.CICD_PORT }}
       ENVIRONMENT: test
       REGISTRY_PATH: ${{ needs.build-backend.outputs.registry-path }}
     secrets:
@@ -63,11 +63,11 @@ jobs:
 
   deploy-backend-prod:
     needs: [build-backend]
-    name: ${{ env.APP_NAME }}
+    name: ${{ env.CICD_APP_NAME }}
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@1ff3c6908ae2679d5047051887290ec03770a516
     with:
-      APP_NAME: ${{ env.APP_NAME }}
-      PORT: ${{ env.PORT }}
+      APP_NAME: ${{ env.CICD_APP_NAME }}
+      PORT: ${{ env.CICD_PORT }}
       ENVIRONMENT: prod
       REGISTRY_PATH: ${{ needs.build-backend.outputs.registry-path }}
     secrets:
