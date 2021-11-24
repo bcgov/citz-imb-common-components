@@ -62,7 +62,7 @@ jobs:
         id: build-image
         uses: redhat-actions/buildah-build@v2
         with:
-          image: ${{ env.APP_NAME }}
+          image: ${{ inputs.APP_NAME }}
           tags: ${{ inputs.IMAGE_TAGS }}
           dockerfiles:  ${{ inputs.APP_PATH }}/Dockerfile
 
