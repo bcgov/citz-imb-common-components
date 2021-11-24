@@ -1,6 +1,6 @@
 # @format
 
-name: ${{ env.CICD_APP_NAME }} CICD Pipeline
+name: CICD Pipeline
 on:
   push:
     branches: [main]
