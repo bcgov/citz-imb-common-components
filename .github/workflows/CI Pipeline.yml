@@ -8,7 +8,7 @@ on:
 jobs:
   build-slam-backend:
     name: SLAM-API
-    uses: bcgov/citz-imb/.github/workflows/Build.yml
+    uses: bcgov/citz-imb/.github/workflows/Build.yml@d6bec8873b8d2be234ca22dd6c2af8cab3667a2e
     with:
       APP_NAME: slam-api
       APP_PATH: ./apps/slam/api
