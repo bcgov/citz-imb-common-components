@@ -14,11 +14,16 @@ jobs:
       APP_PATH: ./apps/slam/api
       PORT: 3333
 
-  test-output:
+  deploy-slam-backend-tools:
     needs: [build-slam-backend]
-    name: test
-    runs-on: ubuntu-latest
-    environment: tools
-
-    steps:
-      - run: echo ${{ needs.build-slam-backend.outputs.registry-path }}
+    name: SLAM-API
+    uses: bcgov/citz-imb/.github/workflows/Deploy.yml@1ff3c6908ae2679d5047051887290ec03770a516
+    with:
+      APP_NAME: slam-api
+      PORT: 3333
+      ENVIRONMENT: tools
+      REGISTRY_PATH: ${{ needs.build-slam-backend.outputs.registry-path }}
+    secrets:
+      OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
+      OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
+      OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
