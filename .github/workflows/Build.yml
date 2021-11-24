@@ -26,7 +26,7 @@ on:
 
 jobs:
   Build-image:
-    name: Build image
+    name: Build & register image
     runs-on: ubuntu-latest
     environment: ${{ inputs.ENVIRONMENT }}
     outputs:
