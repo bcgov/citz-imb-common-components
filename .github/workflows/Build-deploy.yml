@@ -1,9 +1,8 @@
-name: Build Image
+name: Build and deploy
 on:
   workflow_call:
     inputs:
       ENVIRONMENT:
-        description: 'the environment context'
         type: string
         required: false
         default: 'tools'
@@ -24,4 +23,3 @@ jobs:
       - run: |
           ls -l
           echo ${{ inputs.APP_NAME }}
-
