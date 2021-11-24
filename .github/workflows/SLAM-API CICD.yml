@@ -1,16 +1,16 @@
 # @format
 
-name: CI Pipeline
+name: ${{ env.APP_NAME }} CICD Pipeline
 on:
   push:
     branches: [main]
 
-env:
-  APP_NAME: slam-api
-  APP_PATH: ./apps/slam/api
-  PORT: 3333
-
 jobs:
+  env:
+    APP_NAME: slam-api
+    APP_PATH: ./apps/slam/api
+    PORT: 3333
+
   build-backend:
     name: ${{ env.APP_NAME }}
     uses: bcgov/citz-imb/.github/workflows/Build.yml@d6bec8873b8d2be234ca22dd6c2af8cab3667a2e
