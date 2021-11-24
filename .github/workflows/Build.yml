@@ -1,4 +1,4 @@
-name: Build and deploy
+name: Build
 on:
   workflow_call:
     inputs:
@@ -20,12 +20,17 @@ on:
         required: false
         type: string
         default: 'tag'
+    outputs:
+      image:
+        value: ${{ jobs.Build-image.outputs.image }}
 
 jobs:
-  Build-and-register-image:
-    name: Build and register image
+  Build-image:
+    name: Build image
     runs-on: ubuntu-latest
     environment: ${{ inputs.ENVIRONMENT }}
+    outputs:
+      registry-path: ${{ steps.push-image.outputs.registry-path }}
 
     steps:
       - name: Check out Repository

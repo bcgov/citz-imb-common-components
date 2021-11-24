@@ -1,4 +1,6 @@
-name: Build and deploy
+# @format
+
+name: Deploy
 on:
   workflow_call:
     inputs:
@@ -9,21 +11,20 @@ on:
       APP_NAME:
         required: true
         type: string
-      APP_PATH:
-        required: true
-        type: string
       PORT:
         required: false
         type: number
         default: 8080
-      IMAGE_TAGS:
-        required: false
+      REGISTRY_PATH:
+        required: true
         type: string
-        default: 'tag'
+    secrets:
+      OPENSHIFT_SERVER:
+        required: true
 
 jobs:
-  Build-and-register-image:
-    name: Build and register image
+  Deploy:
+    name: Deploy to ${{ inputs.ENVIRONMENT }}
     runs-on: ubuntu-latest
     environment: ${{ inputs.ENVIRONMENT }}
 
@@ -36,11 +37,11 @@ jobs:
           insecure_skip_tls_verify: true
           namespace: ${{ secrets.OPENSHIFT_NAMESPACE }}
 
-      - name: Create and expose app
+      - name: Deploy and expose
         id: deploy-and-expose
         uses: redhat-actions/oc-new-app@v1
         with:
-          app_name:  ${{ inputs.APP_NAME }}
-          image: ${{ steps.push-image.outputs.registry-path }}
+          app_name: ${{ inputs.APP_NAME }}
+          image: ${{ inputs.REGISTRY_PATH }}
           namespace: ${{ secrets.OPENSHIFT_NAMESPACE }}
-          port:  ${{ inputs.PORT }}
+          port: ${{ inputs.PORT }}

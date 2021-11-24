@@ -5,9 +5,22 @@ on:
 
 jobs:
   build-slam-backend:
-    name: Build SLAM API Server
-    uses: bcgov/citz-imb/.github/workflows/Build.yml@696a755e065929ca5ba272c42b4d499771355300
+    id: build-api
+    name: SLAM API Server
+    uses: bcgov/citz-imb/.github/workflows/Build.yml@
     with:
       APP_NAME: slam-api
       APP_PATH: ./apps/slam/api
       PORT: 3333
+
+  deploy-slam-backend-tools:
+    needs: [build-api]
+    name: SLAM API Server - tools
+    uses: bcgov/citz-imb/.github/workflows/Deploy.yml@
+    with:
+      APP_NAME: slam-api
+      PORT: 3333
+      ENVIRONMENT: tools
+      REGISTRY_PATH: ${{ needs.build-api.outputs.registry-path }}
+    secrets:
+      OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
