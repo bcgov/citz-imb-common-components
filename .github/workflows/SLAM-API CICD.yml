@@ -14,7 +14,7 @@ jobs:
   build-backend:
     uses: bcgov/citz-imb/.github/workflows/Build.yml@d6bec8873b8d2be234ca22dd6c2af8cab3667a2e
     with:
-      APP_NAME: ${{ env.CICD_APP_NAME }}
+      APP_NAME: ${{ CICD_APP_NAME }}
       APP_PATH: ${{ env.CICD_APP_PATH }}
       PORT:  ${{ env.CICD_PORT }}
 
