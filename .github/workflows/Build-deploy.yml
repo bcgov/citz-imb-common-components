@@ -9,17 +9,86 @@ on:
       APP_NAME:
         required: true
         type: string
+      APP_PATH:
+        required: true
+        type: string
+      PORT:
+        required: false
+        type: number
+        default: 8080
+      IMAGE_TAGS:
+        required: false
+        type: string
+        default: 'tag'
 
 jobs:
-  Setup:
-    environment: ${{ inputs.ENVIRONMENT }}
-    name: Setup Runner
+  Build-and-register-image:
     runs-on: ubuntu-latest
+    environment: ${{ inputs.ENVIRONMENT }}
 
     steps:
-      - name: Check out repository
+      - name: Check out Repository
         uses: actions/checkout@v2
 
-      - run: |
-          ls -l
-          echo ${{ inputs.APP_NAME }}
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16'
+
+      - name: Cache node modules
+        id: npmCacheStep
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Install packages
+        if: steps.npmCacheStep.outputs.cache-hit != 'true'
+        run: npm install --production --silent
+
+      - name: Install nx cli
+        run: npm install @nrwl/cli --silent
+
+      - name: Build application
+        run: npx nx build  ${{ inputs.APP_NAME }}
+
+      - name: Build container
+        id: build-image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: ${{ env.APP_NAME }}
+          tags: ${{ inputs.IMAGE_TAGS }}
+          dockerfiles:  ${{ inputs.APP_PATH }}/Dockerfile
+
+      - name: Push to registry
+        id: push-image
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.build-image.outputs.image }}
+          tags: ${{ steps.build-image.outputs.tags }}
+          registry: ghcr.io/${{ github.repository_owner }}
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+
+      - name: Log in to OpenShift
+        uses: redhat-actions/oc-login@v1
+        with:
+          openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
+          openshift_token: ${{ secrets.OPENSHIFT_TOKEN }}
+          insecure_skip_tls_verify: true
+          namespace: ${{ secrets.OPENSHIFT_NAMESPACE }}
+
+      - name: Create and expose app
+        id: deploy-and-expose
+        uses: redhat-actions/oc-new-app@v1
+        with:
+          app_name:  ${{ inputs.APP_NAME }}
+          image: ${{ steps.push-image.outputs.registry-path }}
+          namespace: ${{ secrets.OPENSHIFT_NAMESPACE }}
+          port:  ${{ inputs.PORT }}
