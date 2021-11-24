@@ -18,5 +18,4 @@ jobs:
     environment: tools
 
     steps:
-      - runs: |
-        echo '${{ needs.build-slam-backend.outputs.registry-path }}'
+      - runs: echo and the bunnymen
