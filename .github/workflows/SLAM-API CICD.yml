@@ -1,14 +1,14 @@
 # @format
 
-name: CICD Pipeline
+name: ${{ env.CICD_APP_NAME }} CICD Pipeline
 on:
   push:
     branches: [main]
 
-  env:
-    CICD_APP_NAME: slam-api
-    CICD_APP_PATH: ./apps/slam/api
-    CICD_PORT: 3333
+env:
+  CICD_APP_NAME: slam-api
+  CICD_APP_PATH: ./apps/slam/api
+  CICD_PORT: 3333
 
 jobs:
   build-backend:
