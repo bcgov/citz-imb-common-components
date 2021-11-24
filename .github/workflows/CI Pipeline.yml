@@ -12,10 +12,11 @@ jobs:
       APP_PATH: ./apps/slam/api
       PORT: 3333
 
-  test:
+  test-output:
     name: test
     runs-on: ubuntu-latest
     environment: tools
+
     - steps:
       - runs: |
         echo ${{ needs.build-slam-backend.outputs.registry-path }}
