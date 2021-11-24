@@ -12,7 +12,6 @@ env:
 
 jobs:
   build-backend:
-    name: ${{ env.CICD_APP_NAME }}
     uses: bcgov/citz-imb/.github/workflows/Build.yml@d6bec8873b8d2be234ca22dd6c2af8cab3667a2e
     with:
       APP_NAME: ${{ env.CICD_APP_NAME }}
@@ -21,7 +20,6 @@ jobs:
 
   deploy-backend-tools:
     needs: [build-backend]
-    name: ${{ env.CICD_APP_NAME }}
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@1ff3c6908ae2679d5047051887290ec03770a516
     with:
       APP_NAME: ${{ env.CICD_APP_NAME }}
@@ -35,7 +33,6 @@ jobs:
 
   deploy-backend-dev:
     needs: [build-backend]
-    name: ${{ env.CICD_APP_NAME }}
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@1ff3c6908ae2679d5047051887290ec03770a516
     with:
       APP_NAME: ${{ env.CICD_APP_NAME }}
@@ -49,7 +46,6 @@ jobs:
 
   deploy-backend-test:
     needs: [build-backend]
-    name: ${{ env.CICD_APP_NAME }}
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@1ff3c6908ae2679d5047051887290ec03770a516
     with:
       APP_NAME: ${{ env.CICD_APP_NAME }}
@@ -63,7 +59,6 @@ jobs:
 
   deploy-backend-prod:
     needs: [build-backend]
-    name: ${{ env.CICD_APP_NAME }}
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@1ff3c6908ae2679d5047051887290ec03770a516
     with:
       APP_NAME: ${{ env.CICD_APP_NAME }}
