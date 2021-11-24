@@ -1,15 +1,17 @@
-name: Full Pipeline
+name: CI Pipeline
 on:
   push:
     branches: [main]
   
 jobs:
-  build-backend:     
+  build-slam-backend:
+    name: Build and deploy SLAM API Server
     uses: bcgov/citz-imb/.github/workflows/Build-Image.yml@6341a7dccc19afe5ff143d0cf1e6b3a7db05974a
     with:
       APP_NAME: slam-api
 
-  build-frontend:     
+  build-slam-frontend:
+    name: Build and deploy SLAM frontend
     uses: bcgov/citz-imb/.github/workflows/Build-Image.yml@6341a7dccc19afe5ff143d0cf1e6b3a7db05974a
     with:
       APP_NAME: slam-app
