@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - run: |
-        echo '${{ needs.build-slam-backend.outputs.registry-path }}'
+        echo and the bunnymen
 
   # deploy-slam-backend-tools:
   #   needs: [build-slam-backend]
