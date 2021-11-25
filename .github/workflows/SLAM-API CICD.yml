@@ -59,10 +59,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send Notification to Teams
-      uses: thechetantalwar/teams-notify@v2
-      with:
-        teams_webhook_url: ${{ secrets.TEAM_HOOK }}
-        message: "slam-api successfully deployed to test"
+        uses: thechetantalwar/teams-notify@v2
+        with:
+          teams_webhook_url: ${{ secrets.TEAM_HOOK }}
+          message: "slam-api successfully deployed to test"
 
   deploy-backend-prod:
     needs: [build-backend]
@@ -82,7 +82,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send Notification to Teams
-      uses: thechetantalwar/teams-notify@v2
-      with:
-        teams_webhook_url: ${{ secrets.TEAM_HOOK }}
-        message: "slam-api successfully deployed to production"
+        uses: thechetantalwar/teams-notify@v2
+        with:
+          teams_webhook_url: ${{ secrets.TEAM_HOOK }}
+          message: "slam-api successfully deployed to production"
