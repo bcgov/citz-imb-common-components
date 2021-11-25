@@ -15,7 +15,7 @@ jobs:
     needs: [build-backend]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
-      APP_NAME: ${{ env.CICD_APP_NAME }}
+      APP_NAME: slam-api
       PORT: 3333
       ENVIRONMENT: tools
       REGISTRY_PATH: ${{ needs.build-backend.outputs.registry-path }}
@@ -61,7 +61,7 @@ jobs:
     needs: [build-backend]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
-      APP_NAME: ${{ env.CICD_APP_NAME }}
+      APP_NAME: slam-api
       PORT: 3333
       ENVIRONMENT: prod
       REGISTRY_PATH: ${{ needs.build-backend.outputs.registry-path }}
