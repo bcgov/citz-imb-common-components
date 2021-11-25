@@ -3,25 +3,20 @@ on:
   push:
     branches: [main]
 
-env:
-  CICD_APP_NAME: slam-api
-  CICD_APP_PATH: ./apps/slam/api
-  CICD_PORT: 3333
-
 jobs:
   build-backend:
-    uses: bcgov/citz-imb/.github/workflows/Build.yml@d6bec8873b8d2be234ca22dd6c2af8cab3667a2e
+    uses: bcgov/citz-imb/.github/workflows/Build.yml@main
     with:
-      APP_NAME: ${{ CICD_APP_NAME }}
-      APP_PATH: ${{ env.CICD_APP_PATH }}
-      PORT:  ${{ env.CICD_PORT }}
+      APP_NAME: slam-api
+      APP_PATH: ./apps/slam/api
+      PORT:  3333
 
   deploy-backend-tools:
     needs: [build-backend]
-    uses: bcgov/citz-imb/.github/workflows/Deploy.yml@1ff3c6908ae2679d5047051887290ec03770a516
+    uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
       APP_NAME: ${{ env.CICD_APP_NAME }}
-      PORT: ${{ env.CICD_PORT }}
+      PORT: 3333
       ENVIRONMENT: tools
       REGISTRY_PATH: ${{ needs.build-backend.outputs.registry-path }}
     secrets:
@@ -31,10 +26,10 @@ jobs:
 
   deploy-backend-dev:
     needs: [build-backend]
-    uses: bcgov/citz-imb/.github/workflows/Deploy.yml@1ff3c6908ae2679d5047051887290ec03770a516
+    uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
-      APP_NAME: ${{ env.CICD_APP_NAME }}
-      PORT: ${{ env.CICD_PORT }}
+      APP_NAME: slam-api
+      PORT: 3333
       ENVIRONMENT: dev
       REGISTRY_PATH: ${{ needs.build-backend.outputs.registry-path }}
     secrets:
@@ -44,10 +39,10 @@ jobs:
 
   deploy-backend-test:
     needs: [build-backend]
-    uses: bcgov/citz-imb/.github/workflows/Deploy.yml@1ff3c6908ae2679d5047051887290ec03770a516
+    uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
-      APP_NAME: ${{ env.CICD_APP_NAME }}
-      PORT: ${{ env.CICD_PORT }}
+      APP_NAME: slam-api
+      PORT: 3333
       ENVIRONMENT: test
       REGISTRY_PATH: ${{ needs.build-backend.outputs.registry-path }}
     secrets:
@@ -55,15 +50,29 @@ jobs:
       OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
       OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
 
+  send-notification-test:
+    needs: [build-backend, deploy-backend-test]
+    uses: thechetantalwar/teams-notify@v2
+    with:
+      teams_webhook_url: ${{ secrets.TEAM_HOOK }}
+      message: "slam-api successfully deployed to test"
+
   deploy-backend-prod:
     needs: [build-backend]
-    uses: bcgov/citz-imb/.github/workflows/Deploy.yml@1ff3c6908ae2679d5047051887290ec03770a516
+    uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
       APP_NAME: ${{ env.CICD_APP_NAME }}
-      PORT: ${{ env.CICD_PORT }}
+      PORT: 3333
       ENVIRONMENT: prod
       REGISTRY_PATH: ${{ needs.build-backend.outputs.registry-path }}
     secrets:
       OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
       OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
       OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
+
+  send-notification-prod:
+    needs: [build-backend, deploy-backend-test]
+    uses: thechetantalwar/teams-notify@v2
+    with:
+      teams_webhook_url: ${{ secrets.TEAM_HOOK }}
+      message: "slam-api successfully deployed to prod"
