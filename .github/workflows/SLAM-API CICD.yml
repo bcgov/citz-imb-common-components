@@ -2,9 +2,12 @@ name: CICD Pipeline
 on:
   push:
     branches: [main]
+  pull-request:
+    branches: [main]
 
 jobs:
   build-backend:
+    name: Build
     uses: bcgov/citz-imb/.github/workflows/Build.yml@main
     with:
       APP_NAME: slam-api
@@ -12,6 +15,7 @@ jobs:
       PORT:  3333
 
   deploy-backend-tools:
+    name: Deploy
     needs: [build-backend]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
@@ -50,12 +54,12 @@ jobs:
       OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
       OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
 
-  # send-notification-test:
-  #   needs: [build-backend, deploy-backend-test]
-  #   uses: thechetantalwar/teams-notify@v2
-  #   with:
-  #     teams_webhook_url: ${{ secrets.TEAM_HOOK }}
-  #     message: "slam-api successfully deployed to test"
+  send-notification-test:
+    needs: [build-backend, deploy-backend-test]
+    uses: thechetantalwar/teams-notify@v2
+    with:
+      teams_webhook_url: ${{ secrets.TEAM_HOOK }}
+      message: "slam-api successfully deployed to test"
 
   deploy-backend-prod:
     needs: [build-backend]
@@ -70,9 +74,9 @@ jobs:
       OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
       OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
 
-  # send-notification-prod:
-  #   needs: [build-backend, deploy-backend-prod]
-  #   uses: thechetantalwar/teams-notify@v2
-  #   with:
-  #     teams_webhook_url: ${{ secrets.TEAM_HOOK }}
-  #     message: "slam-api successfully deployed to prod"
+  send-notification-prod:
+    needs: [build-backend, deploy-backend-prod]
+    uses: thechetantalwar/teams-notify@v2
+    with:
+      teams_webhook_url: ${{ secrets.TEAM_HOOK }}
+      message: "slam-api successfully deployed to prod"
