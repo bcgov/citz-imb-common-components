@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-backend:
-    name: Build
+    name: Build & Register
     uses: bcgov/citz-imb/.github/workflows/Build.yml@main
     with:
       APP_NAME: slam-api
@@ -29,6 +29,7 @@ jobs:
       OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
 
   deploy-backend-dev:
+    name: Deploy
     needs: [build-backend]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
@@ -42,6 +43,7 @@ jobs:
       OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
 
   deploy-backend-test:
+    name: Deploy
     needs: [build-backend]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
@@ -55,6 +57,7 @@ jobs:
       OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
 
   send-notification-test:
+    name: Notify Teams
     needs: [build-backend, deploy-backend-test]
     runs-on: ubuntu-latest
     steps:
@@ -65,6 +68,7 @@ jobs:
           message: "slam-api successfully deployed to test"
 
   deploy-backend-prod:
+    name: Deploy
     needs: [build-backend]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
@@ -78,6 +82,7 @@ jobs:
       OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
 
   send-notification-prod:
+    name: Notify Teams
     needs: [build-backend, deploy-backend-prod]
     runs-on: ubuntu-latest
     steps:
