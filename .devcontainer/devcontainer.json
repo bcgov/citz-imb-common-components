@@ -1,0 +1,28 @@
+{
+  "name": "JS ENV",
+  "dockerFile": "Dockerfile",
+  "appPort": [3333, 8080],
+  "runArgs": ["-u", "node"],
+  "settings": {
+    "workbench.colorTheme": "Cobalt2"
+  },
+  "postCreateCommand": "npm install",
+  "extensions": [
+	"esben.prettier-vscode",
+	"wesbos.theme-cobalt2",
+	"nrwl.angular-console",
+	"esbenp.prettier-vscode",
+	"aaron-bond.better-comments",
+	"vscode-icons-team.vscode-icons",
+	"dsznajder.es7-react-js-snippets",
+	"firsttris.vscode-jest-runner",
+	"mariusalchimavicius.json-to-ts",
+	"ms-vsliveshare.vsliveshare",
+	"ms-vsliveshare.vsliveshare-audio",
+	"ms-vsliveshare.vsliveshare-pack",
+	"eg2.vscode-npm-script",
+	"mtxr.sqltools-driver-pg",
+	"mtxr.sqltools",
+	"redhat.vscode-yaml"
+]
+}
