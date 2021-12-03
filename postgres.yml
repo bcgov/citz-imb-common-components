@@ -1,0 +1,24 @@
+# @format
+
+version: '3'
+services:
+  slam-db:
+    image: postgres:14.1-alpine3.15
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+  slam-pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - 80:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=user@email.com
+      - PGADMIN_DEFAULT_PASSWORD=password
+
+volumes:
+  postgres-data:
+    driver: local
