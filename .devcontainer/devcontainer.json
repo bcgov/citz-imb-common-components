@@ -1,0 +1,23 @@
+{
+  "name": "CITZ IMB ENV",
+  "dockerFile": "Dockerfile",
+  "appPort": [3333, 8080],
+  "runArgs": ["-u", "node"],
+  "settings": {},
+  "postCreateCommand": "npm install",
+  "extensions": [
+    "dbaeumer.vscode-eslint",
+    "mtxr.sqltools",
+    "mtxr.sqltools-driver-pg",
+    "formulahendry.auto-rename-tag",
+    "aaron-bond.better-comments",
+    "vscode-icons-team.vscode-icons",
+    "mariusalchimavicius.json-to-ts",
+    "ms-vsliveshare.vsliveshare",
+    "ms-vsliveshare.vsliveshare-audio",
+    "ms-vsliveshare.vsliveshare-pack",
+    "nrwl.angular-console",
+    "esbenp.prettier-vscode",
+    "redhat.vscode-yaml"
+  ]
+}

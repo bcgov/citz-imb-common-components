@@ -6,7 +6,9 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "format": "nx format:write"
+    "format": "nx format:write",
+    "start-dev": "docker-compose -f postgres.yml up -d",
+    "stop-dev": "docker-compose -f postgres.yml down"
   },
   "private": true,
   "devDependencies": {
