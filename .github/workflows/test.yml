@@ -6,9 +6,6 @@ on:
   push:
     branches: [main]
 
-env:
-  COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-
 jobs:
   Explore-GitHub-Actions:
     if: startsWith(github.event.head_commit.message, 'fixes') || startsWith(github.event.head_commit.message, 'resolves')
@@ -19,8 +16,6 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: echo "$GITHUB_CONTEXT"
-      - name: Drilling down GitHub context
-        run: echo "$COMMIT_MESSAGE"
       - name: Dump job context
         env:
           JOB_CONTEXT: ${{ toJSON(job) }}
