@@ -19,7 +19,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: echo "$GITHUB_CONTEXT"
       - name: Drilling down GitHub context
-        if: contains($COMMIT_MESSAGE, 'fixes')
+        if: contains(${{env.COMMIT_MESSAGE}}, 'fixes')
         run: echo "$COMMIT_MESSAGE"
       - name: Dump job context
         env:
