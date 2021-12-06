@@ -79,25 +79,12 @@ jobs:
           tags: ${{ inputs.IMAGE_TAGS }}
           dockerfiles: ${{ inputs.APP_PATH }}/Dockerfile
 
-  Register:
-    name: ${{ inputs.ENVIRONMENT }}
-    needs: [Build]
-    runs-on: ubuntu-latest
-    environment: ${{ inputs.ENVIRONMENT }}
-    outputs:
-      registry-path: ${{ steps.push-image.outputs.registry-path }}
-
-    steps:
-      - name: check context
-        env:
-          MY_CONTEXT: ${{ toJSON(needs) }}
-        run: echo "$MY_CONTEXT"
       - name: Push to registry
         id: push-image
         uses: redhat-actions/push-to-registry@v2
         with:
-          image: ${{ needs.Build.outputs.image }}
-          tags: ${{ needs.Build.outputs.tags }}
+          image: ${{ steps.build-image.outputs.image }}
+          tags: ${{ steps.build-image.outputs.tags }}
           registry: ghcr.io/${{ github.repository_owner }}
           username: ${{ github.actor }}
           password: ${{ github.token }}

@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: application
+    name: Application
     uses: bcgov/citz-imb/.github/workflows/Build.yml@main
     with:
       APP_NAME: slam-api
@@ -28,9 +28,9 @@ jobs:
       OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
       OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
 
-  deploy-backend-test:
+  deploy-test:
     if: startsWith(github.event.head_commit.message, 'fixes') || startsWith(github.event.head_commit.message, 'resolves')
-    name: Deploy
+    name: Test
     needs: [build]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
@@ -45,7 +45,7 @@ jobs:
 
   send-notification-test:
     name: Notify Teams
-    needs: [deploy-backend-test]
+    needs: [deploy-test]
     runs-on: ubuntu-latest
     steps:
       - name: Send Notification to Teams
@@ -54,9 +54,9 @@ jobs:
           teams_webhook_url: ${{ secrets.TEAM_HOOK }}
           message: "slam-api successfully deployed to test"
 
-  deploy-backend-prod:
-    name: Deploy
-    needs: [deploy-backend-test]
+  deploy-prod:
+    name: Production
+    needs: [deploy-test]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
       APP_NAME: slam-api
@@ -70,7 +70,7 @@ jobs:
 
   send-notification-prod:
     name: Notify Teams
-    needs: [deploy-backend-prod]
+    needs: [deploy-prod]
     runs-on: ubuntu-latest
     steps:
       - name: Send Notification to Teams
