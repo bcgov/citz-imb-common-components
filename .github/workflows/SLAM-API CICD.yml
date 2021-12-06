@@ -7,15 +7,12 @@ on:
   pull_request:
     branches: [main]
 
-env:
-  Application_Name: slam-api
-
 jobs:
   build:
     name: Application
     uses: bcgov/citz-imb/.github/workflows/Build.yml@main
     with:
-      APP_NAME: env.Application_Name
+      APP_NAME: slam-api
       APP_PATH: ./apps/slam/api
       PORT: 3333
 
