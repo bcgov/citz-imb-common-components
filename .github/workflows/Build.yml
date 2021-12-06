@@ -62,19 +62,6 @@ jobs:
         if: steps.npmCacheStep.outputs.cache-hit != 'true'
         run: npm install --production --silent
 
-      - name: check github contexts
-        env:
-          MY_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$MY_CONTEXT"
-      - name: check env contexts
-        env:
-          MY_CONTEXT: ${{ toJSON(env) }}
-        run: echo "$MY_CONTEXT"
-      - name: check inputs contexts
-        env:
-          MY_CONTEXT: ${{ toJSON(inputs) }}
-        run: echo "$MY_CONTEXT"
-
       - name: Install Nx package
         run: npm install @nrwl/cli --silent
 
