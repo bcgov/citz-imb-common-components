@@ -88,9 +88,9 @@ jobs:
       registry-path: ${{ steps.push-image.outputs.registry-path }}
 
     steps:
-      - name: check steps
+      - name: check context
         env:
-          MY_CONTEXT: ${{ toJSON(steps) }}
+          MY_CONTEXT: ${{ toJSON(needs) }}
         run: echo "$MY_CONTEXT"
       - name: Push to registry
         id: push-image
