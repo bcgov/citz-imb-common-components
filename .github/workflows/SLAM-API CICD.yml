@@ -1,4 +1,4 @@
-name: SLAM CICD Pipeline
+name: slam-api CICD Pipeline
 on:
   push:
     branches: [main]
@@ -6,7 +6,7 @@ on:
     branches: [main]
 
 jobs:
-  build-backend:
+  build:
     name: Build & Register
     uses: bcgov/citz-imb/.github/workflows/Build.yml@main
     with:
@@ -14,15 +14,15 @@ jobs:
       APP_PATH: ./apps/slam/api
       PORT:  3333
 
-  deploy-backend-dev:
+  deploy-dev:
     name: Deploy
-    needs: [build-backend]
+    needs: [build]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
       APP_NAME: slam-api
       PORT: 3333
       ENVIRONMENT: dev
-      REGISTRY_PATH: ${{ needs.build-backend.outputs.registry-path }}
+      REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
     secrets:
       OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
       OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}

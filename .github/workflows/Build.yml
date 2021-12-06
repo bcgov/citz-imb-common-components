@@ -1,4 +1,6 @@
-name: Build
+# @format
+
+name: Build-name
 on:
   workflow_call:
     inputs:
@@ -21,10 +23,10 @@ on:
         default: 'tag'
     outputs:
       registry-path:
-        value: ${{ jobs.Build-image.outputs.registry-path }}
+        value: ${{ jobs.Build.outputs.registry-path }}
 
 jobs:
-  Build-image:
+  Build:
     name: ${{ inputs.ENVIRONMENT }}
     runs-on: ubuntu-latest
     environment: ${{ inputs.ENVIRONMENT }}
@@ -72,8 +74,17 @@ jobs:
         with:
           image: ${{ inputs.APP_NAME }}
           tags: ${{ inputs.IMAGE_TAGS }}
-          dockerfiles:  ${{ inputs.APP_PATH }}/Dockerfile
+          dockerfiles: ${{ inputs.APP_PATH }}/Dockerfile
 
+  Register:
+    name: ${{ inputs.ENVIRONMENT }}
+    needs: [Build]
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.ENVIRONMENT }}
+    outputs:
+      registry-path: ${{ steps.push-image.outputs.registry-path }}
+
+    steps:
       - name: Push to registry
         id: push-image
         uses: redhat-actions/push-to-registry@v2
@@ -83,5 +94,3 @@ jobs:
           registry: ghcr.io/${{ github.repository_owner }}
           username: ${{ github.actor }}
           password: ${{ github.token }}
-
-      - run: echo ${{ steps.push-image.outputs.registry-path }}
