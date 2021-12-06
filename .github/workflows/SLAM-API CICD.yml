@@ -1,3 +1,5 @@
+# @format
+
 name: slam-api CICD Pipeline
 on:
   push:
@@ -8,15 +10,14 @@ on:
 env:
   Application_Name: slam-api
 
-
 jobs:
   build:
     name: Application
     uses: bcgov/citz-imb/.github/workflows/Build.yml@main
     with:
-      APP_NAME: $Application_Name
+      APP_NAME: ${{env.Application_Name}}
       APP_PATH: ./apps/slam/api
-      PORT:  3333
+      PORT: 3333
 
   deploy-dev:
     name: Dev
@@ -56,7 +57,7 @@ jobs:
         uses: thechetantalwar/teams-notify@v2
         with:
           teams_webhook_url: ${{ secrets.TEAM_HOOK }}
-          message: "slam-api successfully deployed to test"
+          message: 'slam-api successfully deployed to test'
 
   deploy-prod:
     name: Production
@@ -81,4 +82,4 @@ jobs:
         uses: thechetantalwar/teams-notify@v2
         with:
           teams_webhook_url: ${{ secrets.TEAM_HOOK }}
-          message: "slam-api successfully deployed to production"
+          message: 'slam-api successfully deployed to production'
