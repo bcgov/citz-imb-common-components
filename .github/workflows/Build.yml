@@ -5,7 +5,6 @@ on:
       ENVIRONMENT:
         type: string
         required: false
-        default: 'tools'
       APP_NAME:
         required: true
         type: string
@@ -64,6 +63,9 @@ jobs:
       - name: Build application
         run: npx nx build  ${{ inputs.APP_NAME }}
 
+      - name: checkup
+        run: ls -l dist
+        
       - name: Build container
         id: build-image
         uses: redhat-actions/buildah-build@v2

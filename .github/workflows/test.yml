@@ -4,7 +4,7 @@ name: GitHub Actions Demo
 
 on:
   push:
-    branches: [main]
+    branches: ["mainx"]
 
 jobs:
   Explore-GitHub-Actions:
