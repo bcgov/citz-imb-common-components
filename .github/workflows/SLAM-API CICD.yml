@@ -14,7 +14,7 @@ jobs:
     name: Application
     uses: bcgov/citz-imb/.github/workflows/Build.yml@main
     with:
-      APP_NAME: slam-api
+      APP_NAME: $Application_Name
       APP_PATH: ./apps/slam/api
       PORT:  3333
 
