@@ -28,7 +28,7 @@ on:
 
 jobs:
   Deploy:
-    name: ${{ inputs.ENVIRONMENT }}
+    name: Deploy
     runs-on: ubuntu-latest
     environment: ${{ inputs.ENVIRONMENT }}
 
