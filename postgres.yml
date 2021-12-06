@@ -2,7 +2,7 @@
 
 version: '3'
 services:
-  slam-db:
+  postgresdb:
     image: postgres:14.1-alpine3.15
     ports:
       - 5432:5432
@@ -11,7 +11,7 @@ services:
       - POSTGRES_PASSWORD=password
     volumes:
       - postgres-data:/var/lib/postgresql/data
-  slam-pgadmin:
+  pgadmin:
     image: dpage/pgadmin4
     ports:
       - 80:80
