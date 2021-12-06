@@ -32,6 +32,8 @@ jobs:
     environment: ${{ inputs.ENVIRONMENT }}
     outputs:
       registry-path: ${{ steps.push-image.outputs.registry-path }}
+      image: ${{ steps.build-image.outputs.image }}
+      tags: ${{ steps.build-image.outputs.tags }}
 
     steps:
       - name: Check out Repository
@@ -57,10 +59,9 @@ jobs:
 
       - name: Install packages
         if: steps.npmCacheStep.outputs.cache-hit != 'true'
-        run: npm install --production --silent
-
-      - name: Install nx cli
-        run: npm install @nrwl/cli --silent
+        run: |
+          npm install --production --silent
+          npm install @nrwl/cli --silent
 
       - name: Build application
         run: npx nx build  ${{ inputs.APP_NAME }}
@@ -84,13 +85,14 @@ jobs:
     outputs:
       registry-path: ${{ steps.push-image.outputs.registry-path }}
 
+
     steps:
       - name: Push to registry
         id: push-image
         uses: redhat-actions/push-to-registry@v2
         with:
-          image: ${{ steps.build-image.outputs.image }}
-          tags: ${{ steps.build-image.outputs.tags }}
+          image: ${{ jobs.Build.outputs.image }}
+          tags: ${{ jobs.Build.outputs.tags }}
           registry: ghcr.io/${{ github.repository_owner }}
           username: ${{ github.actor }}
           password: ${{ github.token }}
