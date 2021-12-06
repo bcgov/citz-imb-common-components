@@ -11,6 +11,7 @@ env:
 
 jobs:
   Explore-GitHub-Actions:
+    if: contains(${{env.COMMIT_MESSAGE}}, 'fixes')
     runs-on: ubuntu-latest
     #if: contains(${{ github.event.head_commit.message }},'resolves')
     steps:
@@ -19,7 +20,6 @@ jobs:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: echo "$GITHUB_CONTEXT"
       - name: Drilling down GitHub context
-        if: contains(${{env.COMMIT_MESSAGE}}, 'fixes')
         run: echo "$COMMIT_MESSAGE"
       - name: Dump job context
         env:
