@@ -41,7 +41,7 @@ jobs:
           insecure_skip_tls_verify: true
           namespace: ${{ secrets.OPENSHIFT_NAMESPACE }}
 
-      - name: Deploy and expose
+      - name: Deploy
         id: deploy-and-expose
         uses: redhat-actions/oc-new-app@v1
         with:

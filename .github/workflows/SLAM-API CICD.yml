@@ -5,6 +5,10 @@ on:
   pull_request:
     branches: [main]
 
+env:
+  Application_Name: slam-api
+
+
 jobs:
   build:
     name: Application
@@ -31,7 +35,7 @@ jobs:
   deploy-test:
     if: startsWith(github.event.head_commit.message, 'fixes') || startsWith(github.event.head_commit.message, 'resolves')
     name: Test
-    needs: [deploy-dev]
+    needs: [build, deploy-dev]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
       APP_NAME: slam-api
