@@ -12,8 +12,12 @@ jobs:
     steps:
       - name: Dump GitHub context
         env:
-          GITHUB_CONTEXT: ${{ toJSON(github.event.commits.message) }}
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: echo "$GITHUB_CONTEXT"
+      - name: Drilling down GitHub context
+        env:
+          SPECIFIC_GITHUB_CONTEXT: ${{ toJSON(github.event) }}
+        run: echo "$SPECIFIC_GITHUB_CONTEXT"
       - name: Dump job context
         env:
           JOB_CONTEXT: ${{ toJSON(job) }}
