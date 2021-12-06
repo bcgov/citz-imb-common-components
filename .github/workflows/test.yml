@@ -9,7 +9,8 @@ on:
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
-    if: contains(${{ github.event.head_commit.message }},'fixes')
+    env:
+      COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
     #if: contains(${{ github.event.head_commit.message }},'resolves')
     steps:
       - name: Dump GitHub context
@@ -17,9 +18,8 @@ jobs:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: echo "$GITHUB_CONTEXT"
       - name: Drilling down GitHub context
-        env:
-          SPECIFIC_GITHUB_CONTEXT: ${{ github.event.head_commit.message }}
-        run: echo "$SPECIFIC_GITHUB_CONTEXT"
+        if: contains($COMMIT_MESSAGE, 'fixes')
+        run: echo "$COMMIT_MESSAGE"
       - name: Dump job context
         env:
           JOB_CONTEXT: ${{ toJSON(job) }}
