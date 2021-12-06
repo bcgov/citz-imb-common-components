@@ -59,9 +59,24 @@ jobs:
 
       - name: Install packages
         if: steps.npmCacheStep.outputs.cache-hit != 'true'
-        run: |
-          npm install --production --silent
-          npm install @nrwl/cli --silent
+        run: npm install --production --silent
+
+      - name: Cache Nx module
+        id: npmNxCacheStep
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-nx-module
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Install Nx package
+        if: steps.npmNxCacheStep.outputs.cache-hit != 'true'
+        run: npm install @nrwl/cli --silent
 
       - name: Build application
         run: npx nx build  ${{ inputs.APP_NAME }}
