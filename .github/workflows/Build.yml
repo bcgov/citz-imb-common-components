@@ -90,12 +90,8 @@ jobs:
     steps:
       - name: check steps
         env:
-          STEP_CONTEXT: ${{ toJSON(steps) }}
-        run: echo "$STEP_CONTEXT"
-      - name: check job
-        env:
-          JOB_CONTEXT: ${{ toJSON(jobs) }}
-        run: echo "$JOB_CONTEXT"
+          MY_CONTEXT: ${{ toJSON(steps) }}
+        run: echo "$MY_CONTEXT"
       - name: Push to registry
         id: push-image
         uses: redhat-actions/push-to-registry@v2
