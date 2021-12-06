@@ -53,6 +53,7 @@ jobs:
           path: ~/.npm
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ secrets.CACHE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{ secrets.CACHE_VERSION }}-
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
@@ -61,21 +62,7 @@ jobs:
         if: steps.npmCacheStep.outputs.cache-hit != 'true'
         run: npm install --production --silent
 
-      - name: Cache Nx module
-        id: npmNxCacheStep
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-nx-module
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ secrets.CACHE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-
       - name: Install Nx package
-        if: steps.npmNxCacheStep.outputs.cache-hit != 'true'
         run: npm install @nrwl/cli --silent
 
       - name: Build application
@@ -101,9 +88,13 @@ jobs:
       registry-path: ${{ steps.push-image.outputs.registry-path }}
 
     steps:
+      - name: check steps
+        env:
+          STEP_CONTEXT: ${{ toJSON(steps) }}
+        run: echo "$STEP_CONTEXT"
       - name: check job
         env:
-          JOB_CONTEXT: ${{ toJSON(job) }}
+          JOB_CONTEXT: ${{ toJSON(jobs) }}
         run: echo "$JOB_CONTEXT"
       - name: Push to registry
         id: push-image
