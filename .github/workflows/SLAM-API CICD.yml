@@ -31,13 +31,13 @@ jobs:
   deploy-backend-test:
     if: startsWith(github.event.head_commit.message, 'fixes') || startsWith(github.event.head_commit.message, 'resolves')
     name: Deploy
-    needs: [build-backend]
+    needs: [build]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
       APP_NAME: slam-api
       PORT: 3333
       ENVIRONMENT: test
-      REGISTRY_PATH: ${{ needs.build-backend.outputs.registry-path }}
+      REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
     secrets:
       OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
       OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
@@ -62,7 +62,7 @@ jobs:
       APP_NAME: slam-api
       PORT: 3333
       ENVIRONMENT: prod
-      REGISTRY_PATH: ${{ needs.build-backend.outputs.registry-path }}
+      REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
     secrets:
       OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
       OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
