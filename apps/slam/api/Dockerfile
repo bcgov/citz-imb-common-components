@@ -1,6 +1,6 @@
 FROM node:17.1.0-alpine3.14
 WORKDIR /app
-RUN chown -R node:node /app
+RUN chown -R node:node /
 USER node
 COPY package*.json ./
 RUN npm install --production --silent
