@@ -11,3 +11,7 @@
 ## How to Contribute
 
 Please note that this project is released with a [Contributor Code of Conduct](Code_of_Conduct.md). By participating in this project you agree to abide by its terms.
+
+### Smart Commits
+
+This repo is connected to our on-premise JIRA server and utilizes the [Smart Commits](https://bigbrassband.com/git-integration-for-jira/documentation/smart-commits.html) functionality to update tickets.
