@@ -22,4 +22,5 @@ Commits must start with the ticket number and may have the following actions (mu
 - transition:
   - #selected-for-dev
   - #in-progress
+  - #ready-for-review
   - #cancelled
