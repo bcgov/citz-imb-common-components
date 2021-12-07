@@ -58,7 +58,7 @@ jobs:
 
   deploy-prod:
     name: Production
-    needs: [deploy-test]
+    needs: [build, deploy-test]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
       APP_NAME: slam-api
