@@ -20,3 +20,4 @@ Commits must start with the ticket number and may have the following actions:
 - #comment
 - transitions:
   - #in-progress
+  - #
