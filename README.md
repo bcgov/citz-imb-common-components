@@ -16,8 +16,10 @@ Please note that this project is released with a [Contributor Code of Conduct](C
 
 This repo is connected to our on-premise JIRA server and utilizes the [Smart Commits](https://bigbrassband.com/git-integration-for-jira/documentation/smart-commits.html) functionality to update tickets.
 
-Commits must start with the ticket number and may have the following actions:
+Commits must start with the ticket number and may have the following actions (multiples ok):
 - #comment
-- transitions:
+- #assign
+- transition:
+  - #selected-for-dev
   - #in-progress
-  - #ready-for-development
+  - #cancelled
