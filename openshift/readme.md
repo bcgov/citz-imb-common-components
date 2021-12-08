@@ -1,10 +1,5 @@
-oc apply -f _filename_
-
-oc get svc
-oc expose svc _servicename_
-
 # OpenShift Configurations
-These are manual deployments that should only need to be done one-time.
+These are manual deployments that should only need to be done one-time, or when updated.
 ## namespaces
 each namespace
 ```

@@ -43,3 +43,30 @@ spec:
       port: 8081
       targetPort: 8081
       nodePort: 30000
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-http-and-https-pgadmin
+spec:
+  podSelector:
+    matchLabels:
+      app: pgadmin
+  ingress:
+  - ports:
+    - protocol: TCP
+      port: 8081
+    - protocol: TCP
+      port: 443
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: pgadmin-route
+spec:
+  host: pgadmin.ca94a8-tools.apps.silver.devops.gov.bc.ca
+  to:
+    kind: Service
+    name: pgadmin-service
+  port:
+    targetPort: 8081
