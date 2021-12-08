@@ -19,8 +19,10 @@ This repo is connected to our on-premise JIRA server and utilizes the [Smart Com
 Commits must start with the ticket number and may have the following actions (multiples ok):
 - #comment
 - #assign
+- #label
 - transition:
   - #selected-for-dev
   - #in-progress
   - #ready-for-review
+  - #done
   - #cancelled
