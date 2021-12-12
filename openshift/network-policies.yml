@@ -1,0 +1,40 @@
+# @format
+
+# kind: NetworkPolicy
+# apiVersion: networking.k8s.io/v1
+# metadata:
+#   name: allow-http-and-https
+# spec:
+#   podSelector:
+#     matchLabels:
+#       role: frontend
+#   ingress:
+#   - ports:
+#     - protocol: TCP
+#       port: 80
+#     - protocol: TCP
+#       port: 443
+# ---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-from-openshift-ingress
+spec:
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              network.openshift.io/policy-group: ingress
+  podSelector: {}
+  policyTypes:
+    - Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-same-namespace
+spec:
+  podSelector:
+  ingress:
+    - from:
+        - podSelector: {}

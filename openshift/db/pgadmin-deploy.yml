@@ -15,6 +15,7 @@ spec:
     metadata:
       labels:
         app: pgadmin
+        role: frontend
     spec:
       containers:
         - name: pgadmin
@@ -29,44 +30,62 @@ spec:
                 secretKeyRef:
                   name: postgresdb-secret
                   key: postgres-root-password
+          volumeMounts:
+          - mountPath: /var/log/pgadmin
+            name: pgadmin-storage
+      volumes:
+        - name: pgadmin-storage
+          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: pgadmin-service
-spec:
-  selector:
+  labels:
     app: pgadmin
-  type: LoadBalancer
+spec:
   ports:
-    - protocol: TCP
+    - name: http81
+      protocol: TCP
       port: 8081
       targetPort: 8081
-      nodePort: 30000
+      # nodePort: 30000
+  selector:
+    app: pgadmin
+    role: frontend
+  type: ClusterIP
+
 ---
-kind: NetworkPolicy
-apiVersion: networking.k8s.io/v1
-metadata:
-  name: allow-http-and-https-pgadmin
-spec:
-  podSelector:
-    matchLabels:
-      app: pgadmin
-  ingress:
-  - ports:
-    - protocol: TCP
-      port: 8081
-    - protocol: TCP
-      port: 443
----
-kind: Route
+# kind: NetworkPolicy
+# apiVersion: networking.k8s.io/v1
+# metadata:
+#   name: allow-http-and-https-pgadmin
+# spec:
+#   podSelector:
+#     matchLabels:
+#       app: pgadmin
+#   ingress:
+#   - ports:
+#     - protocol: TCP
+#       port: 8081
+#     - protocol: TCP
+#       port: 443
+# ---
 apiVersion: route.openshift.io/v1
+kind: Route
 metadata:
   name: pgadmin-route
+  labels:
+    app: pgadmin
 spec:
-  host: pgadmin.ca94a8-tools.apps.silver.devops.gov.bc.ca
+  host: pgadmin-ca94a8-tools.apps.silver.devops.gov.bc.ca
   to:
     kind: Service
     name: pgadmin-service
+    weight: 100
   port:
-    targetPort: 8081
+    targetPort: http81
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
