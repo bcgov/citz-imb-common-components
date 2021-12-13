@@ -31,7 +31,7 @@ spec:
                   name: postgresdb-secret
                   key: postgres-root-password
           volumeMounts:
-          - mountPath: /var/log/pgadmin
+          - mountPath: var/log/pgadmin
             name: pgadmin-storage
       volumes:
         - name: pgadmin-storage
