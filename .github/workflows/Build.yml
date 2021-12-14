@@ -77,7 +77,7 @@ jobs:
         with:
           image: ${{ inputs.APP_NAME }}
           tags: ${{ inputs.IMAGE_TAGS }}
-          dockerfiles: ${{ inputs.APP_PATH }}/Dockerfile
+          containerfiles: docker-compose.yml
 
       - name: Push to registry
         id: push-image

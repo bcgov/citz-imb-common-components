@@ -1,8 +1,14 @@
 **/.classpath
+**/.devcontainer
 **/.dockerignore
+**/.editorconfig
 **/.env
+**/.eslintrc.json
 **/.git
+**/.github
 **/.gitignore
+**/.prettierignore
+**/.prettierrc
 **/.project
 **/.settings
 **/.toolstarget
@@ -11,8 +17,10 @@
 **/*.*proj.user
 **/*.dbmdl
 **/*.jfm
+**/*.md
 **/charts
 **/docker-compose*
+**/COMPLIANCE.yaml
 **/compose*
 **/Dockerfile*
 **/node_modules
