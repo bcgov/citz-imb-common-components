@@ -73,11 +73,12 @@ jobs:
 
       - name: Build container
         id: build-image
-        uses: redhat-actions/buildah-build@v2
-        with:
-          image: ${{ inputs.APP_NAME }}
-          tags: ${{ inputs.IMAGE_TAGS }}
-          containerfiles: docker-compose.yml
+        # uses: redhat-actions/buildah-build@v2
+        # with:
+        #   image: ${{ inputs.APP_NAME }}
+        #   tags: ${{ inputs.IMAGE_TAGS }}
+        #   containerfiles: ${{ inputs.APP_PATH }}/Dockerfile
+        run: docker-compose up -d
 
       - name: Push to registry
         id: push-image
