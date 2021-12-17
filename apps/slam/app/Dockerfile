@@ -7,4 +7,4 @@ COPY package*.json ./
 RUN ls -l -a
 COPY ./dist/apps/slam/app .
 EXPOSE 4200
-CMD ["npm", "run", "serve"]
+CMD ["npm", "run", "start"]
