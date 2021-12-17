@@ -1,6 +1,9 @@
-FROM node:lts-alpine
+FROM node:17.1.0-alpine3.14
 WORKDIR /app
-COPY ./dist/apps/slam/app .
-EXPOSE 8080
+# RUN chown -R node:node /app
+# USER node
+COPY package*.json ./
+RUN npm install --production --silent
+COPY ./dist/apps/slam/api .
+EXPOSE 4200
 CMD ls -l
-# CMD node main.js
