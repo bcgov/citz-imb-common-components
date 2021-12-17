@@ -4,7 +4,7 @@ WORKDIR /app
 # USER node
 COPY package*.json ./
 # RUN npm install --production --silent
-RUN ls -l -a
+RUN npm install @nrwl/cli --silent
 COPY ./dist/apps/slam/app .
 EXPOSE 4200
-CMD ["npm", "run", "start"]
+CMD ["nx", "serve"]
