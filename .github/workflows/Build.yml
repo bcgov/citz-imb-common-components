@@ -69,7 +69,7 @@ jobs:
         run: npx nx build  ${{ inputs.APP_NAME }}
 
       - name: checkup
-        run: ls -l dist/apps/slam/app/public
+        run: ls -l -a dist/apps/slam/app/public
 
       - name: Build container
         id: build-image
