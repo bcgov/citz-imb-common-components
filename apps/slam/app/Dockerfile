@@ -7,4 +7,4 @@ WORKDIR /app
 RUN ls -l -a
 COPY ./dist/apps/slam/app .
 EXPOSE 4200
-CMD ls -l
+CMD ls -l -a
