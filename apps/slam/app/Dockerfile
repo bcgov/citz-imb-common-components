@@ -4,6 +4,7 @@ WORKDIR /app
 # USER node
 COPY package*.json ./
 RUN npm install --production --silent
+RUN ls -l
 COPY ./dist/apps/slam/api .
 EXPOSE 4200
 CMD ls -l
