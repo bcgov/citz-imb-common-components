@@ -17,9 +17,18 @@ jobs:
       PORT: 3000
       # IMAGE_TAGS: role=frontend
 
+  test:
+    name: Test
+    needs: [build]
+    uses: bcgov/citz-imb/.github/workflows/Test.yml@main
+    with:
+      APP_NAME: slam-app
+      APP_PATH: ./apps/slam/app
+      PORT: 3000
+
   deploy-dev:
     name: Dev
-    needs: [build]
+    needs: [build, test]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
       APP_NAME: slam-app
