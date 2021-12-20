@@ -14,7 +14,7 @@ jobs:
     with:
       APP_NAME: slam-app
       APP_PATH: ./apps/slam/app
-      PORT: 4200
+      PORT: 3000
       # IMAGE_TAGS: role=frontend
 
   deploy-dev:
@@ -23,7 +23,7 @@ jobs:
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
       APP_NAME: slam-app
-      PORT: 4200
+      PORT: 3000
       ENVIRONMENT: dev
       REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
     secrets:

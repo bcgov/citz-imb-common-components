@@ -6,5 +6,5 @@ RUN npm install nx
 COPY . .
 RUN npm run build
 COPY ./dist/apps/slam/app .
-EXPOSE 4200
+EXPOSE 3000
 CMD npm run start
