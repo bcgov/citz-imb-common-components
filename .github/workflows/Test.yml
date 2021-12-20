@@ -1,16 +1,30 @@
 # @format
 
-name: GitHub Actions Demo
-
+name: Test
 on:
-  push:
-    branches: ["mainx"]
-
+  workflow_call:
+    inputs:
+      ENVIRONMENT:
+        type: string
+        required: false
+      APP_NAME:
+        required: true
+        type: string
+      APP_PATH:
+        required: true
+        type: string
+      PORT:
+        required: false
+        type: number
+        default: 8080
+      IMAGE_TAGS:
+        required: false
+        type: string
+        default: 'tag'
+        
 jobs:
-  Explore-GitHub-Actions:
-    if: startsWith(github.event.head_commit.message, 'fixes') || startsWith(github.event.head_commit.message, 'resolves')
+  Test:
     runs-on: ubuntu-latest
-    #if: contains(${{ github.event.head_commit.message }},'resolves')
     steps:
       - name: Dump GitHub context
         env:
