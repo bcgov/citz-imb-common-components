@@ -15,7 +15,7 @@ jobs:
       APP_NAME: slam-app
       APP_PATH: ./apps/slam/app
       PORT: 4200
-      IMAGE_TAGS: role=frontend
+      # IMAGE_TAGS: role=frontend
 
   deploy-dev:
     name: Dev
