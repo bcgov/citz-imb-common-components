@@ -1,32 +1,32 @@
-# @format
+# # @format
 
-version: '3'
-services:
-  slam-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        - NODE_VERSION=17.1.0-alpine3.14
-    ports:
-      - 80:3000
-  postgresdb:
-    image: postgres:14.1-alpine3.15
-    ports:
-      - 5432:5432
-    environment:
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=password
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-  pgadmin:
-    image: dpage/pgadmin4
-    ports:
-      - 90:80
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=user@email.com
-      - PGADMIN_DEFAULT_PASSWORD=password
+# version: '3'
+# services:
+#   slam-app:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#       args:
+#         - NODE_VERSION=17.1.0-alpine3.14
+#     ports:
+#       - 80:3000
+#   postgresdb:
+#     image: postgres:14.1-alpine3.15
+#     ports:
+#       - 5432:5432
+#     environment:
+#       - POSTGRES_USER=user
+#       - POSTGRES_PASSWORD=password
+#     volumes:
+#       - postgres-data:/var/lib/postgresql/data
+#   pgadmin:
+#     image: dpage/pgadmin4
+#     ports:
+#       - 90:80
+#     environment:
+#       - PGADMIN_DEFAULT_EMAIL=user@email.com
+#       - PGADMIN_DEFAULT_PASSWORD=password
 
-volumes:
-  postgres-data:
-    driver: local
+# volumes:
+#   postgres-data:
+#     driver: local
