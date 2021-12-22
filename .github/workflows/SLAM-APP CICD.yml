@@ -1,6 +1,9 @@
 # @format
 
-name: slam-app CICD Pipeline
+env:
+  app_name: slam-app
+
+name: ${{ env.app_name }} CICD Pipeline
 on:
   push:
     branches: [main]
@@ -9,25 +12,25 @@ on:
 
 jobs:
   build:
-    name: Application
+    name: ${{ env.app_name }}
     uses: bcgov/citz-imb/.github/workflows/Build.yml@main
     with:
-      APP_NAME: slam-app
+      APP_NAME: ${{ env.app_name }}
       APP_PATH: ./apps/slam/app
       PORT: 3000
       # IMAGE_TAGS: role=frontend
 
   test:
-    name: Test
+    name: ${{ env.app_name }}
     needs: [build]
     uses: bcgov/citz-imb/.github/workflows/Test.yml@main
     with:
-      APP_NAME: slam-app
+      APP_NAME: ${{ env.app_name }}
       APP_PATH: ./apps/slam/app
       PORT: 3000
 
   deploy-dev:
-    name: Dev
+    name: ${{ env.app_name }}
     needs: [build, test]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
@@ -42,7 +45,7 @@ jobs:
 
   deploy-test:
     if: startsWith(github.event.head_commit.message, 'IOD') && contains(github.event.head_commit.message, '#ready-for-review')
-    name: Test
+    name: ${{ env.app_name }}
     needs: [build, deploy-dev]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
@@ -67,7 +70,7 @@ jobs:
           message: 'slam-app successfully deployed to test'
 
   deploy-prod:
-    name: Production
+    name: ${{ env.app_name }}
     needs: [build, deploy-test]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
