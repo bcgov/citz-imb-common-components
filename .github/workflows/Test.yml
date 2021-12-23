@@ -1,6 +1,6 @@
 # @format
 
-name: Test
+name: Testy
 on:
   workflow_call:
     inputs:
@@ -21,7 +21,7 @@ on:
         required: false
         type: string
         default: 'tag'
-        
+
 jobs:
   Test:
     runs-on: ubuntu-latest

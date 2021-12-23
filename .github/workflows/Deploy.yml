@@ -49,4 +49,7 @@ jobs:
           image: ${{ inputs.REGISTRY_PATH }}
           namespace: ${{ secrets.OPENSHIFT_NAMESPACE }}
           port: ${{ inputs.PORT }}
-          label: role=frontend
+          build_env: role=frontend
+
+      - name: myLabels
+        run: echo ${{ steps.deploy-and-expose.outputs.selector  }}
