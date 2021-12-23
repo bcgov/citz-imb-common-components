@@ -28,7 +28,7 @@ jobs:
     needs: [build]
     uses: bcgov/citz-imb/.github/workflows/Test.yml@main
     with:
-      APP_NAME: ${{ env.APP_NAME }}
+      APP_NAME: $APP_NAME
       APP_PATH: ./apps/slam/app
       PORT: 3000
 
@@ -37,7 +37,7 @@ jobs:
     needs: [build, test]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
-      APP_NAME: ${{ env.APP_NAME }}
+      APP_NAME: $APP_NAME
       PORT: 3000
       ENVIRONMENT: dev
       REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
@@ -52,7 +52,7 @@ jobs:
     needs: [build, deploy-dev]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
-      APP_NAME: ${{ env.APP_NAME }}
+      APP_NAME: $APP_NAME
       PORT: 4200
       ENVIRONMENT: test
       REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
@@ -77,7 +77,7 @@ jobs:
     needs: [build, deploy-test]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
-      APP_NAME: ${{ env.APP_NAME }}
+      APP_NAME: $APP_NAME
       PORT: 4200
       ENVIRONMENT: prod
       REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
