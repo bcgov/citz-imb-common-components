@@ -3,19 +3,21 @@
 import { useEffect, useState, useCallback } from 'react';
 
 export function Index() {
-  const [state, setstate] = useState({});
+  const [state, setstate] = useState({ message: 'whatchoo talkin bout willis?' });
 
   const getSlam = useCallback(async () => {
-    const response = await fetch('http://localhost:3333/api');
-    const body = await response.json();
+    try {
+      const response = await fetch('http://localhost:3333/api');
+      const body = await response.json();
 
-    setstate(body);
+      setstate(body);
+    } catch (error) {}
   }, []);
 
   useEffect(() => {
     getSlam();
   }, []);
-  return <div>{JSON.stringify(state)}</div>;
+  return <div>Backend: {state?.message}</div>;
 }
 
 export default Index;
