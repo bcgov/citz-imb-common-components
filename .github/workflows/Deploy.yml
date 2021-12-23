@@ -49,3 +49,4 @@ jobs:
           image: ${{ inputs.REGISTRY_PATH }}
           namespace: ${{ secrets.OPENSHIFT_NAMESPACE }}
           port: ${{ inputs.PORT }}
+          label: role=frontend

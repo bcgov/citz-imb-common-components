@@ -1,20 +1,24 @@
 # @format
 
-# kind: NetworkPolicy
-# apiVersion: networking.k8s.io/v1
-# metadata:
-#   name: allow-http-and-https
-# spec:
-#   podSelector:
-#     matchLabels:
-#       role: frontend
-#   ingress:
-#   - ports:
-#     - protocol: TCP
-#       port: 80
-#     - protocol: TCP
-#       port: 443
-# ---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-loadgen-to-frontend
+spec:
+  podSelector:
+    matchLabels:
+      role: frontend
+  ingress:
+    - ports:
+        - protocol: TCP
+          port: 8080
+      from:
+        - podSelector:
+            matchLabels:
+              role: loadgenerator
+  policyTypes:
+    - Ingress
+---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -25,7 +29,9 @@ spec:
         - namespaceSelector:
             matchLabels:
               network.openshift.io/policy-group: ingress
-  podSelector: {}
+  podSelector:
+    matchLabels:
+      role: frontend
   policyTypes:
     - Ingress
 ---

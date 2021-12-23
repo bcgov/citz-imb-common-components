@@ -3,7 +3,7 @@ These are manual deployments that should only need to be done one-time, or when 
 ## namespaces
 each namespace
 ```
-oc apply -f allow-http-and-https.yml
+oc apply -f network-policies.yml
 ```
 ## database
 ### pgadmin
