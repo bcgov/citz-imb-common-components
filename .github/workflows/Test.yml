@@ -1,6 +1,11 @@
 # @format
 
 name: Test
+
+env:
+  myName: McTester
+  myOtherName: ${{ 'Other McTester' }}
+
 on:
   workflow_call:
     inputs:
@@ -51,3 +56,7 @@ jobs:
         env:
           MATRIX_CONTEXT: ${{ toJSON(matrix) }}
         run: echo "$MATRIX_CONTEXT"
+      - name: Dump matrix context
+        env:
+          ENV_CONTEXT: ${{ toJSON(env) }}
+        run: echo "$ENV_CONTEXT"
