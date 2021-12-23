@@ -18,7 +18,7 @@ jobs:
     name: $APP_NAME
     uses: bcgov/citz-imb/.github/workflows/Build.yml@main
     with:
-      APP_NAME: ${{ env.APP_NAME }}
+      APP_NAME: $APP_NAME
       APP_PATH: ./apps/slam/app
       PORT: 3000
       # IMAGE_TAGS: role=frontend
