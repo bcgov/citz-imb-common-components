@@ -1,6 +1,6 @@
 # @format
 
-name: Testy
+name: Test
 on:
   workflow_call:
     inputs:
@@ -23,7 +23,7 @@ on:
         default: 'tag'
 
 jobs:
-  Test:
+  Testy:
     runs-on: ubuntu-latest
     steps:
       - name: Dump GitHub context

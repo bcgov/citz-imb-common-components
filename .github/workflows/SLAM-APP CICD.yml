@@ -13,7 +13,7 @@ on:
 
 jobs:
   build:
-    # name: slam-app
+    name: slam-app
     uses: bcgov/citz-imb/.github/workflows/Build.yml@main
     with:
       APP_NAME: slam-app
