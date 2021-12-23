@@ -1,6 +1,6 @@
 # @format
 
-name: ${{ env.APP_NAME }} CICD Pipeline
+name: CICD Pipeline
 
 env:
   APP_NAME: slam-app
