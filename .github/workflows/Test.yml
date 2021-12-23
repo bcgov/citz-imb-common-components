@@ -23,7 +23,8 @@ on:
         default: 'tag'
 
 jobs:
-  Testy:
+  Unit-Tests:
+    name: My name is Unit Test
     runs-on: ubuntu-latest
     steps:
       - name: Dump GitHub context
