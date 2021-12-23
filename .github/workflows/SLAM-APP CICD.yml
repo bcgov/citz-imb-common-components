@@ -11,13 +11,14 @@ on:
   push:
     branches:
       - main
-      - '!/**/*.md'
+    paths-ignore:
+      - "**.md"
   pull_request:
     branches: [main]
 
 jobs:
   build:
-    name: slam-app
+    name: Build
     uses: bcgov/citz-imb/.github/workflows/Build.yml@main
     with:
       APP_NAME: slam-app
