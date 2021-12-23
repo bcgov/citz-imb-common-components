@@ -20,7 +20,7 @@ on:
       IMAGE_TAGS:
         required: false
         type: string
-        default: 'tag'
+        default: 'latest'
 
 jobs:
   Unit-Tests:
