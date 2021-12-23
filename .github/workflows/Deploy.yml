@@ -50,6 +50,3 @@ jobs:
           namespace: ${{ secrets.OPENSHIFT_NAMESPACE }}
           port: ${{ inputs.PORT }}
           build_env: role=frontend
-
-      - name: myLabels
-        run: echo ${{ steps.deploy-and-expose.outputs.selector  }}

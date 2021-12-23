@@ -1,6 +1,6 @@
 # @format
 
-name: Build-name
+name: Build
 on:
   workflow_call:
     inputs:
@@ -68,9 +68,6 @@ jobs:
       - name: Build application
         run: npx nx build  ${{ inputs.APP_NAME }}
 
-      - name: checkup
-        run: ls -l -a dist/apps/slam/app
-
       - name: Build container
         id: build-image
         uses: redhat-actions/buildah-build@v2
@@ -78,7 +75,6 @@ jobs:
           image: ${{ inputs.APP_NAME }}
           tags: ${{ inputs.IMAGE_TAGS }}
           containerfiles: ${{ inputs.APP_PATH }}/Dockerfile
-        # run: docker-compose up -d
 
       - name: Push to registry
         id: push-image

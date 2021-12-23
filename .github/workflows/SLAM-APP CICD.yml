@@ -2,11 +2,6 @@
 
 name: CICD Pipeline
 
-env:
-  APP_NAME: ${{ 'slam-app' }}
-  APP_PATH: ./apps/slam/app
-  PORT: 3000
-
 on:
   push:
     branches:
@@ -21,27 +16,26 @@ jobs:
     name: Build
     uses: bcgov/citz-imb/.github/workflows/Build.yml@main
     with:
-      APP_NAME: slam-app
-      APP_PATH: ./apps/slam/app
-      PORT: 3000
-      # IMAGE_TAGS: role=frontend
+      APP_NAME: slam-api
+      APP_PATH: ./apps/slam/api
+      PORT: 3333
 
   test:
-    name: slam-app
+    name: slam-api
     needs: [build]
     uses: bcgov/citz-imb/.github/workflows/Test.yml@main
     with:
-      APP_NAME: slam-app
-      APP_PATH: ./apps/slam/app
-      PORT: 3000
+      APP_NAME: slam-api
+      APP_PATH: ./apps/slam/api
+      PORT: 3333
 
   deploy-dev:
-    name: slam-app
+    name: slam-api
     needs: [build, test]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
-      APP_NAME: slam-app
-      PORT: 3000
+      APP_NAME: slam-api
+      PORT: 3333
       ENVIRONMENT: dev
       REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
     secrets:
@@ -51,12 +45,12 @@ jobs:
 
   deploy-test:
     if: startsWith(github.event.head_commit.message, 'IOD') && contains(github.event.head_commit.message, '#ready-for-review')
-    name: slam-app
+    name: slam-api
     needs: [build, deploy-dev]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
-      APP_NAME: slam-app
-      PORT: 4200
+      APP_NAME: slam-api
+      PORT: 3333
       ENVIRONMENT: test
       REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
     secrets:
@@ -73,15 +67,15 @@ jobs:
         uses: thechetantalwar/teams-notify@v2
         with:
           teams_webhook_url: ${{ secrets.TEAM_HOOK }}
-          message: 'slam-app successfully deployed to test'
+          message: 'slam-api successfully deployed to test'
 
   deploy-prod:
-    name: slam-app
+    name: slam-api
     needs: [build, deploy-test]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
-      APP_NAME: slam-app
-      PORT: 4200
+      APP_NAME: slam-api
+      PORT: 3333
       ENVIRONMENT: prod
       REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
     secrets:
@@ -98,4 +92,4 @@ jobs:
         uses: thechetantalwar/teams-notify@v2
         with:
           teams_webhook_url: ${{ secrets.TEAM_HOOK }}
-          message: 'slam-app successfully deployed to production'
+          message: 'slam-api successfully deployed to production'
