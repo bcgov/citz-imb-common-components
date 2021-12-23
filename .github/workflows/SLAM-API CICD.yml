@@ -1,6 +1,6 @@
 # @format
 
-name: CICD Pipeline
+name: SLAM-API CICD Pipeline
 
 on:
   push:
