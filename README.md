@@ -26,4 +26,9 @@ Commits must start with the ticket number and may have the following actions (mu
   - #ready-for-review
   - #done
   - #cancelled
- 
+
+## Devcontainers
+[Developing inside a Container](https://code.visualstudio.com/docs/remote/containers)
+ 1. install [Docker for Desktop](https://www.docker.com/products/docker-desktop)
+ 2. install [VSCode](https://code.visualstudio.com/Download)
+ 3. 

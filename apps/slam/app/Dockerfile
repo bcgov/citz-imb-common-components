@@ -1,4 +1,4 @@
-FROM node:17.1.0-alpine3.14
+FROM node:17.3.0-alpine3.12
 WORKDIR /app
 COPY package*.json ./
 RUN npm install --production --silent

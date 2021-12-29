@@ -5,6 +5,7 @@
   "runArgs": ["-u", "node"],
   "settings": {},
   "postCreateCommand": "npm install",
+  "postStartCommand": "npm run start-many",
   "extensions": [
     "dbaeumer.vscode-eslint",
     "mtxr.sqltools",
