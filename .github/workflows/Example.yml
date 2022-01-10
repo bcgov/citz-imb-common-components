@@ -95,9 +95,10 @@ jobs:
           command: oc get deployments
 
       - name: Apply Labels
+        # oc get pod/${{ env.APP_NAME }}-${{ steps.commit-data.outputs.short_sha }}
         run: |
           echo "app_name: ${{ env.APP_NAME }}-${{ steps.commit-data.outputs.short_sha }}"
-          oc get pod/${{ env.APP_NAME }}-${{ steps.commit-data.outputs.short_sha }}
+
 
       - name: Echo outputs
         #     echo "job"
