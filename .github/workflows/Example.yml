@@ -9,7 +9,7 @@ on:
 
 env:
   IMAGE_PATH: quay.io/redhat-github-actions/petclinic:latest
-  TEST_NAMESPACE: github-actions-bot-dev
+  TEST_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
   APP_NAME: petclinic
   APP_PORT: 8080
   IMAGE_STREAM: github-actions-bot-dev/petclinic-${{ github.run_id }}
@@ -71,7 +71,7 @@ jobs:
         with:
           app_name: ${{ env.APP_NAME }}-${{ steps.commit-data.outputs.short_sha }}
           image: ${{ env.IMAGE }}
-          namespace: ${{ secrets.OPENSHIFT_NAMESPACE }}
+          namespace: ${{ env.TEST_NAMESPACE }}
           build_env: |
             MY_ENV=MY_VALUE
           # port: ${{ env.APP_PORT }}
