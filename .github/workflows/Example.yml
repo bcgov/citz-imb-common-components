@@ -98,7 +98,7 @@ jobs:
         # oc get pod/${{ env.APP_NAME }}-${{ steps.commit-data.outputs.short_sha }}
         run: |
           echo "app_name: ${{ env.APP_NAME }}-${{ steps.commit-data.outputs.short_sha }}"
-
+          oc label pod -l deployment=${{ env.APP_NAME }}-${{ steps.commit-data.outputs.short_sha }} role=frontend
 
       - name: Echo outputs
         #     echo "job"
