@@ -84,6 +84,15 @@ jobs:
 
       - name: Echo outputs
         run: |
+          echo "job"
+          echo "${{ toJSON(job) }}"
+          echo "steps"
+          echo "${{ toJSON(steps) }}"
+          echo "env"
+          echo "${{ toJSON(env) }}"
+          echo "github"
+          echo "${{ toJSON(github) }}"
+          echo "steps.oc-new-app.outputs"
           echo "${{ toJSON(steps.oc-new-app.outputs) }}"
 
       # Perform a (very) basic integration test.
