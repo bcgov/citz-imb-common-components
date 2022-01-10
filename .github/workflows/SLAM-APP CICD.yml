@@ -35,7 +35,6 @@ jobs:
       APP_NAME: slam-app
       APP_PATH: ./apps/slam/app
       PORT: 3000
-      SHORT_SHA: steps.commit-data.outputs.short_sha
 
   test:
     name: slam-app
@@ -55,6 +54,7 @@ jobs:
       PORT: 3000
       ENVIRONMENT: dev
       REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
+      SHORT_SHA: steps.commit-data.outputs.short_sha
     secrets:
       OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
       OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
@@ -70,6 +70,7 @@ jobs:
       PORT: 3000
       ENVIRONMENT: test
       REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
+      SHORT_SHA: steps.commit-data.outputs.short_sha
     secrets:
       OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
       OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
@@ -95,6 +96,7 @@ jobs:
       PORT: 3000
       ENVIRONMENT: prod
       REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
+      SHORT_SHA: steps.commit-data.outputs.short_sha
     secrets:
       OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
       OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
