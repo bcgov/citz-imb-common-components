@@ -60,8 +60,8 @@ jobs:
 
       - name: Apply Labels
         run: |
-          echo "app_name: ${{ input.APP_NAME }}"
-          oc label pod -l deployment=${{ input.APP_NAME }} role=frontend
+          echo "app_name: ${{ inputs.APP_NAME }}"
+          oc label pod -l deployment=${{ inputs.APP_NAME }} role=frontend
 
       # Perform a (very) basic integration test.
       # This step is retried since the time to pull the image and start the pod can vary.
