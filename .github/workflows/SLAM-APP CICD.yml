@@ -54,7 +54,6 @@ jobs:
       PORT: 3000
       ENVIRONMENT: dev
       REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
-      SHORT_SHA: ${{ needs.commit-data.outputs.short_sha }}
     secrets:
       OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
       OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
@@ -70,7 +69,6 @@ jobs:
       PORT: 3000
       ENVIRONMENT: test
       REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
-      SHORT_SHA: ${{ needs.commit-data.outputs.short_sha }}
     secrets:
       OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
       OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
@@ -96,7 +94,6 @@ jobs:
       PORT: 3000
       ENVIRONMENT: prod
       REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
-      SHORT_SHA: ${{ needs.commit-data.outputs.short_sha }}
     secrets:
       OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
       OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
