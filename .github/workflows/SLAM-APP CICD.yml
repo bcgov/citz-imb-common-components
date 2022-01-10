@@ -12,6 +12,19 @@ on:
     branches: [main]
 
 jobs:
+  commit-data-test:
+    name: Commit Data Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get commit short-sha
+        id: commit-data
+        uses: redhat-actions/common/commit-data@v1
+        
+      - name: echo commit-data
+        id: echo-data
+        run: |
+          echo "${{ steps.commit-data.outputs }}"
+
   build:
     name: Build
     uses: bcgov/citz-imb/.github/workflows/Build.yml@main
