@@ -5,7 +5,7 @@ on:
   push:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *' # every day at midnight 
+    - cron: '0 0 * * *' # every day at midnight
 
 env:
   IMAGE_PATH: quay.io/redhat-github-actions/petclinic:latest
@@ -86,7 +86,7 @@ jobs:
       - name: Apply Labels
         run: |
           echo "app_name: ${{ env.APP_NAME }}-${{ steps.commit-data.outputs.short_sha }}"
-          oc label pod/${{ env.APP_NAME }}-${{ steps.commit-data.outputs.short_sha }} role=fred
+          oc get pod/${{ env.APP_NAME }}-${{ steps.commit-data.outputs.short_sha }}
 
       - name: Echo outputs
         #     echo "job"
