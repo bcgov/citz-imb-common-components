@@ -84,7 +84,7 @@ jobs:
           # registry_password: ${{ secrets.REGISTRY_PASSWORD }}
 
       - name: Test project is running
-        id: test-project
+        id: test-pod
         uses: nick-invision/retry@v2.2.0
         with:
           timeout_seconds: 2
