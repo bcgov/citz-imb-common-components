@@ -71,7 +71,7 @@ jobs:
         with:
           app_name: ${{ env.APP_NAME }}-${{ steps.commit-data.outputs.short_sha }}
           image: ${{ env.IMAGE }}
-          namespace: ${{ env.TEST_NAMESPACE }}
+          namespace: ${{ secrets.OPENSHIFT_NAMESPACE }}
           build_env: |
             MY_ENV=MY_VALUE
           # port: ${{ env.APP_PORT }}
