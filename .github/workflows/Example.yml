@@ -82,6 +82,11 @@ jobs:
           # registry_username: ${{ env.REGISTRY_USERNAME }}
           # registry_password: ${{ secrets.REGISTRY_PASSWORD }}
 
+      - name: Apply Labels
+        run: |
+          echo "app_name: ${{ env.APP_NAME }}-${{ steps.commit-data.outputs.short_sha }}"
+          oc label ${{ env.APP_NAME }}-${{ steps.commit-data.outputs.short_sha }} role=fred
+
       - name: Echo outputs
         run: |
           echo "job"
