@@ -12,8 +12,8 @@ on:
     branches: [main]
 
 jobs:
-  commit-data-test:
-    name: commit-data
+  commit-data:
+    name: Commit Data
     runs-on: ubuntu-latest
     steps:
       - name: Checkout action
