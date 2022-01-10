@@ -75,6 +75,7 @@ jobs:
           image: ${{ inputs.APP_NAME }}
           tags: ${{ inputs.IMAGE_TAGS }}
           containerfiles: ${{ inputs.APP_PATH }}/Dockerfile
+          labels: role=frontend
 
       - name: Push to registry
         id: push-image

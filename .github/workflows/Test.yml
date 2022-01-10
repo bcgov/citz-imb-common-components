@@ -1,4 +1,5 @@
 # @format
+# checkout https://github.com/redhat-actions/crda
 
 name: Test
 
