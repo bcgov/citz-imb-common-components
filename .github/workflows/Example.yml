@@ -85,7 +85,7 @@ jobs:
       - name: Apply Labels
         run: |
           echo "app_name: ${{ env.APP_NAME }}-${{ steps.commit-data.outputs.short_sha }}"
-          oc label ${{ env.APP_NAME }}-${{ steps.commit-data.outputs.short_sha }} role=fred
+          oc get pods
 
       - name: Echo outputs
         run: |
