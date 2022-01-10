@@ -9,7 +9,7 @@ on:
 
 env:
   IMAGE_PATH: quay.io/redhat-github-actions/petclinic:latest
-  TEST_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
+  TEST_NAMESPACE: ca94a8-tools
   APP_NAME: petclinic
   APP_PORT: 8080
   IMAGE_STREAM: github-actions-bot-dev/petclinic-${{ github.run_id }}
