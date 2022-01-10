@@ -83,6 +83,17 @@ jobs:
           # registry_username: ${{ env.REGISTRY_USERNAME }}
           # registry_password: ${{ secrets.REGISTRY_PASSWORD }}
 
+      - name: Test project is running
+        id: test-project
+        uses: nick-invision/retry@v2.2.0
+        with:
+          timeout_seconds: 2
+          retry_wait_seconds: 5
+          max_attempts: 20
+          warning_on_retry: false
+          # Just check that the root endpoint returns a success status (-f flag).
+          command: oc get pod/${{ env.APP_NAME }}-${{ steps.commit-data.outputs.short_sha }}
+
       - name: Apply Labels
         run: |
           echo "app_name: ${{ env.APP_NAME }}-${{ steps.commit-data.outputs.short_sha }}"
