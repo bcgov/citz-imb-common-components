@@ -73,7 +73,7 @@ jobs:
           image: ${{ env.IMAGE }}
           namespace: ${{ env.TEST_NAMESPACE }}
           build_env: |
-            MY_ENV=MY_VALUE
+            role=frontend
           # port: ${{ env.APP_PORT }}
           # create_pull_secret_from: podman
           # registry: quay.io
