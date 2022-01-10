@@ -41,6 +41,11 @@ jobs:
         id: commit-data
         uses: redhat-actions/common/commit-data@v1
 
+      - name: echo commit-data
+        id: echo-data
+        run: |
+          echo "${{ steps.commit-data.outputs }}"
+
       - name: Log in to OpenShift
         uses: redhat-actions/oc-login@v1
         with:
