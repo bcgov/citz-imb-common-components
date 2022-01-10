@@ -9,7 +9,7 @@ on:
     paths-ignore:
       - '**.md'
   pull_request:
-    branches: [main]
+    branches: [mainx]
 
 jobs:
   build:
