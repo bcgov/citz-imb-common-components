@@ -13,7 +13,7 @@ on:
 
 jobs:
   commit-data-test:
-    name: Commit Data Test
+    name: commit-data
     runs-on: ubuntu-latest
     steps:
       - name: Checkout action
@@ -47,14 +47,14 @@ jobs:
 
   deploy-dev:
     name: slam-app
-    needs: [build, test]
+    needs: [build, test, commit-data]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
       APP_NAME: slam-app
       PORT: 3000
       ENVIRONMENT: dev
       REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
-      SHORT_SHA: steps.commit-data.outputs.short_sha
+      SHORT_SHA: ${{ needs.commit-data.outputs.short_sha }}
     secrets:
       OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
       OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
@@ -63,14 +63,14 @@ jobs:
   deploy-test:
     if: startsWith(github.event.head_commit.message, 'IOD') && contains(github.event.head_commit.message, '#ready-for-review') && contains(github.event.head_commit.message, '#release')
     name: slam-app
-    needs: [build, deploy-dev]
+    needs: [build, deploy-dev, commit-data]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
       APP_NAME: slam-app
       PORT: 3000
       ENVIRONMENT: test
       REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
-      SHORT_SHA: steps.commit-data.outputs.short_sha
+      SHORT_SHA: ${{ needs.commit-data.outputs.short_sha }}
     secrets:
       OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
       OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
@@ -89,14 +89,14 @@ jobs:
 
   deploy-prod:
     name: slam-app
-    needs: [build, deploy-test]
+    needs: [build, deploy-test, commit-data]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
       APP_NAME: slam-app
       PORT: 3000
       ENVIRONMENT: prod
       REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
-      SHORT_SHA: ${{ steps.commit-data.outputs.short_sha }}
+      SHORT_SHA: ${{ needs.commit-data.outputs.short_sha }}
     secrets:
       OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
       OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
