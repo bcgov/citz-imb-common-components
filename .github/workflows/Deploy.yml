@@ -18,6 +18,11 @@ on:
       REGISTRY_PATH:
         required: true
         type: string
+      SHORT_SHA:
+        required: false
+        type: string
+        default: ''
+
     secrets:
       OPENSHIFT_SERVER:
         required: true
@@ -36,16 +41,6 @@ jobs:
     environment: ${{ inputs.ENVIRONMENT }}
 
     steps:
-      # Use the commit short-sha as the suffix of the app_name
-      - name: Get commit short-sha
-        id: commit-data
-        uses: redhat-actions/common/commit-data@v1
-
-      - name: echo commit-data
-        id: echo-data
-        run: |
-          echo "${{ steps.commit-data.outputs }}"
-
       - name: Log in to OpenShift
         uses: redhat-actions/oc-login@v1
         with:
@@ -58,7 +53,7 @@ jobs:
         id: deploy-and-expose
         uses: redhat-actions/oc-new-app@v1
         with:
-          app_name: ${{ inputs.APP_NAME }}-${{ steps.commit-data.outputs.short_sha }}
+          app_name: ${{ inputs.APP_NAME }}-${{ inputs.SHORT_SHA }}
           image: ${{ inputs.REGISTRY_PATH }}
           namespace: ${{ secrets.OPENSHIFT_NAMESPACE }}
           port: ${{ inputs.PORT }}

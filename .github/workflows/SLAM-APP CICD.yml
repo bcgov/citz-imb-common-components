@@ -35,6 +35,7 @@ jobs:
       APP_NAME: slam-app
       APP_PATH: ./apps/slam/app
       PORT: 3000
+      SHORT_SHA: steps.commit-data.outputs.short_sha
 
   test:
     name: slam-app
