@@ -92,7 +92,7 @@ jobs:
           max_attempts: 20
           warning_on_retry: false
           # Just check that the root endpoint returns a success status (-f flag).
-          command: oc get pod/${{ env.APP_NAME }}-${{ steps.commit-data.outputs.short_sha }}
+          command: oc get deployments
 
       - name: Apply Labels
         run: |
