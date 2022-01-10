@@ -90,9 +90,9 @@ jobs:
         id: test-project
         uses: nick-invision/retry@v2.2.0
         with:
-          timeout_seconds: 3
+          timeout_seconds: 5
           retry_wait_seconds: 10
-          max_attempts: 30
+          max_attempts: 100
           warning_on_retry: false
           # Just check that the root endpoint returns a success status (-f flag).
           command: curl -sSfLi ${{ steps.oc-new-app.outputs.route }}
