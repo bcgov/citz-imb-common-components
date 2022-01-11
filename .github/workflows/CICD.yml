@@ -35,7 +35,7 @@ jobs:
       matrix: ${{fromJson(needs.matrixsetup.outputs.matrix)}}
     steps:
       - name: Matrix Info
-        run: echo Run ${{ toJSon(matrix.app)}}
+        run: echo Run matrix.app.name
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
