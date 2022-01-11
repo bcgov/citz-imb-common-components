@@ -15,7 +15,7 @@ on:
 
 jobs:
   Unit-Tests:
-    name: My name is Unit Test
+    name: ${{ inputs.APPS.name }}
     runs-on: ${{ inputs.RUNNER }}
     strategy:
       matrix:
