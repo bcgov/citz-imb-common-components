@@ -25,4 +25,4 @@ jobs:
     name: Unit Tests
     uses: bcgov/citz-imb/.github/workflows/UnitTest.yml@main
     with:
-      APPS: slam-app
+      APPS: '[{"name":"slam-api","path":"./apps/slam/api"},{"name:":"slam-app","path":"./apps/slam/app"}]'

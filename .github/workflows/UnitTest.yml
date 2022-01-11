@@ -17,6 +17,8 @@ jobs:
   Unit-Tests:
     name: My name is Unit Test
     runs-on: ${{ inputs.RUNNER }}
+    strategy:
+      matrix: ${{ inputs.APPS }}
     steps:
       - name: Dump GitHub context
         env:
