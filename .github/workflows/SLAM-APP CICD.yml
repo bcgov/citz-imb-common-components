@@ -51,7 +51,7 @@ jobs:
     needs: [build, test, commit-data]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
-      APP_NAME: slam-app-${{ toJSON(jobs.commit-data.outputs.short_sha) }}
+      APP_NAME: slam-app-${{ toJSON(needs.commit-data.outputs.short_sha) }}
       PORT: 3000
       ENVIRONMENT: dev
       REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
@@ -66,7 +66,7 @@ jobs:
     needs: [build, deploy-dev, commit-data]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
-      APP_NAME: slam-app-${{ toJSON(jobs.commit-data.outputs.short_sha) }}
+      APP_NAME: slam-app-${{ toJSON(needs.commit-data.outputs.short_sha) }}
       PORT: 3000
       ENVIRONMENT: test
       REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
@@ -91,7 +91,7 @@ jobs:
     needs: [build, deploy-test, commit-data]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
-      APP_NAME: slam-app-${{ toJSON(jobs.commit-data.outputs.short_sha) }}
+      APP_NAME: slam-app-${{ toJSON(needs.commit-data.outputs.short_sha) }}
       PORT: 3000
       ENVIRONMENT: prod
       REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
