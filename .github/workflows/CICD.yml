@@ -18,7 +18,7 @@ env:
 
 jobs:
   show:
-    uses: bcgov/citz-imb/.github/workflows/UnitTest.yml@main
+    uses: bcgov/citz-imb/.github/workflows/Test.yml@main
     with:
       APPS: '["slam-api,"slam-app"]'
       ENVIRONMENTS: '["dev","test","prod"]'
