@@ -13,25 +13,18 @@ on:
       ENVIRONMENTS:
         type: string
         required: true
-      APP_NAME:
+      APPS:
         required: true
         type: string
-      APP_PATH:
+      RUNNER:
         required: false
         type: string
-      PORT:
-        required: false
-        type: number
-        default: 8080
-      IMAGE_TAGS:
-        required: false
-        type: string
-        default: 'latest'
+        default: ubuntu-latest
 
 jobs:
   Unit-Tests:
     name: My name is Unit Test
-    runs-on: ubuntu-latest
+    runs-on: ${{ inputs.RUNNER }}
     steps:
       - name: Dump GitHub context
         env:
@@ -61,3 +54,7 @@ jobs:
         env:
           ENV_CONTEXT: ${{ toJSON(env) }}
         run: echo "$ENV_CONTEXT"
+      - name: Dump input context
+        env:
+          INPUT_CONTEXT: ${{ toJSON(input) }}
+        run: echo "$INPUT_CONTEXT"

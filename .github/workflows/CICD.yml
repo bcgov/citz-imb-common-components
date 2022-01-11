@@ -44,15 +44,11 @@ jobs:
   tests:
     name: Unit Tests
     # needs: appmatrixsetup
-    runs-on: ${{env.runner}}
-    strategy:
-      matrix:
-        apps: ${{env.apps}}
-    steps:
-      - uses: bcgov/citz-imb/.github/workflows/Test.yml@main
-        with:
-          APP_NAME: ${{env.apps.name}}
-          ENVIRONMENTS: ${{env.environments}}
+    uses: bcgov/citz-imb/.github/workflows/Test.yml@main
+    with:
+      APPS: ${{env.apps.name}}
+      ENVIRONMENTS: ${{env.environments}}
+      RUNNER: ${{env.runner}}
 
   # Build:
   #   name: ${{ matrix.environments }}
