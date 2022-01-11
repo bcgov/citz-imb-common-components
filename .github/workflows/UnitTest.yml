@@ -8,6 +8,9 @@ on:
       APPS:
         required: true
         type: string
+      ENVIRONMENTS:
+        required: true
+        type: string
       RUNNER:
         required: false
         type: string
