@@ -20,7 +20,7 @@ jobs:
   show:
     uses: bcgov/citz-imb/.github/workflows/Test.yml@main
     with:
-      APPS: '["slam-api,"slam-app"]'
+      APPS: '[{"name:","slam-api},{"name":"slam-app"}]'
       ENVIRONMENTS: '["dev","test","prod"]'
       RUNNER: ubuntu-20.04
 
