@@ -15,7 +15,8 @@ env:
   runner: ubuntu-20.04
 
 jobs:
-  firstjob:
+  matrixsetup:
+    name: Setup App Matrix
     runs-on: ubuntu-20.04
     outputs:
       matrix: ${{ steps.setmatrix.outputs.matrix}}
@@ -23,16 +24,16 @@ jobs:
       - name: Set Dynamic Matrix
         id: setmatrix
         run: |
-          matrixStringifiedObject='{"include":[{"app":{"name":"slam-api"}},{"app":{"name:":"slam-app"}}]}'
+          matrixStringifiedObject='{"include":[{"app":{"name":"slam-api","path":"./apps/slam/api"}},{"app":{"name:":"slam-app","path":"./apps/slam/app"}}]}'
           echo "::set-output name=matrix::$matrixStringifiedObject"
 
   secondjob:
-    needs: firstjob
+    needs: matrixsetup
     runs-on: ubuntu-20.04
     strategy:
-      matrix: ${{fromJson(needs.firstjob.outputs.matrix)}}
+      matrix: ${{fromJson(needs.matrixsetup.outputs.matrix)}}
     steps:
-      - run: echo Run ${{matrix.app.name}}
+      - run: echo Run ${{matrix.app.name}}  ${{matrix.app.path}}
 
   # test:
   #   name: slam-api
