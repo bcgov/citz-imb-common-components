@@ -58,3 +58,7 @@ jobs:
         env:
           INPUT_CONTEXT: ${{ toJSON(inputs) }}
         run: echo "$INPUT_CONTEXT"
+      - name: App deconstruction
+        env:
+          APPS_CONTEXT: ${{ toJSON(inputs.APPS)}}
+        run: echo "$APPS_CONTEXT"
