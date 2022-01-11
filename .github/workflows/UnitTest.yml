@@ -15,7 +15,7 @@ on:
 
 jobs:
   Unit-Tests:
-    name: ${{ inputs.APPS.name }}
+    name: ${{ fromJson(inputs.APPS.name) }}
     runs-on: ${{ inputs.RUNNER }}
     strategy:
       matrix:
