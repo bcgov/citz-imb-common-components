@@ -33,7 +33,7 @@ jobs:
     needs: [commit-data]
     uses: bcgov/citz-imb/.github/workflows/Build.yml@main
     with:
-      APP_NAME: slam-app-${{ toJSON(jobs.commit-data.outputs.short_sha) }}
+      APP_NAME: slam-app-${{ toJSON(needs.commit-data.outputs.short_sha) }}
       APP_PATH: ./apps/slam/app
       PORT: 3000
 
