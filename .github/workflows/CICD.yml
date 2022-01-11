@@ -18,12 +18,15 @@ env:
 
 jobs:
   show:
-    runs-on: ubuntu-20.04
-    steps:
-      - run: echo ${{ env.apps }}
-  tests:
-    name: Unit Tests
     uses: bcgov/citz-imb/.github/workflows/UnitTest.yml@main
     with:
       APPS: '["slam-api,"slam-app"]'
       ENVIRONMENTS: '["dev","test","prod"]'
+      RUNNER: ubuntu-20.04
+
+  # tests:
+  #   name: Unit Tests
+  #   uses: bcgov/citz-imb/.github/workflows/UnitTest.yml@main
+  #   with:
+  #     APPS: '["slam-api,"slam-app"]'
+  #     ENVIRONMENTS: '["dev","test","prod"]'

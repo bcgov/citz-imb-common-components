@@ -56,5 +56,5 @@ jobs:
         run: echo "$ENV_CONTEXT"
       - name: Dump input context
         env:
-          INPUT_CONTEXT: ${{ toJSON(input) }}
+          INPUT_CONTEXT: ${{ toJSON(inputs) }}
         run: echo "$INPUT_CONTEXT"
