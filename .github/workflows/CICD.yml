@@ -23,7 +23,7 @@ jobs:
       - name: Set Dynamic Matrix
         id: setmatrix
         run: |
-          matrixStringifiedObject="{\"include\":[{\"run\":\"run1\"},{\"run\":\"run2\"}]}"
+          matrixStringifiedObject='{"include":[{"appname":"slam-api"},{"appname":"slam-app"}]}'
           echo "::set-output name=matrix::$matrixStringifiedObject"
 
   secondjob:
@@ -32,4 +32,15 @@ jobs:
     strategy:
       matrix: ${{fromJson(needs.firstjob.outputs.matrix)}}
     steps:
-      - run: echo Run ${{matrix.run}}
+      - run: echo Run ${{matrix.appname}}
+
+  # test:
+  #   name: slam-api
+  #   needs: [firstjob]
+  #   strategy:
+  #     matrix: ${{fromJson(needs.firstjob.outputs.matrix)}}
+  #   uses: bcgov/citz-imb/.github/workflows/Test.yml@main
+  #   with:
+  #     APP_NAME: ${{matrix.appname}}
+  #     APP_PATH: ./apps/slam/api
+  #     PORT: 3333
