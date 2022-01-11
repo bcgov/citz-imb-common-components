@@ -27,21 +27,40 @@ jobs:
           matrixStringifiedObject='{"include":[{"app":{"name":"slam-api","path":"./apps/slam/api"}},{"app":{"name:":"slam-app","path":"./apps/slam/app"}}]}'
           echo "::set-output name=matrix::$matrixStringifiedObject"
 
-  secondjob:
+  test:
+    name: Unit Testing
     needs: matrixsetup
     runs-on: ubuntu-20.04
     strategy:
       matrix: ${{fromJson(needs.matrixsetup.outputs.matrix)}}
     steps:
-      - run: echo Run ${{matrix.app.name}}  ${{matrix.app.path}}
-
-  # test:
-  #   name: slam-api
-  #   needs: [firstjob]
-  #   strategy:
-  #     matrix: ${{fromJson(needs.firstjob.outputs.matrix)}}
-  #   uses: bcgov/citz-imb/.github/workflows/Test.yml@main
-  #   with:
-  #     APP_NAME: ${{matrix.appname}}
-  #     APP_PATH: ./apps/slam/api
-  #     PORT: 3333
+      - name: Matrix Info
+        run: echo Run ${{ toJSon(matrix.app)}}
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJSON(job) }}
+        run: echo "$JOB_CONTEXT"
+      - name: Dump steps context
+        env:
+          STEPS_CONTEXT: ${{ toJSON(steps) }}
+        run: echo "$STEPS_CONTEXT"
+      - name: Dump runner context
+        env:
+          RUNNER_CONTEXT: ${{ toJSON(runner) }}
+        run: echo "$RUNNER_CONTEXT"
+      - name: Dump strategy context
+        env:
+          STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
+        run: echo "$STRATEGY_CONTEXT"
+      - name: Dump matrix context
+        env:
+          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
+        run: echo "$MATRIX_CONTEXT"
+      - name: Dump env context
+        env:
+          ENV_CONTEXT: ${{ toJSON(env) }}
+        run: echo "$ENV_CONTEXT"
