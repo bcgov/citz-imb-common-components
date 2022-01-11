@@ -2,10 +2,10 @@
 
 name: OpenShift Pet Clinic Workflow
 on:
-  push:
+  # push:
   workflow_dispatch:
-  schedule:
-    - cron: '0 0 * * *' # every day at midnight
+  # schedule:
+  # - cron: '0 0 * * *' # every day at midnight
 
 env:
   IMAGE_PATH: quay.io/redhat-github-actions/petclinic:latest

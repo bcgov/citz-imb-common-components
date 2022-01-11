@@ -12,28 +12,11 @@ on:
     branches: [main]
 
 jobs:
-  commit-data:
-    name: Commit Data
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout action
-        uses: actions/checkout@v2
-
-      - name: Get commit short-sha
-        id: commit-data
-        uses: redhat-actions/common/commit-data@v1
-
-      - name: echo commit-data
-        id: echo-data
-        run: |
-          echo "${{ toJSON(steps.commit-data.outputs) }}"
-
   build:
     name: Build
-    needs: [commit-data]
     uses: bcgov/citz-imb/.github/workflows/Build.yml@main
     with:
-      APP_NAME: slam-app-${{ toJSON(needs.commit-data.outputs.short_sha) }}
+      APP_NAME: slam-app
       APP_PATH: ./apps/slam/app
       PORT: 3000
 
@@ -48,10 +31,10 @@ jobs:
 
   deploy-dev:
     name: slam-app
-    needs: [build, test, commit-data]
+    needs: [build, test]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
-      APP_NAME: slam-app-${{ toJSON(needs.commit-data.outputs.short_sha) }}
+      APP_NAME: slam-app
       PORT: 3000
       ENVIRONMENT: dev
       REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
@@ -63,10 +46,10 @@ jobs:
   deploy-test:
     if: startsWith(github.event.head_commit.message, 'IOD') && contains(github.event.head_commit.message, '#ready-for-review') && contains(github.event.head_commit.message, '#release')
     name: slam-app
-    needs: [build, deploy-dev, commit-data]
+    needs: [build, deploy-dev]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
-      APP_NAME: slam-app-${{ toJSON(needs.commit-data.outputs.short_sha) }}
+      APP_NAME: slam-app
       PORT: 3000
       ENVIRONMENT: test
       REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
@@ -88,10 +71,10 @@ jobs:
 
   deploy-prod:
     name: slam-app
-    needs: [build, deploy-test, commit-data]
+    needs: [build, deploy-test]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
-      APP_NAME: slam-app-${{ toJSON(needs.commit-data.outputs.short_sha) }}
+      APP_NAME: slam-app
       PORT: 3000
       ENVIRONMENT: prod
       REGISTRY_PATH: ${{ needs.build.outputs.registry-path }}
