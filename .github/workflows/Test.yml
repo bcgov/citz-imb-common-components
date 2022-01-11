@@ -34,10 +34,6 @@ jobs:
         env:
           JOB_CONTEXT: ${{ toJSON(job) }}
         run: echo "$JOB_CONTEXT"
-      - name: Dump steps context
-        env:
-          STEPS_CONTEXT: ${{ toJSON(steps) }}
-        run: echo "$STEPS_CONTEXT"
       - name: Dump runner context
         env:
           RUNNER_CONTEXT: ${{ toJSON(runner) }}
@@ -59,6 +55,11 @@ jobs:
           INPUT_CONTEXT: ${{ toJSON(inputs) }}
         run: echo "$INPUT_CONTEXT"
       - name: App deconstruction
+        id: app_decon
         env:
-          APPS_CONTEXT: ${{ inputs.APPS.name}}
+          APPS_CONTEXT: ${{ toJSON(inputs.APPS)}}
         run: echo "$APPS_CONTEXT"
+      - name: APP Presentation
+        env:
+          STEPS_CONTEXT: ${{ toJSON(steps.app_decon.outputs) }}
+        run: echo "$STEPS_CONTEXT"
