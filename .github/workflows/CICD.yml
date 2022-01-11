@@ -24,10 +24,10 @@ jobs:
       - name: Set Dynamic Matrix
         id: setmatrix
         run: |
-          matrixStringifiedObject='{"include":[{"app":{"name":"slam-api","path":"./apps/slam/api"}},{"app":{"name:":"slam-app","path":"./apps/slam/app"}}]}'
+          matrixStringifiedObject='{"include":[{"app":{"name":"slam-api","path":"./apps/slam/api"}},{"app":{"name:":"slam-app","path":"./apps/slam/app"}},{"environments":"dev"}]}'
           echo "::set-output name=matrix::$matrixStringifiedObject"
 
-  test:
+  tests:
     name: Unit Tests
     needs: matrixsetup
     runs-on: ubuntu-20.04
@@ -66,8 +66,8 @@ jobs:
         run: echo "$ENV_CONTEXT"
 
   Build:
-    name: ${{ inputs.ENVIRONMENT }}
-    needs: matrixsetup
+    name: ${{ matrix.environments }}
+    needs: [matrixsetup, tests]
     runs-on: ubuntu-20.04
     strategy:
       matrix: ${{fromJson(needs.matrixsetup.outputs.matrix)}}
@@ -107,7 +107,7 @@ jobs:
         run: npm install @nrwl/cli --silent
 
       - name: Build application
-        run: npx nx build  ${{ inputs.APP_NAME }}
+        run: npx nx build  ${{ matrix.app.name }}
 
       - name: Build container
         id: build-image
