@@ -22,7 +22,7 @@ jobs:
     runs-on: ${{ inputs.RUNNER }}
     strategy:
       matrix:
-        APPS: ${{ fromJson(inputs.APPS) }}
-        ENVIRONMENTS: ${{ fromJson(inputs.ENVIRONMENTS) }}
+        APPS: ['slam-api', 'slam-app']
+        ENVIRONMENTS: ['dev', 'test', 'prod']
     steps:
       - run: echo ${{ matrix.APPS }} ${{ matrix.ENVIRONMENTS }}
