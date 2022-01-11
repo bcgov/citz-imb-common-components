@@ -1,3 +1,5 @@
+# @format
+
 name: CICD
 
 on:
@@ -15,10 +17,19 @@ env:
 jobs:
   firstjob:
     runs-on: ubuntu-20.04
-    strategy:
-      fail-fast: true
-      matrix:
-        apps: ['slam-api', 'slam-app']
+    outputs:
+      matrix: ${{ steps.setmatrix.outputs.matrix}}
+    steps:
+      - name: Set Dynamic Matrix
+        id: setmatrix
+        run: |
+          matrixStringifiedObject="{\"include\":[{\"run\":\"run1\"},{\"run\":\"run2\"}]}"
+          echo "::set-output name=matrix::$matrixStringifiedObject"
 
+  secondjob:
+    needs: firstjob
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix: ${{fromJson(needs.firstjob.outputs.matrix)}}
     steps:
       - run: echo Run ${{matrix.run}}
