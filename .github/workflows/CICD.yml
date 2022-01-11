@@ -25,5 +25,5 @@ jobs:
     name: Unit Tests
     uses: bcgov/citz-imb/.github/workflows/UnitTest.yml@main
     with:
-      APPS: '[{"name":"slam-api","path":"./apps/slam/api"},{"name:":"slam-app","path":"./apps/slam/app"}]'
+      APPS: '["slam-api,"slam-app"]'
       ENVIRONMENTS: '["dev","test","prod"]'

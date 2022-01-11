@@ -18,10 +18,11 @@ on:
 
 jobs:
   Unit-Tests:
-    name: ${{ matrix.APPS.name }}
+    name: ${{ matrix.APPS }}
     runs-on: ${{ inputs.RUNNER }}
     strategy:
       matrix:
         APPS: ${{ fromJson(inputs.APPS) }}
+        ENVIRONMENTS: ${{ fromJson(inputs.ENVIRONMENTS) }}
     steps:
-      - run: echo ${{ matrix.APPS.name }} ${{ matrix.ENVIRONMENT }}
+      - run: echo ${{ matrix.APPS }} ${{ matrix.ENVIRONMENTS }}
