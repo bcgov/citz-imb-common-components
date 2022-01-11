@@ -25,4 +25,4 @@ jobs:
     name: Unit Tests
     uses: bcgov/citz-imb/.github/workflows/UnitTest.yml@main
     with:
-      APP_NAME: slam-app
+      APPS: slam-app
