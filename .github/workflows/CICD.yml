@@ -46,8 +46,8 @@ jobs:
     # needs: appmatrixsetup
     uses: bcgov/citz-imb/.github/workflows/Test.yml@main
     with:
-      APPS: ${{env.apps.name}}
-      ENVIRONMENTS: ${{env.environments}}
+      APPS: ${{ fromJson(env.apps.name) }}
+      ENVIRONMENTS: ${{ fromJson(env.environments) }}
       RUNNER: ${{env.runner}}
 
   # Build:
