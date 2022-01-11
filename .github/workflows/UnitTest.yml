@@ -19,7 +19,7 @@ jobs:
     runs-on: ${{ inputs.RUNNER }}
     strategy:
       matrix:
-        APPS: ${{ inputs.APPS }}
+        APPS: ${{ fromJson(inputs.APPS) }}
     steps:
       - name: Dump GitHub context
         env:
