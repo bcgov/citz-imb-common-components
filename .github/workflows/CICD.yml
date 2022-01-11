@@ -23,7 +23,7 @@ jobs:
       - name: Set Dynamic Matrix
         id: setmatrix
         run: |
-          matrixStringifiedObject='{"include":[{"appname":"slam-api"},{"appname":"slam-app"}]}'
+          matrixStringifiedObject='{"include":[{"app":{"name":"slam-api"}},{"app":{"name:":"slam-app"}}]}'
           echo "::set-output name=matrix::$matrixStringifiedObject"
 
   secondjob:
@@ -32,7 +32,7 @@ jobs:
     strategy:
       matrix: ${{fromJson(needs.firstjob.outputs.matrix)}}
     steps:
-      - run: echo Run ${{matrix.appname}}
+      - run: echo Run ${{matrix.app.name}}
 
   # test:
   #   name: slam-api
