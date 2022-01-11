@@ -13,70 +13,46 @@ on:
 
 env:
   runner: ubuntu-20.04
+  apps: '[{"name":"slam-api","path":"./apps/slam/api"},{"name:":"slam-app","path":"./apps/slam/app"}]'
+  environments: '["dev"]'
 
 jobs:
-  appmatrixsetup:
-    name: Prepare App Matrix
-    runs-on: ubuntu-20.04
-    outputs:
-      matrix: ${{ steps.setmatrix.outputs.matrix}}
-    steps:
-      - name: Set Dynamic Matrix
-        id: setmatrix
-        run: |
-          matrixStringifiedObject='[{"name":"slam-api","path":"./apps/slam/api"},{"name:":"slam-app","path":"./apps/slam/app"}]'
-          echo "::set-output name=matrix::$matrixStringifiedObject"
+  # appmatrixsetup:
+  #   name: Prepare App Matrix
+  #   runs-on: ubuntu-20.04
+  #   outputs:
+  #     matrix: ${{ steps.setmatrix.outputs.matrix}}
+  #   steps:
+  #     - name: Set Dynamic Matrix
+  #       id: setmatrix
+  #       run: |
+  #         matrixStringifiedObject='[{"name":"slam-api","path":"./apps/slam/api"},{"name:":"slam-app","path":"./apps/slam/app"}]'
+  #         echo "::set-output name=matrix::$matrixStringifiedObject"
 
-  envmatrixsetup:
-    name: Prepare Environment Matrix
-    runs-on: ubuntu-20.04
-    outputs:
-      matrix: ${{ steps.setmatrix.outputs.matrix}}
-    steps:
-      - name: Set Dynamic Matrix
-        id: setmatrix
-        run: |
-          matrixStringifiedObject='{"include":[{"environment":"dev"}]}'
-          echo "::set-output name=matrix::$matrixStringifiedObject"
+  # envmatrixsetup:
+  #   name: Prepare Environment Matrix
+  #   runs-on: ubuntu-20.04
+  #   outputs:
+  #     matrix: ${{ steps.setmatrix.outputs.matrix}}
+  #   steps:
+  #     - name: Set Dynamic Matrix
+  #       id: setmatrix
+  #       run: |
+  #         matrixStringifiedObject='{"include":[{"environment":"dev"}]}'
+  #         echo "::set-output name=matrix::$matrixStringifiedObject"
 
   tests:
     name: Unit Tests
-    needs: appmatrixsetup
-    runs-on: ubuntu-20.04
+    # needs: appmatrixsetup
+    runs-on: ${{env.runner}}
     strategy:
       matrix:
-        apps: ${{fromJson(needs.appmatrixsetup.outputs.matrix)}}
+        apps: ${{env.apps}}
     steps:
-      - name: Matrix Info
-        run: echo Run matrix.app.name
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJSON(job) }}
-        run: echo "$JOB_CONTEXT"
-      - name: Dump steps context
-        env:
-          STEPS_CONTEXT: ${{ toJSON(steps) }}
-        run: echo "$STEPS_CONTEXT"
-      - name: Dump runner context
-        env:
-          RUNNER_CONTEXT: ${{ toJSON(runner) }}
-        run: echo "$RUNNER_CONTEXT"
-      - name: Dump strategy context
-        env:
-          STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
-        run: echo "$STRATEGY_CONTEXT"
-      - name: Dump matrix context
-        env:
-          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
-        run: echo "$MATRIX_CONTEXT"
-      - name: Dump env context
-        env:
-          ENV_CONTEXT: ${{ toJSON(env) }}
-        run: echo "$ENV_CONTEXT"
+      - uses: bcgov/citz-imb/.github/workflows/Test.yml@main
+        with:
+          APP_NAME: ${{env.apps.name}}
+          ENVIRONMENTS: ${{env.environments}}
 
   # Build:
   #   name: ${{ matrix.environments }}

@@ -10,14 +10,14 @@ env:
 on:
   workflow_call:
     inputs:
-      ENVIRONMENT:
+      ENVIRONMENTS:
         type: string
-        required: false
+        required: true
       APP_NAME:
         required: true
         type: string
       APP_PATH:
-        required: true
+        required: false
         type: string
       PORT:
         required: false
