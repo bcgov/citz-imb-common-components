@@ -59,12 +59,14 @@ jobs:
       - name: Build application
         run: npx nx build  ${{ matrix.APPS.name }}
 
+      - name: check app name
+        run: echo ${{ matrix.APPS.name }}
+        
       - name: Build container
         id: build-image
         uses: redhat-actions/buildah-build@v2
         with:
           image: ${{ matrix.APPS.name }}
-          tags: "I am tag"
           containerfiles: ${{ matrix.APPS.path }}/Dockerfile
 
       - name: Push to registry
