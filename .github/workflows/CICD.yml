@@ -11,21 +11,18 @@ on:
   pull_request:
     branches: [main]
 
+# apps with environments: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name:":"slam-app","path":"./apps/slam/app"}],"ENVIRONMENTS":["dev","test","prod"]}'
+# apps without environments: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name:":"slam-app","path":"./apps/slam/app"}]}'
+
 jobs:
   checkenv:
     runs-on: ubuntu-20.04
     steps:
       - run: env
 
-  show:
+  tests:
+    name: Unit Testing
     uses: bcgov/citz-imb/.github/workflows/UnitTest.yml@main
     with:
-      MATRIX_INCLUDE: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name:":"slam-app","path":"./apps/slam/app"}],"ENVIRONMENTS":["dev","test","prod"]}'
+      MATRIX_INCLUDE: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name:":"slam-app","path":"./apps/slam/app"}]}'
       OS: ubuntu-20.04
-
-  # tests:
-  #   name: Unit Tests
-  #   uses: bcgov/citz-imb/.github/workflows/UnitTest.yml@main
-  #   with:
-  #     APPS: '["slam-api,"slam-app"]'
-  #     ENVIRONMENTS: '["dev","test","prod"]'

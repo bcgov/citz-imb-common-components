@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix: ${{fromJSON(inputs.MATRIX_INCLUDE)}}
     steps:
-      - name: echo params
+      - name: echo matrix
         run: echo "${{ toJSON(matrix) }}"
 
       - name: echo inputs
