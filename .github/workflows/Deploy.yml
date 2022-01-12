@@ -41,7 +41,7 @@ jobs:
         uses: redhat-actions/oc-new-app@v1
         with:
           app_name: ${{ matrix.APPS.name }}
-          image: ${{ inputs.REGISTRY_PATH }}
+          image: ghcr.io/bcgov/${{ matrix.APPS.name }}
           namespace: ${{ secrets.OPENSHIFT_NAMESPACE }}
           port: ${{ inputs.PORT }}
 
