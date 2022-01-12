@@ -11,6 +11,10 @@ on:
   pull_request:
     branches: [main]
 
+concurrency:
+  group: citz-imb-CICD
+  cancel-in-progress: false
+
 jobs:
   commit-data:
     runs-on: ubuntu-20.04
@@ -60,7 +64,7 @@ jobs:
   deploy-test:
     if: contains(github.event.head_commit.message, '#release')
     name: Deploy Test
-    needs: [deploy-dev]
+    needs: [commit-data, deploy-dev]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
       MATRIX_INCLUDE: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}'
@@ -76,7 +80,7 @@ jobs:
   deploy-prod:
     if: contains(github.event.head_commit.message, '#release')
     name: Deploy Prod
-    needs: [deploy-test]
+    needs: [commit-data, deploy-test]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
       MATRIX_INCLUDE: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}'
