@@ -20,8 +20,8 @@ jobs:
       - name: Get commit short-sha
         id: commit-data
         uses: redhat-actions/common/commit-data@v1
-      - name: echo jobs
-        run: echo '${{ toJSON(jobs) }}'
+      - name: echo steps
+        run: echo '${{ toJSON(steps) }}'
 
   use-data:
     runs-on: ubuntu-20.04
