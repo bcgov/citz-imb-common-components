@@ -26,7 +26,7 @@ jobs:
         ENVIRONMENTS: ['dev', 'test', 'prod']
     steps:
       - name: echo params
-        run: echo "${{ matrix.APPS }} ${{ matrix.ENVIRONMENTS }}""
+        run: echo "${{ matrix.APPS }} ${{ matrix.ENVIRONMENTS }}"
 
       - name: echo inputs
-        run: echo "${{ toJSON(inputs)}}""
+        run: echo "${{ toJSON(inputs)}}"
