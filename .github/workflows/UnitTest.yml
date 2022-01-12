@@ -25,6 +25,8 @@ jobs:
         APPS: ['slam-api', 'slam-app']
         ENVIRONMENTS: ['dev', 'test', 'prod']
     steps:
-      - run: echo ${{ matrix.APPS }} ${{ matrix.ENVIRONMENTS }}
+      - name: echo params
+        run: echo "${{ matrix.APPS }} ${{ matrix.ENVIRONMENTS }}""
 
-      - run: echo ${{ toJSON(inputs)}}
+      - name: echo inputs
+        run: echo "${{ toJSON(inputs)}}""
