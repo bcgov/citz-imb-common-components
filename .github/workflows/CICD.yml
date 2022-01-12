@@ -25,9 +25,10 @@ jobs:
 
   use-data:
     runs-on: ubuntu-20.04
+    needs: commit-data
     steps:
       - name: echo short sha
-        run: echo '${{ jobs.commit-data.outputs.short_sha }}"'
+        run: echo '${{ needs.commit-data.outputs.short_sha }}"'
   # build:
   #   name: Image Build
   #   uses: bcgov/citz-imb/.github/workflows/Build.yml@main
