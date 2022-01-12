@@ -11,21 +11,22 @@ on:
   pull_request:
     branches: [main]
 
-# apps with environments: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}],"ENVIRONMENTS":["dev","test","prod"]}'
-# apps without environments: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}'
-
 jobs:
-  checkenv:
+  commit-data:
+    name: Get commit short-sha
+    uses: redhat-actions/common/commit-data@v1
+
+  check_output:
     runs-on: ubuntu-20.04
     steps:
-      - run: env
-
+      - run: echo '${{ toJSON(jobs) }}'
   # build:
   #   name: Image Build
   #   uses: bcgov/citz-imb/.github/workflows/Build.yml@main
   #   with:
   #     MATRIX_INCLUDE: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}'
   #     OS: ubuntu-20.04
+  #     TAGS: latest
 
   # test:
   #   name: Testing
@@ -35,46 +36,46 @@ jobs:
   #     MATRIX_INCLUDE: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}'
   #     OS: ubuntu-20.04
 
-  deploy-dev:
-    name: Dev
-    # needs: [build, test]
-    uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
-    with:
-      MATRIX_INCLUDE: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}'
-      OS: ubuntu-20.04
-      ENVIRONMENT: dev
-    secrets:
-      OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
-      OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
-      OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
-      TEAM_HOOK: ${{ secrets.TEAM_HOOK }}
+  # deploy-dev:
+  #   name: Deploy Dev
+  #   needs: [build, test]
+  #   uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
+  #   with:
+  #     MATRIX_INCLUDE: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}'
+  #     OS: ubuntu-20.04
+  #     ENVIRONMENT: dev
+  #   secrets:
+  #     OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
+  #     OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
+  #     OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
+  #     TEAM_HOOK: ${{ secrets.TEAM_HOOK }}
 
-  deploy-test:
-    if: contains(github.event.head_commit.message, '#release')
-    name: Test
-    needs: [deploy-dev]
-    uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
-    with:
-      MATRIX_INCLUDE: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}'
-      OS: ubuntu-20.04
-      ENVIRONMENT: test
-    secrets:
-      OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
-      OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
-      OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
-      TEAM_HOOK: ${{ secrets.TEAM_HOOK }}
+  # deploy-test:
+  #   if: contains(github.event.head_commit.message, '#release')
+  #   name: Deploy Test
+  #   needs: [deploy-dev]
+  #   uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
+  #   with:
+  #     MATRIX_INCLUDE: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}'
+  #     OS: ubuntu-20.04
+  #     ENVIRONMENT: test
+  #   secrets:
+  #     OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
+  #     OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
+  #     OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
+  #     TEAM_HOOK: ${{ secrets.TEAM_HOOK }}
 
-  deploy-prod:
-    if: contains(github.event.head_commit.message, '#release')
-    name: Prod
-    needs: [deploy-test]
-    uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
-    with:
-      MATRIX_INCLUDE: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}'
-      OS: ubuntu-20.04
-      ENVIRONMENT: prod
-    secrets:
-      OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
-      OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
-      OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
-      TEAM_HOOK: ${{ secrets.TEAM_HOOK }}
+  # deploy-prod:
+  #   if: contains(github.event.head_commit.message, '#release')
+  #   name: Deploy Prod
+  #   needs: [deploy-test]
+  #   uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
+  #   with:
+  #     MATRIX_INCLUDE: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}'
+  #     OS: ubuntu-20.04
+  #     ENVIRONMENT: prod
+  #   secrets:
+  #     OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
+  #     OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
+  #     OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
+  #     TEAM_HOOK: ${{ secrets.TEAM_HOOK }}

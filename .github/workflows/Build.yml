@@ -11,6 +11,10 @@ on:
         required: false
         type: string
         default: ubuntu-latest
+      TAGS:
+        required: false
+        type: string
+        default: latest
     outputs:
       registry-path:
         value: ${{ jobs.Build.outputs.registry-path }}
@@ -73,6 +77,7 @@ jobs:
         uses: redhat-actions/buildah-build@v2
         with:
           image: ${{ matrix.APPS.name }}
+          tags: ${{ inputs.TAGS }}
           containerfiles: ${{ matrix.APPS.path }}/Dockerfile
 
       - name: Push to registry

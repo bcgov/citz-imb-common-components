@@ -1,7 +1,5 @@
 # @format
 
-# @format f
-
 name: Deploy
 on:
   workflow_call:
@@ -29,7 +27,7 @@ on:
 
 jobs:
   Deploy:
-    name: ${{ matrix.APPS.name }} / ${{ inputs.ENVIRONMENT }}
+    name: ${{ matrix.APPS.name }}
     runs-on: ${{ inputs.OS }}
     strategy:
       matrix: ${{fromJSON(inputs.MATRIX_INCLUDE)}}
@@ -51,7 +49,6 @@ jobs:
           app_name: ${{ matrix.APPS.name }}
           image: ghcr.io/bcgov/${{ matrix.APPS.name }}
           namespace: ${{ secrets.OPENSHIFT_NAMESPACE }}
-          # port: ${{ inputs.PORT }}
 
       - name: Apply Labels
         if: endsWith(matrix.APPS.name,'app')
@@ -59,8 +56,6 @@ jobs:
           echo "app_name: ${{ matrix.APPS.name }}"
           oc label pod -l deployment=${{ matrix.APPS.name }} role=frontend
 
-      # Perform a (very) basic integration test.
-      # This step is retried since the time to pull the image and start the pod can vary.
       - name: Verify web
         if: endsWith(matrix.APPS.name,'app')
         id: verify-web
@@ -70,7 +65,6 @@ jobs:
           retry_wait_seconds: 10
           max_attempts: 100
           warning_on_retry: false
-          # Just check that the root endpoint returns a success status (-f flag).
           command: curl -sSfLi ${{ steps.deploy-and-expose.outputs.route }}
 
       - name: Send Notification to Teams
