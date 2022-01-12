@@ -47,7 +47,7 @@ jobs:
           app_name: ${{ matrix.APPS.name }}
           image: ghcr.io/bcgov/${{ matrix.APPS.name }}
           namespace: ${{ secrets.OPENSHIFT_NAMESPACE }}
-          port: ${{ inputs.PORT }}
+          # port: ${{ inputs.PORT }}
 
       - name: Apply Labels
         if: endsWith(matrix.APPS.name,'app')
@@ -57,9 +57,9 @@ jobs:
 
       # Perform a (very) basic integration test.
       # This step is retried since the time to pull the image and start the pod can vary.
-      - name: Test project is running
+      - name: Verify web
         if: endsWith(matrix.APPS.name,'app')
-        id: test-project
+        id: verify-web
         uses: nick-invision/retry@v2.2.0
         with:
           timeout_seconds: 5
@@ -68,3 +68,9 @@ jobs:
           warning_on_retry: false
           # Just check that the root endpoint returns a success status (-f flag).
           command: curl -sSfLi ${{ steps.deploy-and-expose.outputs.route }}
+
+      - name: Send Notification to Teams
+        uses: thechetantalwar/teams-notify@v2
+        with:
+          teams_webhook_url: ${{ secrets.TEAM_HOOK }}
+          message: '${{ matrix.APPS.name }} successfully deployed to ${{ inputs.ENVIRONMENT }}.  ${{ steps.deploy-and-expose.outputs.route }}'

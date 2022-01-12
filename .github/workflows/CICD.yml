@@ -36,7 +36,7 @@ jobs:
   #     OS: ubuntu-20.04
 
   deploy-dev:
-    name: Deploy
+    name: Dev
     # needs: [build, test]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
@@ -49,7 +49,8 @@ jobs:
       OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
 
   deploy-test:
-    name: Deploy
+    if: contains(github.event.head_commit.message, '#ready-for-review') && contains(github.event.head_commit.message, '#release')
+    name: Test
     needs: [deploy-dev]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
@@ -62,13 +63,14 @@ jobs:
       OPENSHIFT_NAMESPACE: ${{ secrets.OPENSHIFT_NAMESPACE }}
 
   deploy-prod:
-    name: Deploy
+    if: contains(github.event.head_commit.message, '#ready-for-review') && contains(github.event.head_commit.message, '#release')
+    name: Prod
     needs: [deploy-test]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
       MATRIX_INCLUDE: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}'
       OS: ubuntu-20.04
-      ENVIRONMENT: test
+      ENVIRONMENT: prod
     secrets:
       OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
       OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
