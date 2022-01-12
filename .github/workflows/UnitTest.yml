@@ -21,7 +21,7 @@ jobs:
       matrix: ${{fromJSON('{"include":[{"apps":{"name":"slam-api","path":"./apps/slam/api"}},{"apps":{"name:":"slam-app","path":"./apps/slam/app"}},{"ENVIRONMENTS":"dev"},{"ENVIRONMENTS":"test"},{"ENVIRONMENTS":"prod"}]}')}}
     steps:
       - name: echo params
-        run: echo "${{ toJSON(matrix }}"
+        run: echo "${{ toJSON(matrix) }}"
 
       - name: echo inputs
-        run: echo "${{ toJSON(inputs)}}"
+        run: echo "${{ toJSON(inputs) }}"
