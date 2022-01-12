@@ -13,7 +13,7 @@ on:
 
 env:
   runner: ubuntu-20.04
-  apps: '[{"name":"slam-api","path":"./apps/slam/api"},{"name:":"slam-app","path":"./apps/slam/app"}]'
+  apps: '[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]'
   environments: '["dev"]'
 
 jobs:
