@@ -25,7 +25,7 @@ jobs:
     with:
       APPS: '[{"name":"slam-api},{"name":"slam-app"}]'
       ENVIRONMENTS: '["dev","test","prod"]'
-      OS: ${{ env.OS }}
+      OS: env.OS
 
   # tests:
   #   name: Unit Tests
