@@ -11,13 +11,16 @@ on:
   pull_request:
     branches: [main]
 
+env:
+  RUNNER: ubuntu-20.04
+
 jobs:
   show:
     uses: bcgov/citz-imb/.github/workflows/UnitTest.yml@main
     with:
       APPS: '[{"name":"slam-api},{"name":"slam-app"}]'
       ENVIRONMENTS: '["dev","test","prod"]'
-      RUNNER: ubuntu-20.04
+      RUNNER: ${{ env.RUNNER }}
 
   # tests:
   #   name: Unit Tests
