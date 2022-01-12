@@ -11,6 +11,10 @@ on:
         required: false
         type: string
         default: ubuntu-latest
+      ENVIRONMENT:
+        required: false
+        type: string
+        default: dev
     secrets:
       OPENSHIFT_SERVER:
         required: true
@@ -21,12 +25,11 @@ on:
 
 jobs:
   Deploy:
-    if: matrix.ENVIRONMENTS == 'dev'
-    name: ${{ matrix.APPS.name }}-${{ matrix.ENVIRONMENTS }}
+    name: ${{ matrix.APPS.name }} / ${{ inputs.ENVIRONMENT }}
     runs-on: ${{ inputs.OS }}
     strategy:
       matrix: ${{fromJSON(inputs.MATRIX_INCLUDE)}}
-    environment: ${{ matrix.ENVIRONMENTS }}
+    environment: ${{ inputs.ENVIRONMENT }}
 
     steps:
       - name: Log in to OpenShift
