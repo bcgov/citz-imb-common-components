@@ -13,15 +13,15 @@ on:
 
 jobs:
   commit-data:
-    name: Get commit short-sha
     runs-on: ubuntu-20.04
-
     steps:
-      - name: get sha
+      - name: Checkout action
+        uses: actions/checkout@v2
+      - name: Get commit short-sha
+        id: commit-data
         uses: redhat-actions/common/commit-data@v1
       - name: echo steps
-        run: echo '${{ toJSON(steps) }}'
-
+        run: echo ${{ toJSON(steps) }}
   # build:
   #   name: Image Build
   #   uses: bcgov/citz-imb/.github/workflows/Build.yml@main
