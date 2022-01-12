@@ -11,21 +11,18 @@ on:
   pull_request:
     branches: [main]
 
-env:
-  OS: ${{ 'ubuntu-20.04' }}
-
 jobs:
   checkenv:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - run: env
 
   show:
     uses: bcgov/citz-imb/.github/workflows/UnitTest.yml@main
     with:
-      APPS: '[{"name":"slam-api},{"name":"slam-app"}]'
+      APPS: '{"include":[{"apps":{"name":"slam-api","path":"./apps/slam/api"}},{"apps":{"name:":"slam-app","path":"./apps/slam/app"}},{"ENVIRONMENTS":"dev"},{"ENVIRONMENTS":"test"},{"ENVIRONMENTS":"prod"}]}'
       ENVIRONMENTS: '["dev","test","prod"]'
-      OS: env.OS
+      OS: ubuntu-20.04
 
   # tests:
   #   name: Unit Tests
