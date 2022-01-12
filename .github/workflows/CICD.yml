@@ -15,12 +15,17 @@ env:
   RUNNER: ubuntu-20.04
 
 jobs:
+  checkenv:
+    runs-on: ubuntu-latest
+    steps:
+      - run: env
+
   show:
     uses: bcgov/citz-imb/.github/workflows/UnitTest.yml@main
     with:
       APPS: '[{"name":"slam-api},{"name":"slam-app"}]'
       ENVIRONMENTS: '["dev","test","prod"]'
-      RUNNER: ${{ env.RUNNER }}
+      RUNNER: ubuntu-20.04
 
   # tests:
   #   name: Unit Tests
