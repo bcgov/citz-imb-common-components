@@ -30,6 +30,7 @@ jobs:
       - name: check inputs
         run: |
           echo "matrix include: ${{toJSON(inputs.MATRIX_INCLUDE)}}"
+          echo "matrix: ${{ toJSON(matrix) }}"
           echo "apps name: ${{ matrix.APPS.name }}"
           echo "apps path: ${{ matrix.APPS.path }}"
       - name: Check out Repository
