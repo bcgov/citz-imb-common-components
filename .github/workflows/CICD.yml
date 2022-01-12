@@ -27,7 +27,7 @@ jobs:
       MATRIX_INCLUDE: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}'
       OS: ubuntu-20.04
 
-  tests:
+  test:
     name: Testing
     needs: build
     uses: bcgov/citz-imb/.github/workflows/UnitTest.yml@main

@@ -18,6 +18,7 @@ jobs:
     runs-on: ${{ inputs.OS }}
     strategy:
       matrix: ${{fromJSON(inputs.MATRIX_INCLUDE)}}
+    environment: ${{ matrix.ENVIRONMENT }}
 
     steps:
       - name: Log in to OpenShift
