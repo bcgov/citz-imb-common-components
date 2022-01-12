@@ -50,7 +50,7 @@ jobs:
         id: deploy-and-expose
         uses: redhat-actions/oc-new-app@v1
         with:
-          app_name: ${{ matrix.APPS.name }}-${{ inputs.TAG }}
+          app_name: ${{ matrix.APPS.name }}
           image: ghcr.io/bcgov/${{ matrix.APPS.name }}:${{ inputs.TAG }}
           namespace: ${{ secrets.OPENSHIFT_NAMESPACE }}
 
@@ -58,7 +58,7 @@ jobs:
         if: endsWith(matrix.APPS.name,'app')
         run: |
           echo "app_name: ${{ matrix.APPS.name }}"
-          oc label pod -l deployment=${{ matrix.APPS.name }}-${{ inputs.TAG }} role=frontend
+          oc label pod -l deployment=${{ matrix.APPS.name }} role=frontend
 
       - name: Verify web
         if: endsWith(matrix.APPS.name,'app')
