@@ -70,6 +70,7 @@ jobs:
           command: curl -sSfLi ${{ steps.deploy-and-expose.outputs.route }}
 
       - name: Send Notification to Teams
+        if: endsWith(matrix.APPS.name,'app') && inputs.ENVIRONMENT != 'dev'
         uses: thechetantalwar/teams-notify@v2
         with:
           teams_webhook_url: ${{ secrets.TEAM_HOOK }}
