@@ -11,8 +11,8 @@ on:
   pull_request:
     branches: [main]
 
-# apps with environments: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name:":"slam-app","path":"./apps/slam/app"}],"ENVIRONMENTS":["dev","test","prod"]}'
-# apps without environments: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name:":"slam-app","path":"./apps/slam/app"}]}'
+# apps with environments: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}],"ENVIRONMENTS":["dev","test","prod"]}'
+# apps without environments: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}'
 
 jobs:
   checkenv:
