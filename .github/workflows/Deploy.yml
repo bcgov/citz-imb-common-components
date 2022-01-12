@@ -11,6 +11,13 @@ on:
         required: false
         type: string
         default: ubuntu-latest
+    secrets:
+      OPENSHIFT_SERVER:
+        required: true
+      OPENSHIFT_TOKEN:
+        required: true
+      OPENSHIFT_NAMESPACE:
+        required: true
 
 jobs:
   Deploy:
