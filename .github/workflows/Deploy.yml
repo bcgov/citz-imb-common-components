@@ -21,7 +21,7 @@ on:
 
 jobs:
   Deploy:
-    if: ${{ matrix.ENVIRONMENTS == 'dev' }}
+    if: matrix.ENVIRONMENTS == 'dev'
     name: ${{ matrix.APPS.name }}-${{ matrix.ENVIRONMENTS }}
     runs-on: ${{ inputs.OS }}
     strategy:
