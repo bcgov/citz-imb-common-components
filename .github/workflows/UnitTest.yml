@@ -5,10 +5,7 @@ name: Test
 on:
   workflow_call:
     inputs:
-      APPS:
-        required: true
-        type: string
-      ENVIRONMENTS:
+      MATRIX_INCLUDE:
         required: true
         type: string
       OS:
