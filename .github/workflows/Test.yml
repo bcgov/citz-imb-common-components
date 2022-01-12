@@ -57,7 +57,7 @@ jobs:
       - name: App deconstruction
         id: app_decon
         env:
-          APPS_CONTEXT: ${{ toJSON(inputs.APPS)}}
+          APPS_CONTEXT: ${{ fromJSON(inputs.APPS)}}
         run: echo "::set-output name=myapps::$APPS_CONTEXT"
       - name: APP Presentation
         env:
