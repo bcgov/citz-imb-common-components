@@ -50,6 +50,7 @@ jobs:
           port: ${{ inputs.PORT }}
 
       - name: Apply Labels
+        if: endWith(matrix.APPS.name,'app')
         run: |
           echo "app_name: ${{ matrix.APPS.name }}"
           oc label pod -l deployment=${{ matrix.APPS.name }} role=frontend
@@ -57,6 +58,7 @@ jobs:
       # Perform a (very) basic integration test.
       # This step is retried since the time to pull the image and start the pod can vary.
       - name: Test project is running
+        if: endWith(matrix.APPS.name,'app')
         id: test-project
         uses: nick-invision/retry@v2.2.0
         with:
