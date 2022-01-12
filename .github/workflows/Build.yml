@@ -27,6 +27,11 @@ jobs:
       matrix: ${{fromJSON(inputs.MATRIX_INCLUDE)}}
 
     steps:
+      - name: check inputs
+        run: |
+          echo "matrix include: ${{fromJSON(inputs.MATRIX_INCLUDE)}}"
+          echo "apps name: ${{ matrix.APPS.name }}"
+          echo "apps path: ${{ matrix.APPS.path }}"
       - name: Check out Repository
         uses: actions/checkout@v2
 
@@ -57,11 +62,11 @@ jobs:
         run: npm install @nrwl/cli --silent
 
       - name: Build application
-        run: npx nx build  ${{ matrix.APPS.name }}
+        run: npx nx build ${{ matrix.APPS.name }}
 
       - name: check app name
         run: echo ${{ matrix.APPS.name }}
-        
+
       - name: Build container
         id: build-image
         uses: redhat-actions/buildah-build@v2
