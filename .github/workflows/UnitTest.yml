@@ -18,7 +18,7 @@ jobs:
     name: ${{ matrix.APPS.name }}
     runs-on: ${{ inputs.OS }}
     strategy:
-      matrix: ${{fromJSON('{"include":[{"apps":{"name":"slam-api","path":"./apps/slam/api"}},{"apps":{"name:":"slam-app","path":"./apps/slam/app"}},{"ENVIRONMENTS":"dev"},{"ENVIRONMENTS":"test"},{"ENVIRONMENTS":"prod"}]}')}}
+      matrix: ${{fromJSON('{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name:":"slam-app","path":"./apps/slam/app"}],"ENVIRONMENTS":["dev","test","prod"]}')}}
     steps:
       - name: echo params
         run: echo "${{ toJSON(matrix) }}"
