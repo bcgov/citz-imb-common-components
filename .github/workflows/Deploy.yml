@@ -24,6 +24,8 @@ on:
         required: true
       OPENSHIFT_NAMESPACE:
         required: true
+      TEAM_HOOK:
+        required: true
 
 jobs:
   Deploy:
