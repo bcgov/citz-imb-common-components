@@ -29,7 +29,6 @@ jobs:
 
     steps:
       - name: Log in to OpenShift
-        if: ${{ matrix.ENVIRONMENTS === 'dev' }}
         uses: redhat-actions/oc-login@v1
         with:
           openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
@@ -38,7 +37,7 @@ jobs:
           namespace: ${{ secrets.OPENSHIFT_NAMESPACE }}
 
       - name: Deploy
-        if: ${{ matrix.ENVIRONMENTS === 'dev' }}
+        if: ${{ matrix.ENVIRONMENTS == 'dev' }}
         id: deploy-and-expose
         uses: redhat-actions/oc-new-app@v1
         with:
