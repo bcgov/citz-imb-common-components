@@ -15,7 +15,7 @@ on:
 
 jobs:
   Unit-Tests:
-    name: I am Unit Test
+    name: ${{ matrix.APPS.name }}
     runs-on: ${{ inputs.OS }}
     strategy:
       matrix: ${{fromJSON(inputs.MATRIX_INCLUDE)}}

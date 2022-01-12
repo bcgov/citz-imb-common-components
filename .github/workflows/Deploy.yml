@@ -4,41 +4,20 @@ name: Deploy
 on:
   workflow_call:
     inputs:
-      ENVIRONMENT:
-        type: string
-        required: false
-        default: 'tools'
-      APP_NAME:
+      MATRIX_INCLUDE:
         required: true
         type: string
-      PORT:
-        required: false
-        type: number
-        default: 8080
-      REGISTRY_PATH:
-        required: true
-        type: string
-      SHORT_SHA:
+      OS:
         required: false
         type: string
-        default: ''
-
-    secrets:
-      OPENSHIFT_SERVER:
-        required: true
-      OPENSHIFT_TOKEN:
-        required: true
-      OPENSHIFT_NAMESPACE:
-        required: true
-
-env:
-  SHA: ${{ github.ENVIRONMENT }}
+        default: ubuntu-latest
 
 jobs:
   Deploy:
-    name: Deploy to ${{ inputs.ENVIRONMENT }}
-    runs-on: ubuntu-latest
-    environment: ${{ inputs.ENVIRONMENT }}
+    name: ${{ matrix.APPS.name }}-${{ matrix.ENVIRONMENT }}
+    runs-on: ${{ inputs.OS }}
+    strategy:
+      matrix: ${{fromJSON(inputs.MATRIX_INCLUDE)}}
 
     steps:
       - name: Log in to OpenShift

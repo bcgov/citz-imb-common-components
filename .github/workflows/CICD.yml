@@ -21,16 +21,24 @@ jobs:
       - run: env
 
   build:
-    name: Container Build
+    name: Image Build
     uses: bcgov/citz-imb/.github/workflows/Build.yml@main
     with:
       MATRIX_INCLUDE: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}'
       OS: ubuntu-20.04
 
   tests:
-    name: Unit Testing
+    name: Testing
     needs: build
     uses: bcgov/citz-imb/.github/workflows/UnitTest.yml@main
     with:
       MATRIX_INCLUDE: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}'
+      OS: ubuntu-20.04
+
+  deploy:
+    name: Deploy
+    needs: [build, test]
+    uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
+    with:
+      MATRIX_INCLUDE: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}],"ENVIRONMENTS":["dev","test","prod"]}'
       OS: ubuntu-20.04

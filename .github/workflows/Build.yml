@@ -17,7 +17,7 @@ on:
 
 jobs:
   Build:
-    name: I am Build
+    name: ${{ matrix.APPS.name }}
     runs-on: ${{ inputs.OS }}
     outputs:
       registry-path: ${{ steps.push-image.outputs.registry-path }}
