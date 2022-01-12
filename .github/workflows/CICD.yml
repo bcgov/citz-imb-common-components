@@ -20,7 +20,7 @@ jobs:
   show:
     uses: bcgov/citz-imb/.github/workflows/UnitTest.yml@main
     with:
-      MATRIX_INCLUDE: '{"include":[{"apps":{"name":"slam-api","path":"./apps/slam/api"}},{"apps":{"name:":"slam-app","path":"./apps/slam/app"}},{"ENVIRONMENTS":"dev"},{"ENVIRONMENTS":"test"},{"ENVIRONMENTS":"prod"}]}'
+      MATRIX_INCLUDE: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name:":"slam-app","path":"./apps/slam/app"}],"ENVIRONMENTS":["dev","test","prod"]}'
       OS: ubuntu-20.04
 
   # tests:
