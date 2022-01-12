@@ -12,11 +12,11 @@ on:
     branches: [main]
 
 env:
-  RUNNER: ubuntu-20.04
+  OS: ${{ 'ubuntu-20.04' }}
 
 jobs:
   checkenv:
-    runs-on: ${{env.RUNNER}}
+    runs-on: ubuntu-latest
     steps:
       - run: env
 
@@ -25,7 +25,7 @@ jobs:
     with:
       APPS: '[{"name":"slam-api},{"name":"slam-app"}]'
       ENVIRONMENTS: '["dev","test","prod"]'
-      RUNNER: $RUNNER
+      OS: ${{ env.OS }}
 
   # tests:
   #   name: Unit Tests

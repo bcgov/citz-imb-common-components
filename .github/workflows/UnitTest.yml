@@ -11,7 +11,7 @@ on:
       ENVIRONMENTS:
         required: true
         type: string
-      RUNNER:
+      OS:
         required: false
         type: string
         default: ubuntu-latest
@@ -19,7 +19,7 @@ on:
 jobs:
   Unit-Tests:
     name: ${{ matrix.APPS }}
-    runs-on: ${{ inputs.RUNNER }}
+    runs-on: ${{ inputs.OS }}
     strategy:
       matrix:
         APPS: ['slam-api', 'slam-app']
