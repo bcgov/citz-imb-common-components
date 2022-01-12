@@ -15,6 +15,10 @@ on:
         required: false
         type: string
         default: dev
+      TAG:
+        required: false
+        type: string
+        default: latest
     secrets:
       OPENSHIFT_SERVER:
         required: true
@@ -46,15 +50,15 @@ jobs:
         id: deploy-and-expose
         uses: redhat-actions/oc-new-app@v1
         with:
-          app_name: ${{ matrix.APPS.name }}
-          image: ghcr.io/bcgov/${{ matrix.APPS.name }}
+          app_name: ${{ matrix.APPS.name }}-${{ inputs.TAG }}
+          image: ghcr.io/bcgov/${{ matrix.APPS.name }}:${{ inputs.TAG }}
           namespace: ${{ secrets.OPENSHIFT_NAMESPACE }}
 
       - name: Apply Labels
         if: endsWith(matrix.APPS.name,'app')
         run: |
           echo "app_name: ${{ matrix.APPS.name }}"
-          oc label pod -l deployment=${{ matrix.APPS.name }} role=frontend
+          oc label pod -l deployment=${{ matrix.APPS.name }}-${{ inputs.TAG }} role=frontend
 
       - name: Verify web
         if: endsWith(matrix.APPS.name,'app')
@@ -72,4 +76,4 @@ jobs:
         uses: thechetantalwar/teams-notify@v2
         with:
           teams_webhook_url: ${{ secrets.TEAM_HOOK }}
-          message: '${{ matrix.APPS.name }} successfully deployed to ${{ inputs.ENVIRONMENT }}.  ${{ steps.deploy-and-expose.outputs.route }}'
+          message: '${{ matrix.APPS.name }}-${{ inputs.TAG }} successfully deployed to ${{ inputs.ENVIRONMENT }}.  ${{ steps.deploy-and-expose.outputs.route }}'
