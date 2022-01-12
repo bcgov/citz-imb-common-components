@@ -21,7 +21,13 @@ jobs:
         id: commit-data
         uses: redhat-actions/common/commit-data@v1
       - name: echo steps
-        run: echo ${{ toJSON(steps) }}
+        run: echo '${{ toJSON(steps) }}'
+
+  use-data:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: echo short sha
+        run: echo '${{ jobs.commit-data.outputs.short_sha }}"'
   # build:
   #   name: Image Build
   #   uses: bcgov/citz-imb/.github/workflows/Build.yml@main
