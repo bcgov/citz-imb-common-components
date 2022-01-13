@@ -34,28 +34,12 @@ jobs:
       - name: Check out Repository
         uses: actions/checkout@v2
 
-      - name: Cache Source Directory
-        id: srcCacheStep
-        uses: actions/cache@v2
-        env:
-          cache-name: source-directory
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ secrets.CACHE_VERSION }}-${{ hashFiles('${{ matrix.APPS.path }}') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-${{ secrets.CACHE_VERSION }}-
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-
       - name: Install node
-        if: steps.srcCacheStep.outputs.cache-hit != 'true'
         uses: actions/setup-node@v1
         with:
           node-version: '16'
 
       - name: Cache node modules
-        if: steps.srcCacheStep.outputs.cache-hit != 'true'
         id: npmCacheStep
         uses: actions/cache@v2
         env:
@@ -70,23 +54,19 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install packages
-        if: steps.srcCacheStep.outputs.cache-hit != 'true' && steps.npmCacheStep.outputs.cache-hit != 'true'
+        if: steps.npmCacheStep.outputs.cache-hit != 'true'
         run: npm install --production --silent
 
       - name: Install Nx package
-        if: steps.srcCacheStep.outputs.cache-hit != 'true'
         run: npm install @nrwl/cli --silent
 
       - name: Build application
-        if: steps.srcCacheStep.outputs.cache-hit != 'true'
         run: npx nx build ${{ matrix.APPS.name }}
 
       - name: check app name
-        if: steps.srcCacheStep.outputs.cache-hit != 'true'
         run: echo ${{ matrix.APPS.name }}
 
       - name: Build container
-        if: steps.srcCacheStep.outputs.cache-hit != 'true'
         id: build-image
         uses: redhat-actions/buildah-build@v2
         with:
@@ -95,7 +75,6 @@ jobs:
           containerfiles: ${{ matrix.APPS.path }}/Dockerfile
 
       - name: Push to registry
-        if: steps.srcCacheStep.outputs.cache-hit != 'true'
         id: push-image
         uses: redhat-actions/push-to-registry@v2
         with:
