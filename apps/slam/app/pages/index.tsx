@@ -7,7 +7,7 @@ export function Index() {
 
   const getSlam = useCallback(async () => {
     try {
-      const response = await fetch('http://slam-api-ca94a8-dev.apps.silver.devops.gov.bc.ca');
+      const response = await fetch('http://slam-api');
       const body = await response.json();
 
       setstate(body);
