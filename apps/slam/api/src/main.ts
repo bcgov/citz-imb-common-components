@@ -1,7 +1,7 @@
 /**
  * This is not a production server yet!
  * This is only a minimal backend to get started.
- * 
+ *
  * @format
  */
 
@@ -17,7 +17,7 @@ async function bootstrap() {
 
   const globalPrefix = 'api';
 
-  app.setGlobalPrefix(globalPrefix);
+  // app.setGlobalPrefix(globalPrefix);
 
   const port = process.env.PORT || 3333;
 
