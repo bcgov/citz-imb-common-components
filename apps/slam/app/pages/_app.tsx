@@ -8,7 +8,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
     <>
       <div className="app">
         <div>
-          Frontend: Hello There!!
+          Frontend: Hello There!
         </div>
         <Component {...pageProps} />
       </div>
