@@ -34,7 +34,7 @@ jobs:
     needs: commit-data
     uses: bcgov/citz-imb/.github/workflows/Build.yml@main
     with:
-      MATRIX_INCLUDE: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}'
+      MATRIX_INCLUDE: '{"APPS":[{"name":"slam","path":"./apps/slam/api"},{"name":"slam","path":"./apps/slam/app"}]}'
       OS: ubuntu-20.04
       TAG: ${{ needs.commit-data.outputs.short_sha}}
 
@@ -43,7 +43,7 @@ jobs:
     needs: build
     uses: bcgov/citz-imb/.github/workflows/UnitTest.yml@main
     with:
-      MATRIX_INCLUDE: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}'
+      MATRIX_INCLUDE: '{"APPS":[{"name":"slam","path":"./apps/slam/api"},{"name":"slam","path":"./apps/slam/app"}]}'
       OS: ubuntu-20.04
 
   deploy-dev:
@@ -51,7 +51,7 @@ jobs:
     needs: [commit-data, build, test]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
-      MATRIX_INCLUDE: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}'
+      MATRIX_INCLUDE: '{"APPS":[{"name":"slam","path":"./apps/slam/api"},{"name":"slam","path":"./apps/slam/app"}]}'
       OS: ubuntu-20.04
       ENVIRONMENT: dev
       TAG: ${{ needs.commit-data.outputs.short_sha}}
@@ -67,7 +67,7 @@ jobs:
     needs: [commit-data, deploy-dev]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
-      MATRIX_INCLUDE: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}'
+      MATRIX_INCLUDE: '{"APPS":[{"name":"slam","path":"./apps/slam/api"},{"name":"slam","path":"./apps/slam/app"}]}'
       OS: ubuntu-20.04
       ENVIRONMENT: test
       TAG: ${{ needs.commit-data.outputs.short_sha}}
@@ -83,7 +83,7 @@ jobs:
     needs: [commit-data, deploy-test]
     uses: bcgov/citz-imb/.github/workflows/Deploy.yml@main
     with:
-      MATRIX_INCLUDE: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}'
+      MATRIX_INCLUDE: '{"APPS":[{"name":"slam","path":"./apps/slam/api"},{"name":"slam","path":"./apps/slam/app"}]}'
       OS: ubuntu-20.04
       ENVIRONMENT: prod
       TAG: ${{ needs.commit-data.outputs.short_sha}}
