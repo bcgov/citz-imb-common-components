@@ -50,7 +50,8 @@ jobs:
         id: deploy-and-expose
         uses: redhat-actions/oc-new-app@v1
         with:
-          app_name: ${{ matrix.APPS.name }}
+          # app_name: ${{ matrix.APPS.name }}
+          app_name: slam
           image: ghcr.io/bcgov/${{ matrix.APPS.name }}:${{ inputs.TAG }}
           namespace: ${{ secrets.OPENSHIFT_NAMESPACE }}
 
