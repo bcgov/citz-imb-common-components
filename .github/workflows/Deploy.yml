@@ -55,7 +55,7 @@ jobs:
           namespace: ${{ secrets.OPENSHIFT_NAMESPACE }}
 
       - name: Apply Labels
-        if: endsWith(matrix.APPS.name,'app')
+        # if: endsWith(matrix.APPS.name,'app')
         run: |
           echo "app_name: ${{ matrix.APPS.name }}"
           oc label pod -l deployment=${{ matrix.APPS.name }} role=frontend
