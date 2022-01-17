@@ -1,0 +1,56 @@
+# @format
+
+name: Deploy
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  Deploy:
+    name: ${{ matrix.APPS.name }}
+    runs-on: ${{ inputs.OS }}
+    strategy:
+      matrix: ${{fromJSON('{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}')}}
+    environment: ${{ inputs.ENVIRONMENT }}
+
+    steps:
+      - name: Log in to OpenShift
+        uses: redhat-actions/oc-login@v1
+        with:
+          openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
+          openshift_token: ${{ secrets.OPENSHIFT_TOKEN }}
+          insecure_skip_tls_verify: true
+          namespace: ca94a8-tools
+
+      - name: Deploy
+        id: deploy-and-expose
+        uses: redhat-actions/oc-new-app@v1
+        with:
+          app_name: ${{ matrix.APPS.name }}
+          image: ghcr.io/bcgov/${{ matrix.APPS.name }}:1fe9b14
+          namespace: ca94a8-tools
+
+      - name: Apply Labels
+        # if: endsWith(matrix.APPS.name,'app')
+        run: |
+          echo "app_name: ${{ matrix.APPS.name }}"
+          oc label pod -l deployment=${{ matrix.APPS.name }} role=frontend
+
+      # - name: Verify web
+      #   if: endsWith(matrix.APPS.name,'app')
+      #   id: verify-web
+      #   uses: nick-invision/retry@v2.2.0
+      #   with:
+      #     timeout_seconds: 5
+      #     retry_wait_seconds: 10
+      #     max_attempts: 100
+      #     warning_on_retry: false
+      #     command: curl -sSfLi ${{ steps.deploy-and-expose.outputs.route }}
+
+      # - name: Send Notification to Teams
+      #   if: endsWith(matrix.APPS.name,'app') && inputs.ENVIRONMENT != 'dev'
+      #   uses: thechetantalwar/teams-notify@v2
+      #   with:
+      #     teams_webhook_url: ${{ secrets.TEAM_HOOK }}
+      #     message: '${{ matrix.APPS.name }} successfully deployed to ${{ inputs.ENVIRONMENT }}.  ${{ steps.deploy-and-expose.outputs.route }}'
