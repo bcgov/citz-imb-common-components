@@ -1,6 +1,6 @@
 # @format
 
-name: Deploy
+name: Tools Deploy
 on:
   workflow_dispatch:
 
