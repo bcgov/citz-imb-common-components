@@ -2,15 +2,12 @@
 
 name: Deploy
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
   Deploy:
     name: ${{ matrix.APPS.name }}
-    runs-on: ${{ inputs.OS }}
+    runs-on: ubuntu-20.04
     strategy:
       matrix: ${{fromJSON('{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}')}}
     environment: ${{ inputs.ENVIRONMENT }}
