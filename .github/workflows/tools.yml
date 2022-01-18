@@ -26,7 +26,7 @@ jobs:
         uses: redhat-actions/oc-new-app@v1
         with:
           app_name: ${{ matrix.APPS.name }}
-          image: ghcr.io/bcgov/${{ matrix.APPS.name }}:1fe9b14
+          image: ghcr.io/bcgov/${{ matrix.APPS.name }}:520885f
           namespace: ca94a8-tools
 
       - name: Apply Labels
