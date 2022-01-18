@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix: ${{fromJSON('{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}')}}
-    environment: ${{ inputs.ENVIRONMENT }}
+    environment: dev
 
     steps:
       - name: Log in to OpenShift
