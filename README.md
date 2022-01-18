@@ -33,10 +33,11 @@ Commits must start with the ticket number and may have the following actions (mu
 [Developing inside a Container](https://code.visualstudio.com/docs/remote/containers)
  1. install [Docker for Desktop](https://www.docker.com/products/docker-desktop)
  2. install [VSCode](https://code.visualstudio.com/Download)
- 3. clone repo locally
- 4. open in vscode
- 5. when prompted, install the recommended extensions
- 6. when prompted, Reopen in Container.  May take quite a while the first time for the image to build
+ 3. install remote-containers extension
+ 4. clone repo locally
+ 5. open in vscode
+ 6. when prompted, install the recommended extensions
+ 7. when prompted, Reopen in Container.  May take quite a while the first time for the image to build
 
  The image will be built, with a volume pointing to your source code.  It will do an npm install and then start serving all projects
 
