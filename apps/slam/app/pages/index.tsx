@@ -7,16 +7,19 @@ export function Index() {
 
   const getSlam = useCallback(async () => {
     try {
-      const response = await fetch('http://slam-api:3333');
+      const response = await fetch('http://localhost:3334/api');
       const body = await response.json();
 
       setstate(body);
-    } catch (error) {}
+    } catch (error) {
+      console.log('error:', error);
+    }
   }, []);
 
   useEffect(() => {
     getSlam();
   }, []);
+
   return <div>Backend: {state?.message}</div>;
 }
 
