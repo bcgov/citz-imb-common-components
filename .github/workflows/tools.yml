@@ -32,11 +32,12 @@ jobs:
       #     image: ghcr.io/bcgov/${{ matrix.APPS.name }}:ff5ceab
       #     namespace: ca94a8-tools
 
-      - name: Apply Labels
+      - name: Deploy to OpenShift
         # if: endsWith(matrix.APPS.name,'app')
         run: |
           echo "${{ toJSON(matrix) }}"
           ls -l
+          oc apply -f ./openshift/deploy-${{matrix.APPS.name}}.yml
 
       # - name: Verify web
       #   if: endsWith(matrix.APPS.name,'app')
