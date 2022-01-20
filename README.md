@@ -42,4 +42,4 @@ Commits must start with the ticket number and may have the following actions (mu
  The image will be built, with a volume pointing to your source code.  It will do an npm install and then start serving all projects
 
  ### CICD Pipeline
- Commits and Pull Requests to the Main branch trigger the CICD pipeline.  The Pipeline will build the image, run tests, and deploy to prod.  If the commit contains the #release label smart commit tag, it will then deploy to test environment.  After User Acceptance Testing is approved, it will then deploy to production.  Deployment to both test and prod trigger a notification in our Teams workspace.
+ Commits and Pull Requests to the Main branch trigger the CICD pipeline.  The Pipeline will build the image, run tests, and deploy to prod.  If the commit contains the __#label release__ smart commit tag, it will then deploy to test environment.  After User Acceptance Testing is approved, it will then deploy to production.  Deployment to both test and prod trigger a notification in our Teams workspace.
