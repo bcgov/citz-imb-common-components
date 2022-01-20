@@ -34,8 +34,8 @@ on:
         required: true
 jobs:
   Deploy:
-    name: ${{ APP_NAME }}
-    runs-on: ${{ OS }}
+    name: deploy api
+    runs-on: ubuntu-latest
     environment: ${{ ENVIRONMENT }}
 
     steps:
