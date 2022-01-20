@@ -32,11 +32,8 @@ jobs:
       - name: Apply Labels
         # if: endsWith(matrix.APPS.name,'app')
         run: |
-          echo "app_name: ${{ matrix.APPS.name }}"
-          oc create -f .\mytemplate.yml
-          oc new-app --template
-          oc new-app ghcr.io/bcgov/slam-api:ff5ceab
-          oc label pod -l deployment=${{ matrix.APPS.name }} role=frontend
+          echo "${{ toJSON(matrix) }}"
+          ls -l
 
       # - name: Verify web
       #   if: endsWith(matrix.APPS.name,'app')

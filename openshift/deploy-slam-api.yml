@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: slam-api
-          image: ghcr.io/bcgov/slam-api:ff5ceab
+          image: ghcr.io/bcgov/slam-api:c67ec21
           ports:
             - containerPort: 3333
 ---

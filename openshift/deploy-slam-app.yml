@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: slam-app
-          image: ghcr.io/bcgov/slam-app:ff5ceab
+          image: ghcr.io/bcgov/slam-app:c67ec21
           ports:
             - containerPort: 3000
 ---
