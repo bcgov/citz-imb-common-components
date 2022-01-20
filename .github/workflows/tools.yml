@@ -35,7 +35,7 @@ on:
 jobs:
   Deploy:
     name: ${{ inputs.APP_NAME }}
-    runs-on: ${{ inputs.OS }}
+    runs-on: ubuntu-latest
     environment: tools
 
     steps:
