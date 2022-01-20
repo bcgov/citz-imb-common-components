@@ -42,6 +42,9 @@ jobs:
       - name: Check out Repository
         uses: actions/checkout@v2
 
+      - name: show inputs
+        run: echo "${{ toJSON(inputs) }}"
+
       - name: Log in to OpenShift
         uses: redhat-actions/oc-login@v1
         with:
