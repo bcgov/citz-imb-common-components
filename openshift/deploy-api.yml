@@ -29,7 +29,7 @@ objects:
             - name: ${APP_NAME}-api
               image: ghcr.io/bcgov/${APP_NAME}-api:${TAG}
               ports:
-                - containerPort: ${PORT}
+                - containerPort: 3333
   - kind: Service
     apiVersion: v1
     metadata:
@@ -39,10 +39,10 @@ objects:
         app: ${APP_NAME}-api
     spec:
       ports:
-        - name: ${PORT}-tcp
+        - name: 3333-tcp
           protocol: TCP
-          port: ${PORT}
-          targetPort: ${PORT}
+          port: 3333
+          targetPort: 3333
       selector:
         app: ${APP_NAME}-api
         deployment: ${APP_NAME}-api
@@ -63,7 +63,7 @@ objects:
         name: ${APP_NAME}-api
         weight: 100
       port:
-        targetPort: ${PORT}-tcp
+        targetPort: 3333-tcp
       tls:
         termination: edge
         insecureEdgeTerminationPolicy: Redirect

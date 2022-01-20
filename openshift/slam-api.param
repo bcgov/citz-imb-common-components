@@ -1,4 +1,4 @@
-APP_NAME=slam-api
+APP_NAME=slam
 NAMESPACE=ca94a8-tools
 TAG=c67ec21
 PORT=3333
