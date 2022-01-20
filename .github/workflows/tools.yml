@@ -13,6 +13,9 @@ jobs:
     environment: tools
 
     steps:
+      - name: Check out Repository
+        uses: actions/checkout@v2
+
       - name: Log in to OpenShift
         uses: redhat-actions/oc-login@v1
         with:
