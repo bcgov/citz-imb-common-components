@@ -3,14 +3,40 @@
 name: Tools Deploy
 on:
   workflow_dispatch:
-
+    inputs:
+      APP_NAME:
+        description: the name of the app
+        required: true
+        type: string
+      OS:
+        description: the os to use for the action
+        required: false
+        type: string
+        default: ubuntu-latest
+      ENVIRONMENT:
+        description: the deployment environment
+        required: false
+        type: string
+        default: dev
+      TAG:
+        description: the image tag
+        required: false
+        type: string
+        default: latest
+    secrets:
+      OPENSHIFT_SERVER:
+        required: true
+      OPENSHIFT_TOKEN:
+        required: true
+      OPENSHIFT_NAMESPACE:
+        required: true
+      TEAM_HOOK:
+        required: true
 jobs:
   Deploy:
-    name: ${{ matrix.APPS.name }}
-    runs-on: ubuntu-20.04
-    strategy:
-      matrix: ${{fromJSON('{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}')}}
-    environment: tools
+    name: ${{ APP_NAME }}
+    runs-on: ${{ OS }}
+    environment: ${{ ENVIRONMENT }}
 
     steps:
       - name: Check out Repository
@@ -22,22 +48,12 @@ jobs:
           openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
           openshift_token: ${{ secrets.OPENSHIFT_TOKEN }}
           insecure_skip_tls_verify: true
-          namespace: ca94a8-tools
-
-      # - name: Deploy
-      #   id: deploy-and-expose
-      #   uses: redhat-actions/oc-new-app@v1
-      #   with:
-      #     app_name: ${{ matrix.APPS.name }}
-      #     image: ghcr.io/bcgov/${{ matrix.APPS.name }}:ff5ceab
-      #     namespace: ca94a8-tools
+          namespace: ${{ secrets.OPENSHIFT_NAMESPACE }}
 
       - name: Deploy to OpenShift
-        # if: endsWith(matrix.APPS.name,'app')
         run: |
-          echo "${{ toJSON(matrix) }}"
+          oc apply -f ./openshift/deploy-api.yml -p APP_NAME=${{ APP_NAME }} -p NAMESPACE=${{ secrets.OPENSHIFT_NAMESPACE }} -p TAG=c67ec21 -p PORT=3333
           ls -l
-          oc apply -f ./openshift/deploy-${{matrix.APPS.name}}.yml
 
       # - name: Verify web
       #   if: endsWith(matrix.APPS.name,'app')
