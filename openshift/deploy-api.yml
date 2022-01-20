@@ -29,7 +29,7 @@ objects:
             - name: ${APP_NAME}-api
               image: ghcr.io/bcgov/${APP_NAME}-api:${TAG}
               ports:
-                - containerPort: 3333
+                containerPort: 3333
   - kind: Service
     apiVersion: v1
     metadata:
