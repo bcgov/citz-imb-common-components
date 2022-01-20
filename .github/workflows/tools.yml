@@ -57,7 +57,7 @@ jobs:
 
       - name: Deploy to OpenShift
         run: |
-          oc new-app --template deploy-template -param-file=./openshift/slam-api.param
+          oc new-app --template deploy-template --param-file=./openshift/slam-api.param
           ls -l
 
       # - name: Verify web
