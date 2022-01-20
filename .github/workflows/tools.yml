@@ -57,7 +57,7 @@ jobs:
 
       - name: Deploy to OpenShift
         run: |
-          oc new-app --template deploy-template -p APP_NAME=${{ github.event.inputs.APP_NAME }} -p NAMESPACE=${{ secrets.OPENSHIFT_NAMESPACE }} -p TAG=c67ec21 -p PORT=3333
+          oc new-app --template deploy-template -param-file=./openshift/slam-api.param
           ls -l
 
       # - name: Verify web
