@@ -8,6 +8,7 @@ on:
         description: the name of the app
         required: true
         type: string
+        default: slam
       OS:
         description: the os to use for the action
         required: false
