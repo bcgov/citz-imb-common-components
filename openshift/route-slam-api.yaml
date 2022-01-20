@@ -1,0 +1,76 @@
+﻿# @format
+
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: slam-api
+  namespace: ca94a8-dev
+  uid: 941e32ee-851e-4019-b39b-f8364740009d
+  resourceVersion: '2589746796'
+  creationTimestamp: '2022-01-19T18:46:08Z'
+  labels:
+    app: slam-api
+  annotations:
+    openshift.io/host.generated: 'true'
+  managedFields:
+    - manager: kubectl-expose
+      operation: Update
+      apiVersion: route.openshift.io/v1
+      time: '2022-01-19T18:46:08Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:labels':
+            .: {}
+            'f:app': {}
+        'f:spec':
+          'f:port':
+            .: {}
+            'f:targetPort': {}
+          'f:to':
+            'f:kind': {}
+            'f:name': {}
+            'f:weight': {}
+          'f:wildcardPolicy': {}
+    - manager: openshift-router
+      operation: Update
+      apiVersion: route.openshift.io/v1
+      time: '2022-01-19T18:46:08Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:status':
+          'f:ingress': {}
+    - manager: Mozilla
+      operation: Update
+      apiVersion: route.openshift.io/v1
+      time: '2022-01-19T21:56:05Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:tls':
+            .: {}
+            'f:insecureEdgeTerminationPolicy': {}
+            'f:termination': {}
+spec:
+  host: slam-app-ca94a8-dev.apps.silver.devops.gov.bc.ca
+  path: /api
+  to:
+    kind: Service
+    name: slam-api
+    weight: 100
+  port:
+    targetPort: 3333-tcp
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
+status:
+  ingress:
+    - host: slam-api-ca94a8-dev.apps.silver.devops.gov.bc.ca
+      routerName: default
+      conditions:
+        - type: Admitted
+          status: 'True'
+          lastTransitionTime: '2022-01-19T18:46:08Z'
+      wildcardPolicy: None
+      routerCanonicalHostname: apps.silver.devops.gov.bc.ca
