@@ -2,7 +2,7 @@
 
 name: Tools Deploy
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       APP_NAME:
         description: the name of the app
@@ -32,6 +32,8 @@ on:
         required: true
       TEAM_HOOK:
         required: true
+  workflow_dispatch:
+
 jobs:
   Deploy:
     name: ${{ inputs.APP_NAME }}
@@ -43,7 +45,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: show inputs
-        run: echo "${{ toJSON(input) }}"
+        run: echo "${{ toJSON(inputs) }}"
 
       - name: Log in to OpenShift
         uses: redhat-actions/oc-login@v1
