@@ -43,7 +43,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: show inputs
-        run: echo "${{ toJSON(inputs) }}"
+        run: echo "${{ toJSON(input) }}"
 
       - name: Log in to OpenShift
         uses: redhat-actions/oc-login@v1
@@ -55,7 +55,7 @@ jobs:
 
       - name: Deploy to OpenShift
         run: |
-          oc apply -f ./openshift/deploy-api.yml -p APP_NAME=${{ inputs.APP_NAME }} -p NAMESPACE=${{ secrets.OPENSHIFT_NAMESPACE }} -p TAG=c67ec21 -p PORT=3333
+          oc apply -f ./openshift/deploy-api.yml -p APP_NAME=${{ input.APP_NAME }} -p NAMESPACE=${{ secrets.OPENSHIFT_NAMESPACE }} -p TAG=c67ec21 -p PORT=3333
           ls -l
 
       # - name: Verify web
