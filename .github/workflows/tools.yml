@@ -34,9 +34,9 @@ on:
         required: true
 jobs:
   Deploy:
-    name: deploy api
-    runs-on: ubuntu-latest
-    environment: ${{ inputs.ENVIRONMENT }}
+    name: ${{ inputs.APP_NAME }}
+    runs-on: ${{ inputs.OS }}
+    environment: tools
 
     steps:
       - name: Check out Repository
