@@ -50,7 +50,7 @@ jobs:
           namespace: ${{ secrets.OPENSHIFT_NAMESPACE }}
 
       - name: Deploy to OpenShift
-        run: oc process -f ./openshift/deploy-${{ matrix.APP-TYPE.NAME }}-template.yml -p APP_NAME=${{ matrix.APP }} -p NAMESPACE=${{ secrets.OPENSHIFT_NAMESPACE }} -p TAG=${{ inputs.TAG }} -p PORT=${{ matrix.APP-TYPE.PORT }} | oc create -f -
+        run: oc process -f ./openshift/deploy-${{ matrix.APP-TYPE.NAME }}-template.yml -p APP_NAME=${{ matrix.APP }} -p NAMESPACE=${{ secrets.OPENSHIFT_NAMESPACE }} -p TAG=${{ inputs.TAG }} -p PORT=${{ matrix.APP-TYPE.PORT }} | oc apply -f -
 
       - name: Verify web
         id: verify-web
