@@ -61,18 +61,15 @@ jobs:
         run: npm install @nrwl/cli --silent
 
       - name: Build application
-        run: npx nx build ${{ matrix.APPS.name }}
-
-      - name: check app name
-        run: echo ${{ matrix.APPS.name }}
+        run: npx nx build ${{ matrix.APP-NAME }}-${{ matrix.APP-TYPE }}
 
       - name: Build container
         id: build-image
         uses: redhat-actions/buildah-build@v2
         with:
-          image: ${{ matrix.APPS.name }}
+          image: ${{ matrix.APP-NAME }}-${{ matrix.APP-TYPE }}
           tags: ${{ inputs.TAG }}
-          containerfiles: ${{ matrix.APPS.path }}/Dockerfile
+          containerfiles: ./apps/${{ matrix.APP-NAME }}/${{ matrix.APP-TYPE }}/Dockerfile
 
       - name: Push to registry
         id: push-image

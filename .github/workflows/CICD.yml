@@ -35,7 +35,7 @@ jobs:
     needs: commit-data
     uses: bcgov/citz-imb/.github/workflows/Build.yml@main
     with:
-      MATRIX_INCLUDE: '{"APPS":[{"name":"slam-api","path":"./apps/slam/api"},{"name":"slam-app","path":"./apps/slam/app"}]}'
+      MATRIX_INCLUDE: '{"APP-NAME": ["slam"],"APP-TYPE": ["api", "app"]}"'
       OS: ubuntu-20.04
       TAG: ${{ needs.commit-data.outputs.short_sha}}
 
