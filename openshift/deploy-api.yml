@@ -12,6 +12,7 @@ objects:
       namespace: '${NAMESPACE}'
       labels:
         app: '${APP_NAME}-api'
+        deployment: '${APP_NAME}-api'
     spec:
       replicas: 1
       selector:

@@ -57,7 +57,7 @@ jobs:
 
       - name: Deploy to OpenShift
         run: |
-          oc process -f ./openshift/deploy-app.yml | oc create -f -
+          oc process -f ./openshift/deploy-api.yml --param-file=./openshift/slam-api.param | oc create -f -
           ls -l
 
       # - name: Verify web
