@@ -35,7 +35,7 @@ on:
 
 jobs:
   Deploy:
-    name: ${{ matrix.APP-NAME }}-${{ matrix.APP-TYPE }}
+    name: ${{ matrix.APP-NAME }}-${{ matrix.APP-TYPE.NAME }}
     runs-on: ${{ inputs.OS }}
     strategy:
       matrix: ${{fromJSON(inputs.MATRIX_INCLUDE)}}
@@ -51,7 +51,7 @@ jobs:
           namespace: ${{ secrets.OPENSHIFT_NAMESPACE }}
 
       - name: Deploy to OpenShift
-        run: oc process -f ./openshift/deploy-api.yml -p APP_NAME=${{ matrix.APP-NAME }} -p NAMESPACE=${{ secrets.OPENSHIFT_NAMESPACE }} -p TAG=${{ inputs.TAG }} -p PORT=${{ inputs.PORT }} | oc create -f -
+        run: oc process -f ./openshift/deploy-api.yml -p APP_NAME=${{ matrix.APP-NAME }} -p NAMESPACE=${{ secrets.OPENSHIFT_NAMESPACE }} -p TAG=${{ inputs.TAG }} -p PORT=${{ matrix.APP-TYPE.PORT }} | oc create -f -
 
       - name: Verify web
         id: verify-web
@@ -68,4 +68,4 @@ jobs:
         uses: thechetantalwar/teams-notify@v2
         with:
           teams_webhook_url: ${{ secrets.TEAM_HOOK }}
-          message: '${{ matrix.APP-NAME }}-${{ matrix.APP-TYPE }} successfully deployed to ${{ inputs.ENVIRONMENT }}.  ${{ steps.deploy-and-expose.outputs.route }}'
+          message: '${{ matrix.APP-NAME }}-${{ matrix.APP-TYPE.NAME }} successfully deployed to ${{ inputs.ENVIRONMENT }}.  ${{ steps.deploy-and-expose.outputs.route }}'

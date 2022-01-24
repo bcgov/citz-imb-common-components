@@ -21,7 +21,7 @@ on:
 
 jobs:
   Build:
-    name: ${{ matrix.APPS.name }}
+    name: ${{ matrix.APP-NAME }}
     runs-on: ${{ inputs.OS }}
     outputs:
       registry-path: ${{ steps.push-image.outputs.registry-path }}
@@ -61,15 +61,15 @@ jobs:
         run: npm install @nrwl/cli --silent
 
       - name: Build application
-        run: npx nx build ${{ matrix.APP-NAME }}-${{ matrix.APP-TYPE }}
+        run: npx nx build ${{ matrix.APP-NAME }}-${{ matrix.APP-TYPE.NAME }}
 
       - name: Build container
         id: build-image
         uses: redhat-actions/buildah-build@v2
         with:
-          image: ${{ matrix.APP-NAME }}-${{ matrix.APP-TYPE }}
+          image: ${{ matrix.APP-NAME }}-${{ matrix.APP-TYPE.NAME }}
           tags: ${{ inputs.TAG }}
-          containerfiles: ./apps/${{ matrix.APP-NAME }}/${{ matrix.APP-TYPE }}/Dockerfile
+          containerfiles: ./apps/${{ matrix.APP-NAME }}/${{ matrix.APP-TYPE.NAME }}/Dockerfile
 
       - name: Push to registry
         id: push-image
