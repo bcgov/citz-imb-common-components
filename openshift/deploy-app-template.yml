@@ -28,7 +28,7 @@ objects:
         spec:
           containers:
             - name: '${APP_NAME}-app'
-              image: 'ghcr.io/bcgov/${APP_NAME}-app:${TAG}'
+              image: 'ghcr.io/bcgov/${APP_NAME}-app:${{TAG}}'
               ports:
                 - containerPort: ${{PORT}}
                   protocol: TCP
