@@ -19,10 +19,6 @@ on:
         required: false
         type: string
         default: latest
-      PORT:
-        required: true
-        type: string
-        default: 8080
     secrets:
       OPENSHIFT_SERVER:
         required: true
