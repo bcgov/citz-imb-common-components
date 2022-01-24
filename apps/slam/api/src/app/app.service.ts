@@ -5,6 +5,6 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class AppService {
   getData(): { message: string } {
-    return { message: 'ah, the negotiator!' };
+    return { message: 'General Kenobi!' };
   }
 }
