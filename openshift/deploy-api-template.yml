@@ -30,7 +30,7 @@ objects:
             - name: '${APP_NAME}-api'
               image: 'ghcr.io/bcgov/${APP_NAME}-api:${TAG}'
               ports:
-                - containerPort: ${PORT}
+                - containerPort: ${{PORT}}
                   protocol: TCP
   - kind: Service
     apiVersion: v1
@@ -43,8 +43,8 @@ objects:
       ports:
         - name: ${PORT}-tcp
           protocol: TCP
-          port: ${PORT}
-          targetPort: ${PORT}
+          port: ${{PORT}}
+          targetPort: ${{PORT}}
       selector:
         app: '${APP_NAME}-api'
         deployment: '${APP_NAME}-api'

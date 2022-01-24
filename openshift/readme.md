@@ -4,7 +4,6 @@ These are manual deployments that should only need to be done one-time, or when 
 each namespace
 ```
 oc replace -f network-policies.yml
-oc replace -f deploy-api.yml
 ```
 ## database
 ### pgadmin
