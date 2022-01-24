@@ -60,7 +60,7 @@ jobs:
           retry_wait_seconds: 10
           max_attempts: 100
           warning_on_retry: false
-          command: curl -sSfLi ${{ steps.deploy-and-expose.outputs.route }}
+          command: curl -sSfLi ${{ matrix.APP }}-${{ secrets.OPENSHIFT_NAMESPACE }}.apps.silver.devops.gov.bc.ca
 
       - name: Send Notification to Teams
         if: inputs.ENVIRONMENT != 'dev'

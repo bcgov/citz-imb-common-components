@@ -5,11 +5,11 @@ name: CICD
 on:
   push:
     branches:
-      - mainx
+      - main
     paths-ignore:
       - '**.md'
   pull_request:
-    branches: [mainx]
+    branches: [main]
   workflow_dispatch:
 
 concurrency:
