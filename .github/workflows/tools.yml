@@ -57,7 +57,7 @@ jobs:
 
       - name: Deploy to OpenShift
         run: |
-          oc process deploy-app-template
+          oc process -f ./openshift/deploy-app.yml | oc create -f -
           ls -l
 
       # - name: Verify web
