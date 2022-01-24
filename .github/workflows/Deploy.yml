@@ -58,7 +58,7 @@ jobs:
         with:
           timeout_seconds: 5
           retry_wait_seconds: 10
-          max_attempts: 100
+          max_attempts: 10
           warning_on_retry: false
           command: curl -sSfLi ${{ matrix.APP }}-${{ secrets.OPENSHIFT_NAMESPACE }}.apps.silver.devops.gov.bc.ca
 
