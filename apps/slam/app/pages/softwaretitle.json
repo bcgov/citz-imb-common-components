@@ -1,0 +1,31 @@
+[
+    {
+      "Unique ID": 1,
+      "Name": "Visio",
+      "Renewal Date": "12/29/2023",
+      "Cost": 1000,
+      "Billing Cycle": "Annually",
+      "Administrator": "Ben Carson",
+      "Quantity": 30
+    },
+    {
+        "Unique ID": 2,
+        "Name": "Jira",
+        "Renewal Date": "6/3/2025",
+        "Cost": 10,
+        "Billing Cycle": "Monthly",
+        "Administrator": "Anita Break",
+        "Quantity": 250
+      
+    },
+    {
+        "Unique ID": 3,
+        "Name": "Notepad++",
+        "Renewal Date": "",
+        "Cost": 500,
+        "Billing Cycle": "One-Time",
+        "Administrator": "Anita Break",
+        "Quantity": 30
+      
+    }
+]
