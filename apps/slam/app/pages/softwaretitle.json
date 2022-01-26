@@ -1,31 +1,32 @@
 [
     {
-      "Unique ID": 1,
+      "UniqueID": 1,
       "Name": "Visio",
-      "Renewal Date": "12/29/2023",
+      "RenewalDate": "12/29/2023",
       "Cost": 1000,
-      "Billing Cycle": "Annually",
+      "BillingCycle": "Annually",
       "Administrator": "Ben Carson",
-      "Quantity": 30
+      "Quantity": 30,
+      "Status": "Active"
     },
     {
-        "Unique ID": 2,
+        "UniqueID": 2,
         "Name": "Jira",
-        "Renewal Date": "6/3/2025",
+        "RenewalDate": "6/3/2025",
         "Cost": 10,
-        "Billing Cycle": "Monthly",
+        "BillingCycle": "Monthly",
         "Administrator": "Anita Break",
-        "Quantity": 250
-      
+        "Quantity": 250,
+        "Status": "Active"
     },
     {
-        "Unique ID": 3,
+        "UniqueID": 3,
         "Name": "Notepad++",
-        "Renewal Date": "",
+        "RenewalDate": "",
         "Cost": 500,
-        "Billing Cycle": "One-Time",
+        "BillingCycle": "One-Time",
         "Administrator": "Anita Break",
-        "Quantity": 30
-      
+        "Quantity": 30,
+        "Status": "Active"
     }
 ]
