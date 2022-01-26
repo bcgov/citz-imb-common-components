@@ -16,8 +16,8 @@ describe('AppService', () => {
   });
 
   describe('getData', () => {
-    it('should return "Welcome to slam/api!"', () => {
-      expect(service.getData()).toEqual({ message: 'Welcome to slam/api!' });
+    it('should return "General Kenobi!!"', () => {
+      expect(service.getData()).toEqual({ message: 'General Kenobi!!' });
     });
   });
 });

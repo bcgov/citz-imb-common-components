@@ -16,9 +16,11 @@ describe('AppController', () => {
   });
 
   describe('getData', () => {
-    it('should return "Welcome to slam/api!"', () => {
+    it('should return "General Kenobi!!"', () => {
       const appController = app.get<AppController>(AppController);
-      expect(appController.getData()).toEqual({ message: 'Welcome to slam/api!' });
+      expect(appController.getData()).toEqual({
+        message: 'General Kenobi!!',
+      });
     });
   });
 });
