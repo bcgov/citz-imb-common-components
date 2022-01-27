@@ -8,7 +8,7 @@ export class SoftwareController {
   constructor(private readonly softwareService: SoftwareService) {}
 
   @Get()
-  getSoftwareTitles() {
+  getSoftware() {
     return this.softwareService.getSoftware();
   }
 }

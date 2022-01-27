@@ -3,7 +3,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { SoftwareController } from './software.controller';
 
-xdescribe('SoftwareTitleController', () => {
+xdescribe('SoftwareController', () => {
   let controller: SoftwareController;
 
   const softwareTitleService = {};
