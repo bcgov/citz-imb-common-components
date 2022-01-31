@@ -7,9 +7,6 @@ function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <div className="app">
-        <div>
-          Frontend: Hello There!
-        </div>
         <Component {...pageProps} />
       </div>
     </>
