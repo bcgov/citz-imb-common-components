@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@CITZ-IMB/CITable": ["libs/ui/citable/src/index.ts"],
+      "@CITZ-IMB/UITable": ["libs/ui/table/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

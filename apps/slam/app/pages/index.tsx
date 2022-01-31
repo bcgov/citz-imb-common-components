@@ -1,7 +1,7 @@
 /** @format */
 
 import { useEffect, useState, useCallback } from 'react';
-
+import { UITable } from '@CITZ-IMB/UITable';
 export function Index() {
   const [state, setstate] = useState({ message: 'whatchoo talkin bout willis?' });
 
@@ -20,7 +20,7 @@ export function Index() {
     getSlam();
   }, []);
 
-  return <div>Backend: {state?.message}</div>;
+  return <div><UITable></UITable></div>;
 }
 
 export default Index;
