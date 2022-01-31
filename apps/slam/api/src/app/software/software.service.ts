@@ -1,13 +1,14 @@
 /** @format */
 
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { Repository } from 'typeorm';
 import { Software } from './software.model';
 
 @Injectable()
 export class SoftwareService {
-  private software: Software[] = [];
+  constructor(@Inject('SOFTWARE_REPOSITORY') private softwareRepository: Repository<Software>) {}
 
-  getSoftware() {
-    return [...this.software];
+  getAllSoftware() {
+    return this.softwareRepository.find();
   }
 }
