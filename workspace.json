@@ -3,6 +3,7 @@
   "projects": {
     "slam-api": "apps/slam/api",
     "slam-app": "apps/slam/app",
-    "slam-app-e2e": "apps/slam/app-e2e"
+    "slam-app-e2e": "apps/slam/app-e2e",
+    "ui-table": "libs/ui/table"
   }
 }
