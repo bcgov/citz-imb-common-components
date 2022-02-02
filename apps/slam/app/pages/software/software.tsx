@@ -1,25 +1,26 @@
 /** @format */
 
-import './software.module.css';
 import { UITable } from '@CITZ-IMB/UITable';
-import { GridColDef } from '@mui/x-data-grid';
-import { useEffect, useState } from 'react';
-import data from './software.mockdata.json';
 import { Box, Toolbar, Typography } from '@mui/material';
+import { useData } from '../../hooks';
+import './software.module.css';
+import { getSoftware } from './getSoftware';
+import mockData from './software.mockdata.json'
 
 export interface SoftwareProps {}
 
 export function Software(props: SoftwareProps) {
-  const { columns, rows } = data;
+  const { data, isLoading, isError } = useData('software', getSoftware);
+  const { rows, columns } = mockData;
 
   return (
-    <Box sx={{ mt: 6}}>
+    <Box sx={{ mt: 6 }}>
       <Toolbar>
         <Typography variant="h6" noWrap component="div">
           Software
         </Typography>
       </Toolbar>
-      <UITable rows={rows} columns={columns} />
+      <UITable rows={rows} columns={columns} isLoading={isLoading} isError={isError} />
     </Box>
   );
 }

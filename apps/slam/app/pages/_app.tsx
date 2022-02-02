@@ -2,12 +2,17 @@
 
 import { AppProps } from 'next/app';
 import './styles.css';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <div className="app">
-        <Component {...pageProps} />
+        <QueryClientProvider client={queryClient}>
+          <Component {...pageProps} />
+        </QueryClientProvider>
       </div>
     </>
   );

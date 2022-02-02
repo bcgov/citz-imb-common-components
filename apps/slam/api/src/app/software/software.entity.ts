@@ -8,23 +8,23 @@ export class Software {
   id: string;
 
   @Column()
-  Name: string;
+  title: string;
 
   @Column('date')
-  Renewal_Date: Date;
+  renewal_date: Date;
 
   @Column('money')
-  Cost: number;
+  cost: number;
 
   @Column()
-  Billing_Cycle: string;
+  billing_cycle: string;
 
   @Column()
-  Administrator: string;
+  administrator: string;
 
   @Column('int')
-  Quantity: number;
+  quantity: number;
 
   @Column('boolean', { default: true })
-  Active: boolean;
+  active: boolean;
 }

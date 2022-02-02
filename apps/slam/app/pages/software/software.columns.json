@@ -1,0 +1,50 @@
+[
+  {
+    "field": "id",
+    "headerName": "id",
+    "hide": true,
+    "type": "uuid"
+  },
+  {
+    "field": "active",
+    "headerName": "Atatus",
+    "type": "boolean",
+    "width": 100
+  },
+  {
+    "field": "title",
+    "headerName": "Title",
+    "type": "string",
+    "width": 100
+  },
+  {
+    "field": "renewal_date",
+    "headerName": "Renewal Date",
+    "type": "date",
+    "width": 150
+  },
+  {
+    "field": "cost",
+    "headerName": "Cost",
+    "type": "number",
+    "width": 100
+  },
+  {
+    "field": "billing_cycle",
+    "headerName": "Billing Cycle",
+    "type": "string",
+    "width": 150
+  },
+  {
+    "field": "administrator",
+    "headerName": "Administrator",
+    "type": "string",
+    "width": 150
+  },
+  {
+    "field": "quantity",
+    "headerName": "Quantity",
+    "type": "number",
+    "width": 100
+  }
+]
