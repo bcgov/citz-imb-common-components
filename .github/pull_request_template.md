@@ -2,7 +2,7 @@
 <!-- Note: Prefix PR title with Jira ticket # if available -->
 
 <!-- If this PR includes breaking changes, uncomment below -->
-<!-- <span style="color:red">This PR Includes Breaking Changes</span> -->
+<!-- ## This PR Includes Breaking Changes -->
 
 [Jira Link](https://www.youtube.com/watch?v=eBGIQ7ZuuiU)
 
