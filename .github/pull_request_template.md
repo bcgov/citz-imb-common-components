@@ -15,3 +15,4 @@
 - [ ] I have tested these changes 
 - [ ] This code has been linted to conform with the rest of the repository <!-- Check for LF/CLRF differences in line ending settings!!! -->
 - [ ] This PR has the correct base branch selected (not main!.. or.. main?)
+- [ ] I am abiding by our [Code of Conduct](https://github.com/bcgov/citz-imb-common-components/blob/main/Code_of_Conduct.md)
