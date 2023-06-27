@@ -12,14 +12,6 @@ This PR includes the following proposed change(s):
 - [ ] Version change
 - [ ] Dependencies added/removed
 
-## Aspect(s) of Project Affected
-
-- [ ] Frontend
-- [ ] API
-- [ ] Database
-- [ ] Workflows
-- [ ] Documentation
-
 ## Best Practices Checklist
 
 - [ ] I have performed a self-review of my own code
