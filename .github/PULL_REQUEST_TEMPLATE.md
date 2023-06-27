@@ -8,9 +8,10 @@ Plain language explanation of what feature request, bug fix, or enhancement this
 
 ## ✅ Checklist
 
-[ ] By checking this, I can confirm that I have done the following tasks before opening this pull request:
+- [ ] By checking this, I can confirm that I have done the following tasks before opening this pull request:
 
-- 📚 My Pull Request Title follows this pattern: [FEATURE_REQUEST|ENHANCEMENT|BUG_FIX] [JIRA_BOARD_NUMBER]: [TITLE_OF_JIRA_TASK]
+- 📚 My Pull Request Title follows this pattern: 
+    ```[FEATURE_REQUEST|ENHANCEMENT|BUG_FIX|DOCS] [JIRA_BOARD_NUMBER]: [TITLE_OF_JIRA_TASK]```
 - 🔎 I have self-reviewed my code.
 - 📚 I have updated the relevant documentation.
 - 🧪 My code passes unit tests that are present in this repository.
