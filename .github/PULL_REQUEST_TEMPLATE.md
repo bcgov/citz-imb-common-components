@@ -11,6 +11,8 @@ Plain language explanation of what feature request, bug fix, or enhancement this
 
 - 📚 My Pull Request Title follows this pattern: 
     ```[FEATURE_REQUEST|ENHANCEMENT|BUG_FIX|DOCS] [JIRA_BOARD_NUMBER]: [TITLE_OF_JIRA_TASK]```
+    Example:
+    ```FEATURE_REQUEST MVP1-1: Change email address```
 - 🔎 I have self-reviewed my code.
 - 📚 I have updated the relevant documentation.
 - 🧪 My code passes unit tests that are present in this repository.
