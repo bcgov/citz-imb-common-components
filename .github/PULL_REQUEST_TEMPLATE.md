@@ -6,7 +6,7 @@
 
 Plain language explanation of what feature request, bug fix, or enhancement this pull request includes
 
-## ✅ Checklist
+![CHECKLIST]
 
 - [ ] By checking this, I can confirm that I have done the following tasks before opening this pull request:
 
