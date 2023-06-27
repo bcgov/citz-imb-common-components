@@ -2,22 +2,16 @@
 
 This PR includes the following proposed change(s):
 
-- {List all the changes, if possible add the jira ticket #}
-
-## Type of Change
-
-- [ ] Bug fix (non-breaking change which fixes an issue)
-- [ ] New feature (non-breaking change which adds functionality)
-- [ ] Refactoring / Documentation
-- [ ] Version change
-- [ ] Dependencies added/removed
+- [TIC-12](https://www.google.ca) Adds ability to log out
 
 ## Best Practices Checklist
 
-- [ ] I have performed a self-review of my own code
-- [ ] My code follows the Airbnb React Style Guidelines
-- [ ] Documentation has been updated to reflect my changes
-- [ ] New and existing tests pass locally with my changes
+[ ] I acknowledge that my changes meet the following requirements:
+
+- Code has undergone a self-review
+- Code follows the project's style guide
+- Documentation has been updated to reflect changes
+- New and existing tests pass locally
 
 ## How Has This Been Tested?
 
