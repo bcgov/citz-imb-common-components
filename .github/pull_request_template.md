@@ -4,7 +4,7 @@
 <!-- If this PR includes breaking changes, uncomment below -->
 <!-- ## This PR Includes Breaking Changes -->
 
-[Jira Link](https://www.youtube.com/watch?v=eBGIQ7ZuuiU)
+[Jira Link](https://media.giphy.com/media/3o6Zt481isNVuQI1l6/giphy.gif)
 
 ## Description
 <!-- Include a summary of the changes made, as well as the context and why these changes/decisions were made (not just what, but why). -->
