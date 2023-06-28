@@ -17,12 +17,14 @@ _Provide clear instructions for testing the changes._
 
 _Confirm the following actions have been completed:_
 
-- [ ] 🔎 I have self-reviewed my code.
-- [ ] 📚 I have updated the relevant documentation.
-- [ ] 🧪 I have thoroughly tested the changes.
-- [ ] 💅 My code has been linted to match the rest of the repository.
-- [ ] 🌳 The correct base branch has been selected (not main, unless necessary).
-- [ ] 👥 I am complying with our [Code of Conduct](https://github.com/bcgov/citz-imb-common-components/blob/main/Code_of_Conduct.md).
+- [ ] I comply with all the below and our [Code of Conduct](https://github.com/bcgov/citz-imb-common-components/blob/main/Code_of_Conduct.md)
+```
+🔎 I have self-reviewed my code.
+📚 I have updated the relevant documentation.
+🧪 I have thoroughly tested the changes.
+💅 My code has been linted to match the rest of the repository.
+🌳 The correct base branch has been selected (not main, unless necessary).
+```
 
 ## 🖼️ Additional Resources
 
