@@ -10,7 +10,7 @@ JIRA_BOARD_ABBREVIATION-JIRA_TASK_NUMBER: TITLE_OF_JIRA_TASK
 <!-- PROVIDE BELOW an explanation of your changes and any images to support your explanation -->
 
 
-## ☑️ Checklist
+## 🔰 Checklist
 
 - [ ] I have read and agree with the following checklist and am following the guidelines in our [Code of Conduct](/Code_of_Conduct.md) document.
 
