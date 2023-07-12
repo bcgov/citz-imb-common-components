@@ -1,12 +1,16 @@
-<!--  PR Title format:                                            -->
-<!-- JIRA_BOARD_ABBREVIATION-JIRA_TASK_NUMBER: TITLE_OF_JIRA_TASK -->
+<!--  
+PR Title format:  
+JIRA_BOARD_ABBREVIATION-JIRA_TASK_NUMBER: TITLE_OF_JIRA_TASK  
+-->
 
 ## 🎯 Summary
 
-<!-- Provide an explanation of your changes and -->
-<!-- include the JIRA ticket link               -->
+<!-- ADD JIRA LINK BELOW -->  
 
-## ✅ Checklist
+<!-- PROVIDE BELOW an explanation of your changes and any images to support your explanation -->
+
+
+## ☑️ Checklist
 
 - [ ] I have read and agree with the following checklist and am following the guidelines in our [Code of Conduct](/Code_of_Conduct.md) document.
 
