@@ -78,6 +78,9 @@ _Below is a list of required and potential Wiki pages:_
 ── Homepage (required) // Table of contents for the rest of the Wiki.
 ── Onboarding (required) // Steps to onboard a new developer. Includes starting tasks that new developers can try.
 ── Architecture (required) // From high-level to low-level diagrams of how the application works.
+    ── ERD // Entity Relationship Diagram and explanations of how each table is used.
+    ── DAL // Data Access Layer or how ORM (Object Relational Mapper) works.
+    ── ADR / ADL // Architectural Decision Records / Log
 ── Personas
 ── User Stories
 ── Roadmap
