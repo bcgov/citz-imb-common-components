@@ -81,7 +81,7 @@ _Below is a list of required and potential Wiki pages:_
 ── Personas
 ── User Stories
 ── Roadmap
-── Stakeholders
+── Interested Parties
 ── ERD // Entity Relationship Diagram and explanations of how each table is used.
 ── DAL // Data Access Layer or how ORM (Object Relational Mapper) works.
 ── How To // Tutorials for the end-user on how to use the application.
