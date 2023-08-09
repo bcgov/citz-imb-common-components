@@ -30,7 +30,7 @@ Follow these guidelines when first starting a new project.
 
 Create the basic root level README and basic Wiki pages before coding begins.
  - The basic README should include a link to your Wiki's home page, as well as a list of links to developer standards, contributing documents, and guidelines.
- - The basic Wiki should include pages for user stories, personas, roadmaps, stakeholders, architecture diagrams, and entity relationship diagrams.
+ - The basic Wiki should include pages for user stories, personas, roadmaps, interested parties, architecture diagrams, and entity relationship diagrams.
  - Use the homepage of your Wiki as a table of contents.
 
 > [!NOTE]
